@@ -39,6 +39,9 @@
             android:name="category"
             app:argType="string"
             android:defaultValue="Seafood" />
+        <action
+            android:id="@+id/action_allMealsFragment3_to_mealDetailsFragment2"
+            app:destination="@id/mealDetailsFragment2" />
     </fragment>
     <fragment
         android:id="@+id/mealDetailsFragment2"
@@ -53,5 +56,19 @@
         android:id="@+id/weeklyPlanFragment"
         android:name="com.example.foodplannerapp.meals_plan_feature.view.WeeklyPlanFragment"
         android:label="fragment_weekly_plan"
-        tools:layout="@layout/fragment_weekly_plan" />
+        tools:layout="@layout/fragment_weekly_plan" >
+        <action
+            android:id="@+id/action_weeklyPlanFragment_to_mealDetailsFragment2"
+            app:destination="@id/mealDetailsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment2"
+        android:name="com.example.foodplannerapp.auth_feature.view.profileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/searchFragment2"
+        android:name="com.example.foodplannerapp.search_feature.view.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
 </navigation>

@@ -14,6 +14,9 @@ import com.example.foodplannerapp.models.MealsObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
+import io.reactivex.rxjava3.core.Scheduler;
+import io.reactivex.rxjava3.core.Single;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,7 +39,8 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
     private RemoteDataSourceImpl() {
         retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(
                 GsonConverterFactory.create()
-        ).build(); //Q
+        ).addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .build(); //Q
         services = retrofit.create(ApiServices.class);//Q
         meals = new ArrayList<>();
         categories = new ArrayList<>();
@@ -74,6 +78,7 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
     @Override
     public void getRandomMealsNetworkCallBack(RandomMealNetworkCallBAck networkCallBAck) {
         Call<MealsObject> call = services.getRandomMeal();
+       // randomMealObservable.subscribeOn(Scheduler)
         call.enqueue(new Callback<MealsObject>() {
             @Override
             public void onResponse(Call<MealsObject> call, Response<MealsObject> response) {

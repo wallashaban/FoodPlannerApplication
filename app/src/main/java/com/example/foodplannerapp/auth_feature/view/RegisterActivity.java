@@ -1,12 +1,10 @@
 package com.example.foodplannerapp.auth_feature.view;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -16,13 +14,9 @@ import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.auth_feature.presenter.RegisterPresenter;
 import com.example.foodplannerapp.auth_feature.presenter.RegisterPresenterImpl;
 import com.example.foodplannerapp.firebase.FirebaseRemoteDataSourceImpl;
-import com.example.foodplannerapp.firebase_repository.FirebaseRepositoryImpl;
+import com.example.foodplannerapp.firebase_repository.FirebaseAuthRepositoryImpl;
 import com.example.foodplannerapp.models.AuthParameters;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity implements RegisterView{
 
@@ -34,8 +28,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         presenter =  RegisterPresenterImpl.getInstance(
-                FirebaseRepositoryImpl.getInstance(
-                        FirebaseRemoteDataSourceImpl.getInstance()
+                FirebaseAuthRepositoryImpl.getInstance(
+                        FirebaseRemoteDataSourceImpl.getInstance(this)
                 ),this
         );
         username = findViewById(R.id.userName);
@@ -66,7 +60,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView{
                     Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                presenter.registerUserByEmailAndPassword(new AuthParameters(emailInput,passwordInput,RegisterActivity.this));
+                presenter.registerUserByEmailAndPassword(new AuthParameters(emailInput,passwordInput,user,RegisterActivity.this));
                 //progressBar.setVisibility(View.VISIBLE);
 
 //                auth.createUserWithEmailAndPassword(emailInput, passwordInput)

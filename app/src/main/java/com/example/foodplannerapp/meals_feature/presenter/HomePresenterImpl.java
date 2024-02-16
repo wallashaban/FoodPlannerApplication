@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.foodplannerapp.Repository.Repository;
 import com.example.foodplannerapp.Repository.RepositoryImpl;
+import com.example.foodplannerapp.firebase_repository.FirebaseCrudRepository;
 import com.example.foodplannerapp.meals_feature.view.HomeView;
 import com.example.foodplannerapp.models.Category;
 import com.example.foodplannerapp.models.Meal;
@@ -22,22 +23,47 @@ public class HomePresenterImpl implements HomePresenter, MealsNetworkCallBAck
     private static final String TAG = "repo";
     private HomeView view;
     private Repository repository;
+    private FirebaseCrudRepository firebaseCrudRepository;
 
     private static HomePresenterImpl instance = null;
 
-    private HomePresenterImpl(HomeView view, Repository repository) {
+    private HomePresenterImpl(HomeView view, Repository repository,
+                              FirebaseCrudRepository firebaseCrudRepository) {
         this.view = view;
         this.repository = repository;
+        this.firebaseCrudRepository = firebaseCrudRepository;
     }
 
 
-    public static HomePresenterImpl getInstance(HomeView view, RepositoryImpl repository) {
+    public static HomePresenterImpl getInstance(HomeView view,
+                                                RepositoryImpl repository,
+                                                FirebaseCrudRepository firebaseCrudRepository) {
         if (instance == null) {
-            instance = new HomePresenterImpl(view, repository);
+            instance = new HomePresenterImpl(view, repository,firebaseCrudRepository);
         }else {
             instance.view = view;
         }
         return instance;
+    }
+
+    @Override
+    public void addMealToFavouriteUsingFirebase(Meal meal) {
+        firebaseCrudRepository.addMealToFavouriteUsingFirebase(meal);
+    }
+
+    @Override
+    public void removeMealFromFavouriteUsingFirebase(Meal meal) {
+        firebaseCrudRepository.removeMealFromFavouriteUsingFirebase(meal);
+    }
+
+    @Override
+    public void addMealToPlanUsingFirebase(Plan plan) {
+        firebaseCrudRepository.addMealToPlanUsingFirebase(plan);
+    }
+
+    @Override
+    public void removeMealFromPlanUsingFirebase(Plan plan) {
+        firebaseCrudRepository.removeMealFromPlanUsingFirebase(plan);
     }
 
     @Override

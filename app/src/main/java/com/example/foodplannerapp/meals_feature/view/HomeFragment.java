@@ -22,9 +22,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.foodplannerapp.Shared.Constants;
+import com.example.foodplannerapp.auth_feature.view.LoginActivity;
 import com.example.foodplannerapp.database.FavouritesLocalDataSourceImpl;
 import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.Repository.RepositoryImpl;
+import com.example.foodplannerapp.firebase.FirebaseRemoteDataSourceImpl;
+import com.example.foodplannerapp.firebase_repository.FirebaseCrudRepository;
+import com.example.foodplannerapp.firebase_repository.FirebaseCrudRepositoryImpl;
 import com.example.foodplannerapp.meals_feature.presenter.HomePresenter;
 import com.example.foodplannerapp.meals_feature.presenter.HomePresenterImpl;
 import com.example.foodplannerapp.models.Category;
@@ -80,7 +84,9 @@ DatePickerDialogListener{
 
                 this, RepositoryImpl.getInstance(
                         RemoteDataSourceImpl.getInstance(),
-                        FavouritesLocalDataSourceImpl.getInstance(getContext())
+                        FavouritesLocalDataSourceImpl.getInstance(getContext())),
+                FirebaseCrudRepositoryImpl
+                        .getInstance(FirebaseRemoteDataSourceImpl.getInstance(getContext())
                 )
         );// builder pattern
 
@@ -123,7 +129,12 @@ DatePickerDialogListener{
         favButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.addMealToFavourites(meal);
+                if(Constants.isLogedIn(getContext()))
+                    Constants.showDialog(getActivity(), LoginActivity.class);
+                else {
+                    presenter.addMealToFavourites(meal);
+                    presenter.addMealToFavouriteUsingFirebase(meal);
+                }
 
             }
         });
@@ -131,7 +142,10 @@ DatePickerDialogListener{
         planButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Constants.showDatePicker(getContext(),HomeFragment.this);
+                if(Constants.isLogedIn(getContext()))
+                    Constants.showDialog(getActivity(), LoginActivity.class);
+                else
+                    Constants.showDatePicker(getContext(),HomeFragment.this);
             }
         });
         constraintLayout.setOnClickListener(
@@ -213,7 +227,10 @@ DatePickerDialogListener{
 
     @Override
     public void OnFavClickListener(Meal meal) {
-        presenter.addMealToFavourites(meal);
+        if(Constants.isLogedIn(getContext()))
+            Constants.showDialog(getActivity(), LoginActivity.class);
+        else
+            presenter.addMealToFavourites(meal);
     }
 
 
@@ -243,7 +260,10 @@ DatePickerDialogListener{
     @Override
     public void onMealPlanClickListener(Plan plan) {
         Log.i(TAG, "onMealPlanClickListener: "+plan);
-        presenter.addMealToPlan(plan);
+        if(Constants.isLogedIn(getContext()))
+            Constants.showDialog(getActivity(), LoginActivity.class);
+        else
+            presenter.addMealToPlan(plan);
     }
 
     @Override
@@ -253,6 +273,7 @@ DatePickerDialogListener{
         Plan plan = new Plan(formattedDate,
                 meal);
         onMealPlanClickListener(plan);
+        presenter.addMealToPlanUsingFirebase(plan);
         Toast.makeText(getContext(), "Selected Date: " + formattedDate, Toast.LENGTH_SHORT).show();
     }
 }

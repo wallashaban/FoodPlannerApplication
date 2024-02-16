@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +21,8 @@ import android.widget.Toast;
 
 import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.Repository.RepositoryImpl;
+import com.example.foodplannerapp.Shared.Constants;
+import com.example.foodplannerapp.auth_feature.view.LoginActivity;
 import com.example.foodplannerapp.database.FavouritesLocalDataSourceImpl;
 import com.example.foodplannerapp.meals_feature.presenter.AllMealsPresenter;
 import com.example.foodplannerapp.meals_feature.presenter.AllMealsPresenterImpl;
@@ -55,7 +58,6 @@ public class AllMealsFragment extends Fragment implements AllMealsview,OnMealCli
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        count++;
         meals = new ArrayList<>();
         categoryMeals = new ArrayList<>();
         presenter = AllMealsPresenterImpl.getInstance(
@@ -123,11 +125,15 @@ public class AllMealsFragment extends Fragment implements AllMealsview,OnMealCli
 
     @Override
     public void OnFavClickListener(Meal meal) {
-
-        presenter.addMealToFavourites(meal);
+        if(Constants.isLogedIn(getContext()))
+            Constants.showDialog(getActivity(), LoginActivity.class);
+        else
+            presenter.addMealToFavourites(meal);
     }
     @Override
     public void OnMealClickListener(String id,View view) {
-
+        AllMealsFragmentDirections.ActionAllMealsFragment3ToMealDetailsFragment2 action =
+                AllMealsFragmentDirections.actionAllMealsFragment3ToMealDetailsFragment2(id);
+        Navigation.findNavController(view).navigate(action);
     }
 }

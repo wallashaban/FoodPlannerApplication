@@ -4,9 +4,11 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +21,8 @@ import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.Repository.RepositoryImpl;
 import com.example.foodplannerapp.database.FavouritesLocalDataSourceImpl;
 import com.example.foodplannerapp.favourites_feature.view.FavouritesFragment;
+import com.example.foodplannerapp.firebase.FirebaseRemoteDataSourceImpl;
+import com.example.foodplannerapp.firebase_repository.FirebaseCrudRepositoryImpl;
 import com.example.foodplannerapp.meals_feature.view.CategoryAdapter;
 import com.example.foodplannerapp.meals_feature.view.MealAdapter;
 import com.example.foodplannerapp.meals_feature.view.OnMealClickListener;
@@ -44,6 +48,7 @@ OnPlanClickListener, OnMealClickListener {
 
     LinearLayoutManager manager;
     RecyclerView weeklyPlanRecyclerView;
+    ConstraintLayout constraintLayout;
     public WeeklyPlanFragment() {
         // Required empty public constructor
     }
@@ -57,8 +62,11 @@ OnPlanClickListener, OnMealClickListener {
        presenter = WeeklyPlanPresenterImpl.getInstance(
                this, RepositoryImpl.getInstance(
                        RemoteDataSourceImpl.getInstance(),
-                       FavouritesLocalDataSourceImpl.getInstance(getContext())
-               )
+                       FavouritesLocalDataSourceImpl.getInstance(getContext())),
+                       FirebaseCrudRepositoryImpl
+                               .getInstance(FirebaseRemoteDataSourceImpl.getInstance(getContext())
+                               )
+
        );
     }
 
@@ -74,7 +82,7 @@ OnPlanClickListener, OnMealClickListener {
         super.onViewCreated(view, savedInstanceState);
 
         weeklyPlanRecyclerView = view.findViewById(R.id.weekly_plan_recycler_view);
-        adapter = new WeeklyPlanAdapter(getContext(), plans, this);
+        adapter = new WeeklyPlanAdapter(getContext(), plans, this,this);
         manager = new LinearLayoutManager(getContext());
 
         manager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -87,12 +95,16 @@ OnPlanClickListener, OnMealClickListener {
 
     @Override
     public void OnMealClickListener(String id, View view) {
-        //presenter.
+        WeeklyPlanFragmentDirections.ActionWeeklyPlanFragmentToMealDetailsFragment2 action =
+                WeeklyPlanFragmentDirections.actionWeeklyPlanFragmentToMealDetailsFragment2(id);
+        Navigation.findNavController(view).navigate(action);
     }
 
     @Override
     public void onPlanButtonClickListener(Plan plan) {
+
         presenter.removePlan(plan);
+        presenter.removeMealFromPlanUsingFirebase(plan);
     }
 
     @Override

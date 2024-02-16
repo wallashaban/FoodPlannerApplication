@@ -26,7 +26,10 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.Repository.RepositoryImpl;
 import com.example.foodplannerapp.Shared.Constants;
+import com.example.foodplannerapp.auth_feature.view.LoginActivity;
 import com.example.foodplannerapp.database.FavouritesLocalDataSourceImpl;
+import com.example.foodplannerapp.firebase.FirebaseRemoteDataSourceImpl;
+import com.example.foodplannerapp.firebase_repository.FirebaseCrudRepositoryImpl;
 import com.example.foodplannerapp.meals_feature.presenter.CategoryPresenter;
 import com.example.foodplannerapp.meals_feature.presenter.MealDetailsPresenter;
 import com.example.foodplannerapp.meals_feature.presenter.MealDetailsPresenterImpl;
@@ -47,7 +50,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class MealDetailsFragment extends Fragment implements MealDetailsView,
-        DatePickerDialogListener, OnMealPlanClickListener{
+        DatePickerDialogListener, OnMealPlanClickListener,OnFavClickListener{
 
     private static final String TAG = "CategoryFragment";
     MealDetailsPresenter presenter;
@@ -60,6 +63,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView,
     TextView description;
     CheckBox planButton;
     WebView video;
+    private CheckBox favButton;
     private YouTubePlayerView youTubePlayerView;
 
     List<MealIngredients> ingredients;
@@ -78,7 +82,10 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView,
                RepositoryImpl.getInstance(
                        RemoteDataSourceImpl.getInstance(),
                        FavouritesLocalDataSourceImpl.getInstance(getContext())
-               ));
+               ),
+               FirebaseCrudRepositoryImpl
+                       .getInstance(FirebaseRemoteDataSourceImpl.getInstance(getContext())
+                       ));
     }
 
     @Override
@@ -87,6 +94,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView,
         mealNAme = view.findViewById(R.id.mealDetailsName);
         description = view.findViewById(R.id.mealInstruction);
         mealImage = view.findViewById(R.id.mealDetailImage);
+        favButton = view.findViewById(R.id.favMealDetailsButton);
         youTubePlayerView = view.findViewById(R.id.video);
 
         recyclerView = view.findViewById(R.id.ingredientsRecyclerView);
@@ -98,10 +106,22 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView,
         planButton = view.findViewById(R.id.planMealDetailButton);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
+        favButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Constants.isLogedIn(getContext()))
+                    Constants.showDialog(getActivity(), LoginActivity.class);
+                else
+                    OnFavClickListener(meal);
+            }
+        });
         planButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Constants.showDatePicker(getContext(),MealDetailsFragment.this);
+                if(Constants.isLogedIn(getContext()))
+                    Constants.showDialog(getActivity(), LoginActivity.class);
+                else
+                    Constants.showDatePicker(getContext(),MealDetailsFragment.this);
             }
         });
         String id = MealDetailsFragmentArgs.fromBundle(getArguments()).getId();
@@ -113,7 +133,6 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_meal_details, container, false);
     }
 
@@ -190,10 +209,17 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView,
         Plan plan = new Plan(formattedDate,
                 meal);
         onMealPlanClickListener(plan);
+        presenter.addMealToPlanUsingFirebase(plan);
     }
 
     @Override
     public void onMealPlanClickListener(Plan plan) {
         presenter.addMealToPlan(plan);
+    }
+
+    @Override
+    public void OnFavClickListener(Meal meal) {
+        presenter.addMealToFavourites(meal);
+        presenter.addMealToFavouriteUsingFirebase(meal);
     }
 }

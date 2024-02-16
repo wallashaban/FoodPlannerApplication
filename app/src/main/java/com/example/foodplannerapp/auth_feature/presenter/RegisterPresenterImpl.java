@@ -4,21 +4,21 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.foodplannerapp.auth_feature.view.RegisterView;
-import com.example.foodplannerapp.firebase.FirebaseNetworkCallback;
-import com.example.foodplannerapp.firebase_repository.FirebaseRepository;
+import com.example.foodplannerapp.firebase.FirebaseAuthNetworkCallback;
+import com.example.foodplannerapp.firebase_repository.FirebaseAuthRepository;
 import com.example.foodplannerapp.models.AuthParameters;
 
 public class RegisterPresenterImpl implements RegisterPresenter,
-        FirebaseNetworkCallback {
-    private FirebaseRepository repository;;
+        FirebaseAuthNetworkCallback {
+    private FirebaseAuthRepository repository;;
     private RegisterView view;
     private static RegisterPresenterImpl instance = null;
-    private RegisterPresenterImpl(FirebaseRepository repository,RegisterView view)
+    private RegisterPresenterImpl(FirebaseAuthRepository repository, RegisterView view)
     {
         this.repository = repository;
         this.view = view;
     }
-    public static RegisterPresenterImpl getInstance(FirebaseRepository repository,
+    public static RegisterPresenterImpl getInstance(FirebaseAuthRepository repository,
                                                     RegisterView view)
     {
         if (instance == null) {
@@ -33,10 +33,12 @@ public class RegisterPresenterImpl implements RegisterPresenter,
     }
 
 
-    public void onSuccessResult(String email, Context context) {
+    public void onSuccessResult(String email,String name, Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("auth", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("email", email);
+        editor.putString("name", name);
+        editor.commit();
         view.showData();
     }
 

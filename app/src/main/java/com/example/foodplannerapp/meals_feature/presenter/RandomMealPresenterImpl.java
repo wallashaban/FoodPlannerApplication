@@ -1,8 +1,10 @@
 package com.example.foodplannerapp.meals_feature.presenter;
 
 import com.example.foodplannerapp.Repository.Repository;
+import com.example.foodplannerapp.firebase_repository.FirebaseCrudRepository;
 import com.example.foodplannerapp.meals_feature.view.RandomMealView;
 import com.example.foodplannerapp.models.Meal;
+import com.example.foodplannerapp.models.Plan;
 import com.example.foodplannerapp.network.MealsNetworkCallBAck;
 import com.example.foodplannerapp.network.RandomMealNetworkCallBAck;
 
@@ -11,24 +13,28 @@ import java.util.List;
 public class RandomMealPresenterImpl implements RandomMealPresenter, RandomMealNetworkCallBAck {
     private RandomMealView view;
     private Repository repository;
+    private FirebaseCrudRepository firebaseCrudRepository;
 
     private static RandomMealPresenterImpl instance;
 
-    private RandomMealPresenterImpl(RandomMealView view , Repository repository)
+    private RandomMealPresenterImpl(RandomMealView view , Repository repository,
+                                    FirebaseCrudRepository firebaseCrudRepository)
     {
         this.view = view;
         this.repository = repository;
+        this.firebaseCrudRepository = firebaseCrudRepository;
     }
     @Override
     public void getRandomMeal() {
         repository.getRandomMealsNetworkCallBack(this);
     }
 
-    public static synchronized RandomMealPresenterImpl getInstance(RandomMealView view , Repository repository)
+    public static synchronized RandomMealPresenterImpl getInstance(
+            RandomMealView view , Repository repository,FirebaseCrudRepository firebaseCrudRepository)
     {
         if(instance == null)
         {
-            instance = new RandomMealPresenterImpl(view,repository);
+            instance = new RandomMealPresenterImpl(view,repository,firebaseCrudRepository);
         }
         return  instance;
     }
@@ -54,4 +60,24 @@ public class RandomMealPresenterImpl implements RandomMealPresenter, RandomMealN
     view.showErrorMessage(errorMessage);
 
 }
+    @Override
+    public void addMealToFavouriteUsingFirebase(Meal meal) {
+        firebaseCrudRepository.addMealToFavouriteUsingFirebase(meal);
+    }
+
+    @Override
+    public void removeMealFromFavouriteUsingFirebase(Meal meal) {
+        firebaseCrudRepository.removeMealFromFavouriteUsingFirebase(meal);
+    }
+
+    @Override
+    public void addMealToPlanUsingFirebase(Plan plan) {
+        firebaseCrudRepository.addMealToPlanUsingFirebase(plan);
+    }
+
+    @Override
+    public void removeMealFromPlanUsingFirebase(Plan plan) {
+        firebaseCrudRepository.removeMealFromPlanUsingFirebase(plan);
+    }
+
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.foodplannerapp.Repository.Repository;
 import com.example.foodplannerapp.Repository.RepositoryImpl;
+import com.example.foodplannerapp.firebase_repository.FirebaseCrudRepository;
 import com.example.foodplannerapp.meals_feature.presenter.HomePresenterImpl;
 import com.example.foodplannerapp.meals_feature.view.HomeView;
 import com.example.foodplannerapp.meals_plan_feature.view.WeeklyPlanView;
@@ -14,18 +15,23 @@ import java.util.List;
 public class WeeklyPlanPresenterImpl implements WeeklyPlanPresenter{
     private WeeklyPlanView view;
     private Repository repository;
+    FirebaseCrudRepository firebaseCrudRepository;
 
     private static WeeklyPlanPresenterImpl instance = null;
 
-    private WeeklyPlanPresenterImpl(WeeklyPlanView view, Repository repository) {
+    private WeeklyPlanPresenterImpl(WeeklyPlanView view, Repository repository,
+                                    FirebaseCrudRepository firebaseCrudRepository) {
         this.view = view;
         this.repository = repository;
+        this.firebaseCrudRepository = firebaseCrudRepository;
     }
 
 
-    public static WeeklyPlanPresenterImpl getInstance(WeeklyPlanView view, Repository repository) {
+    public static WeeklyPlanPresenterImpl getInstance(WeeklyPlanView view,
+                                                      Repository repository,
+                                                      FirebaseCrudRepository firebaseCrudRepository) {
         if (instance == null) {
-            instance = new WeeklyPlanPresenterImpl(view, repository);
+            instance = new WeeklyPlanPresenterImpl(view, repository,firebaseCrudRepository);
         }else {
             instance.view = view;
         }
@@ -43,5 +49,10 @@ public class WeeklyPlanPresenterImpl implements WeeklyPlanPresenter{
     @Override
     public void removePlan(Plan plan) {
         repository.removePlan(plan);
+    }
+
+    @Override
+    public void removeMealFromPlanUsingFirebase(Plan plan) {
+        firebaseCrudRepository.removeMealFromPlanUsingFirebase(plan);
     }
 }

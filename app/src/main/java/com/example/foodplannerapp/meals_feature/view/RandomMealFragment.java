@@ -24,6 +24,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.Repository.RepositoryImpl;
 import com.example.foodplannerapp.database.FavouritesLocalDataSourceImpl;
+import com.example.foodplannerapp.firebase.FirebaseRemoteDataSourceImpl;
+import com.example.foodplannerapp.firebase_repository.FirebaseCrudRepositoryImpl;
 import com.example.foodplannerapp.meals_feature.presenter.RandomMealPresenter;
 import com.example.foodplannerapp.meals_feature.presenter.RandomMealPresenterImpl;
 import com.example.foodplannerapp.models.Meal;
@@ -61,7 +63,10 @@ public class RandomMealFragment extends Fragment implements RandomMealView,OnFav
                 RepositoryImpl.getInstance(
                         RemoteDataSourceImpl.getInstance(),
                         FavouritesLocalDataSourceImpl.getInstance(getContext())
-                ));
+                ),
+                FirebaseCrudRepositoryImpl
+                        .getInstance(FirebaseRemoteDataSourceImpl.getInstance(getContext()))
+                        );
     }
 
     @Override

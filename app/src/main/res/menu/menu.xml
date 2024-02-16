@@ -8,7 +8,7 @@
         android:icon="@drawable/home"
         android:title="@string/home" />
     <item
-        android:id="@+id/searchFragment"
+        android:id="@+id/searchFragment2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/search"
@@ -25,4 +25,10 @@
         android:layout_height="wrap_content"
         android:icon="@drawable/calendar"
         android:title="@string/mealPlan" />
+    <item
+        android:id="@+id/profileFragment2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/outline_person"
+        android:title="@string/profile" />
 </menu>

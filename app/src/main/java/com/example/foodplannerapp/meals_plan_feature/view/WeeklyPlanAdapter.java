@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.foodplannerapp.R;
+import com.example.foodplannerapp.meals_feature.view.OnMealClickListener;
 import com.example.foodplannerapp.models.Plan;
 
 import java.util.List;
@@ -29,11 +30,14 @@ public class WeeklyPlanAdapter extends RecyclerView.Adapter<WeeklyPlanAdapter.Vi
 
     private Context context;
     private OnPlanClickListener listener;
+    private OnMealClickListener mealClickListener;
 
-    public WeeklyPlanAdapter(Context context,List<Plan>plans,OnPlanClickListener listener){
+    public WeeklyPlanAdapter(Context context,List<Plan>plans,OnPlanClickListener listener,
+                             OnMealClickListener mealClickListener){
         this.context = context;
         this.mealsPlan = plans;
         this.listener = listener;
+        this.mealClickListener = mealClickListener;
     }
     @NonNull
     @Override
@@ -60,12 +64,12 @@ public class WeeklyPlanAdapter extends RecyclerView.Adapter<WeeklyPlanAdapter.Vi
                 listener.onPlanButtonClickListener(mealPlan);
             }
         });
-//        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //mealClickListener.OnMealClickListener(meal.getMealId(),v);
-//            }
-//        });
+        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mealClickListener.OnMealClickListener(mealPlan.getMeal().getMealId(),v);
+            }
+        });
     }
 
     @Override
@@ -87,6 +91,7 @@ public class WeeklyPlanAdapter extends RecyclerView.Adapter<WeeklyPlanAdapter.Vi
             mealName = layout.findViewById(R.id.mealPlanName);
             mealImage = layout.findViewById(R.id.mealPlanImage);
             planButton = layout.findViewById(R.id.planMealRandomButton);
+            constraintLayout = layout.findViewById(R.id.planConstrainLayout);
             date = layout.findViewById(R.id.date);
         }
     }

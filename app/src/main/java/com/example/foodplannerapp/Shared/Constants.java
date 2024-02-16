@@ -1,13 +1,20 @@
 package com.example.foodplannerapp.Shared;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.text.format.DateFormat;
 import android.widget.Toast;
 
-import com.example.foodplannerapp.MainActivity;
+import androidx.navigation.NavController;
+
+import com.example.foodplannerapp.R;
+import com.example.foodplannerapp.auth_feature.view.LoginActivity;
 import com.example.foodplannerapp.meals_feature.view.DatePickerDialogListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -17,6 +24,62 @@ public class Constants {
     public static final String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
     public static final String FAV_TABLE = "favourites";
     public static final String PLAN_TABLE = "plan";
+
+    public static boolean isLogedIn(Context context)
+    {
+        SharedPreferences preferences = context.getSharedPreferences("auth", context.MODE_PRIVATE);
+        return preferences.getString("email",null)==null;
+    }
+    public static void navigate(int id, NavController navController, SharedPreferences sharedPreferences,Activity activity)
+    {
+        if(id == R.id.homeFragment)
+        {
+            navController.navigate(R.id.homeFragment);
+        }else {
+            if(id == R.id.profileFragment2)
+            {
+                if(sharedPreferences.getString("email",null)==null)
+                {
+                    Constants.showDialog(activity, LoginActivity.class);
+                }else
+                    navController.navigate(R.id.profileFragment2);
+            }else
+            if(id == R.id.searchFragment2)
+            {
+                navController.navigate(R.id.searchFragment2);
+            }else {
+                if(id == R.id.favouritesFragment)
+                {
+                    if(sharedPreferences.getString("email",null)==null)
+                    {
+                        Constants.showDialog(activity, LoginActivity.class);
+                    }else
+                        navController.navigate(R.id.favouritesFragment);
+                }else {
+                    if(sharedPreferences.getString("email",null)==null)
+                    {
+                        Constants.showDialog(activity, LoginActivity.class);
+                    }else
+                        navController.navigate(R.id.weeklyPlanFragment);
+                }
+            }
+        }
+    }
+    public static void showDialog(Activity context, Class activity)
+    {
+        new MaterialAlertDialogBuilder(context)
+                .setTitle(R.string.dialogTitle)
+                .setMessage(R.string.dialogMessge)
+                .setPositiveButton("Sign Up", (dialog, which) -> {
+                    Intent intent = new Intent(context,activity);
+                   context.startActivity(intent);
+                   context.finish();
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> {
+                    // Negative button action
+                })
+                .show();
+    }
 
     public static void showDatePicker(Context context,DatePickerDialogListener listener) {
         Calendar calendar = Calendar.getInstance();

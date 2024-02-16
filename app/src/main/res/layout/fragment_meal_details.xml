@@ -34,14 +34,24 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <CheckBox
-                    android:id="@+id/planMealDetailButton"
+                    android:id="@+id/favMealDetailsButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:button="@drawable/calendar"
+                    android:button="@drawable/fav_icon"
                     app:buttonTint="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <CheckBox
+                    android:id="@+id/planMealDetailButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:button="@drawable/calendar"
+                    app:buttonTint="@color/white"
+                    app:layout_constraintEnd_toStartOf="@+id/favMealDetailsButton"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.constraintlayout.widget.Barrier
