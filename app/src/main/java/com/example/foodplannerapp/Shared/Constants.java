@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.text.format.DateFormat;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import com.example.foodplannerapp.auth_feature.view.LoginActivity;
 import com.example.foodplannerapp.meals_feature.view.DatePickerDialogListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -29,6 +31,11 @@ public class Constants {
     {
         SharedPreferences preferences = context.getSharedPreferences("auth", context.MODE_PRIVATE);
         return preferences.getString("email",null)==null;
+    }
+    public static byte[] bitmapToByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        return stream.toByteArray();
     }
     public static void navigate(int id, NavController navController, SharedPreferences sharedPreferences,Activity activity)
     {

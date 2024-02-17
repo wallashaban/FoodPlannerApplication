@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">FoodPlannerApp</string>
     <string name="dailyInspiration">Daily Inspiration</string>
-    <string name="category">categories</string>
+    <string name="category">category</string>
     <string name="web_default_client_id">
         378947925742-h893866r6lnglg9nciq9e5mloa518rse.apps.googleusercontent.com
     </string>
@@ -29,4 +29,6 @@
     <string name="dialogMessge">Add you food preferences, Plan your meals and more!</string>
     <string name="profile">Profile</string>
     <string name="logout">LogOut</string>
+    <string name="mealSearch">Meal</string>
+    <string name="countries">Country</string>
 </resources>

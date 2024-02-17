@@ -6,10 +6,19 @@ import android.util.Log;
 
 import com.example.foodplannerapp.auth_feature.view.LoginView;
 import com.example.foodplannerapp.firebase.FirebaseAuthNetworkCallback;
+import com.example.foodplannerapp.firebase.FirebaseMealsNetwokCallBack;
+import com.example.foodplannerapp.firebase.FirebasePlanNetworkCallBack;
 import com.example.foodplannerapp.firebase_repository.FirebaseAuthRepository;
 import com.example.foodplannerapp.models.AuthParameters;
+import com.example.foodplannerapp.models.Meal;
+import com.example.foodplannerapp.models.Plan;
 
-public class LoginPresenterImpl implements LoginPresenter, FirebaseAuthNetworkCallback {
+import java.util.List;
+
+public class LoginPresenterImpl implements LoginPresenter,
+        FirebaseAuthNetworkCallback,
+        FirebasePlanNetworkCallBack,
+        FirebaseMealsNetwokCallBack {
    private FirebaseAuthRepository repository;
    private LoginView view;
    private static LoginPresenterImpl instance = null;
@@ -39,12 +48,33 @@ public class LoginPresenterImpl implements LoginPresenter, FirebaseAuthNetworkCa
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("email", email);
         editor.commit();
+        repository.getFavMealsFromFirebase(this);
+        repository.getPlansFromFirebase(this);
         Log.i("TAG", "onSuccessResult: Email"+sharedPreferences.getString("email",null));
-        view.showData();
     }
 
     @Override
     public void onFailureResult(String errorMessage) {
         view.showErrorMessage(errorMessage);
+    }
+
+    @Override
+    public void onMealsSuccessResult(List<Meal> meal) {
+        view.showMealsData(meal);
+    }
+
+    @Override
+    public void onMealsErrorResult(String errorMessage) {
+       view.showMealsErrorMessage(errorMessage);
+    }
+
+    @Override
+    public void onPlansSuccessResult(List<Plan> plans) {
+       view.showPlansData(plans);
+    }
+
+    @Override
+    public void onPlansErrorResult(String errorMessage) {
+       view.showPlansErrorMessage(errorMessage);
     }
 }

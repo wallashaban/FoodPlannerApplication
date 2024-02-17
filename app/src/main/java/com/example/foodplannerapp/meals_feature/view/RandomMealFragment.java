@@ -80,8 +80,8 @@ public class RandomMealFragment extends Fragment implements RandomMealView,OnFav
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mealName = view.findViewById(R.id.mealPlanName);
-        mealImage = view.findViewById(R.id.mealPlanImage);
+        mealName = view.findViewById(R.id.searchName);
+        mealImage = view.findViewById(R.id.searchImage);
         favButton = view.findViewById(R.id.favButton);
         progress = view.findViewById(R.id.progress);
         mealGroup = view.findViewById(R.id.mealGroup);

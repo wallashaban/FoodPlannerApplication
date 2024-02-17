@@ -104,4 +104,44 @@ public class FavouritesLocalDataSourceImpl implements FavouritesLocalDataSource 
 
         return dao.getPlaneByDate(date);
     }
+
+    @Override
+    public void deleteAllFavMeals() {
+        new Thread(){
+            @Override
+            public void run() {
+                favouritesDAO.deleteAllFavMeal();
+            }
+        }.start();
+    }
+
+    @Override
+    public void deleteAllPlans() {
+        new Thread(){
+            @Override
+            public void run() {
+                dao.deleteAllPlans();
+            }
+        }.start();
+    }
+
+    @Override
+    public void insertAllFavouries(List<Meal> meals) {
+        new Thread(){
+            @Override
+            public void run() {
+                favouritesDAO.insertAllFavourites(meals);
+            }
+        }.start();
+    }
+
+    @Override
+    public void insertAllPlans(List<Plan> plans) {
+        new Thread(){
+            @Override
+            public void run() {
+                dao.insertAllPlans(plans);
+            }
+        }.start();
+    }
 }

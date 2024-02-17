@@ -17,6 +17,7 @@ import com.example.foodplannerapp.MainActivity;
 import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.auth_feature.presenter.ProfilePresenter;
 import com.example.foodplannerapp.auth_feature.presenter.ProfilePresenterImpl;
+import com.example.foodplannerapp.database.FavouritesLocalDataSourceImpl;
 import com.example.foodplannerapp.firebase.FirebaseRemoteDataSourceImpl;
 import com.example.foodplannerapp.firebase_repository.FirebaseAuthRepositoryImpl;
 import com.google.android.material.textfield.TextInputEditText;
@@ -42,7 +43,7 @@ public class profileFragment extends Fragment {
                 ("auth", getContext().MODE_PRIVATE);
         presenter = ProfilePresenterImpl.getInstance(FirebaseAuthRepositoryImpl.getInstance(
                 FirebaseRemoteDataSourceImpl.getInstance(getContext())
-        ));
+        ), FavouritesLocalDataSourceImpl.getInstance(getContext()));
 
     }
 

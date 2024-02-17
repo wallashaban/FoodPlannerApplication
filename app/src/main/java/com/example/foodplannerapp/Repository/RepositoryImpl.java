@@ -116,6 +116,11 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
+    public void filterMealByAreaNetworkCallBack(MealsNetworkCallBAck networkCallBAck, String area) {
+        remoteDataSource.filterMealByAreaNetworkCallBack(networkCallBAck,area);
+    }
+
+    @Override
     public void getAllAreasNetworkCallBack(AreaNetworkCallBAck networkCallBAck) {
         remoteDataSource.getAllAreasNetworkCallBack(networkCallBAck);
     }

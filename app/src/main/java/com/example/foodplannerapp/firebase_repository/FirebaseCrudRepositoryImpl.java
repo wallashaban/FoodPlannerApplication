@@ -44,13 +44,5 @@ public class FirebaseCrudRepositoryImpl implements FirebaseCrudRepository{
         dataSource.removeMealFromPlan(plan);
     }
 
-    @Override
-    public void getFavMealsFromFirebase(FirebaseMealsNetwokCallBack netwokCallBack) {
-        dataSource.getAllFavMealFromFirebase(netwokCallBack);
-    }
 
-    @Override
-    public void getPlansFromFirebase(FirebasePlanNetworkCallBack networkCallBack) {
-        dataSource.getAllPlansFromFirebase(networkCallBack);
-    }
 }

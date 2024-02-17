@@ -98,11 +98,23 @@ public class AllMealsFragment extends Fragment implements AllMealsview,OnMealCli
         mealsRecyclerView.setAdapter(mealsAdapter);
         Log.i(TAG, "onViewCreated: meals  :: Category"+meals.size());
         String category = AllMealsFragmentArgs.fromBundle(getArguments()).getCategory();
-        //if (meals.isEmpty())
-            if(category!=null)
+            if(!category.equals("null"))
             {
+                Log.i(TAG, "blo category"+category);
                 presenter.filterMEalByCategory(category);
             }
+        String area = AllMealsFragmentArgs.fromBundle(getArguments()).getArea();
+        if(!area.equals("null"))
+        {
+            Log.i(TAG, "blo area"+area);
+            presenter.filterMEalByArea(area);
+        }
+        String ingredient = AllMealsFragmentArgs.fromBundle(getArguments()).getIngredient();
+        if(!ingredient.equals("null"))
+        {
+            Log.i(TAG, "blo ingredient"+ingredient);
+            presenter.filterMEalByIngredient(ingredient);
+        }
 
     }
 
@@ -112,9 +124,6 @@ public class AllMealsFragment extends Fragment implements AllMealsview,OnMealCli
 
             mealsAdapter.setMeals(meals);
             mealsAdapter.notifyDataSetChanged();
-            //List<MealIngredients> ingredients = extractIngredients(meals.get(0));
-            //Log.i(TAG, "showData: Ingredients" + ingredients.size());
-
     }
 
 

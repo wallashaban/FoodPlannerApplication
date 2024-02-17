@@ -21,4 +21,8 @@ public interface FavouritesLocalDataSource {
     void removePlan(Plan plan);
     void updatePlan(Plan plan);
     LiveData<Plan> getPlaneByDate(String date);
+    public void deleteAllFavMeals();
+    public void deleteAllPlans();
+    public void insertAllFavouries(List<Meal> meals);
+    public void insertAllPlans(List<Plan> plans);
 }

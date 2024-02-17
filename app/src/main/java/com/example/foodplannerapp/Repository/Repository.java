@@ -40,6 +40,7 @@ public interface Repository {
 
     public void getAllCategoriesNetworkCallBack(CategoriesNetworkCallBAck networkCallBAck);
 
+    public void filterMealByAreaNetworkCallBack(MealsNetworkCallBAck networkCallBAck, String area);
     public void getAllAreasNetworkCallBack(AreaNetworkCallBAck networkCallBAck);
 
     public void getAllIngredientsNetworkCallBack(IngredientsNetworkCallBAck networkCallBAck);

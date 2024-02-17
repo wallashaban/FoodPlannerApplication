@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.foodplannerapp.database.FavouritesLocalDataSource;
 import com.example.foodplannerapp.models.Meal;
+import com.example.foodplannerapp.models.Plan;
 
 import java.util.List;
 
@@ -35,5 +36,15 @@ public class FavouritesRepositoryImpl implements FavouritesRepository {
     @Override
     public void removeMealFromFavourites(Meal meal) {
         localDataSource.removeMealFromFavourites(meal);
+    }
+
+    @Override
+    public void addAllFavourites(List<Meal> meals) {
+        localDataSource.insertAllFavouries(meals);
+    }
+
+    @Override
+    public void addAllPlans(List<Plan> plans) {
+        localDataSource.insertAllPlans(plans);
     }
 }

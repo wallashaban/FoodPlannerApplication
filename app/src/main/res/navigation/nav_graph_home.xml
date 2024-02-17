@@ -38,10 +38,18 @@
         <argument
             android:name="category"
             app:argType="string"
-            android:defaultValue="Seafood" />
+            android:defaultValue="null" />
         <action
             android:id="@+id/action_allMealsFragment3_to_mealDetailsFragment2"
             app:destination="@id/mealDetailsFragment2" />
+        <argument
+            android:name="area"
+            app:argType="string"
+            android:defaultValue="null" />
+        <argument
+            android:name="ingredient"
+            app:argType="string"
+            android:defaultValue="null" />
     </fragment>
     <fragment
         android:id="@+id/mealDetailsFragment2"
@@ -70,5 +78,9 @@
         android:id="@+id/searchFragment2"
         android:name="com.example.foodplannerapp.search_feature.view.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment2_to_allMealsFragment3"
+            app:destination="@id/allMealsFragment3" />
+    </fragment>
 </navigation>

@@ -6,6 +6,7 @@ import com.example.foodplannerapp.models.CategoryObject;
 import com.example.foodplannerapp.models.IngredientsObject;
 import com.example.foodplannerapp.models.MealsObject;
 
+import io.reactivex.rxjava3.core.Single;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -19,33 +20,33 @@ public interface ApiServices {
     @Streaming
     Call<ResponseBody> downloadVideo(@Url String url);
     @GET("search.php")
-    Call<MealsObject> searchMealByName(@Query("s") String name);
+    Single<MealsObject> searchMealByName(@Query("s") String name);
 
     @GET("search.php")
-    Call<MealsObject> searchMealByFirstLetter(@Query("f") String firstLetter);
+    Single<MealsObject> searchMealByFirstLetter(@Query("f") String firstLetter);
 
     @GET("lookup.php")
-    Call<MealsObject> getMealByID(@Query("i") String id);
+    Single<MealsObject> getMealByID(@Query("i") String id);
 
     @GET("random.php")
-    Call<MealsObject> getRandomMeal();
+    Single<MealsObject> getRandomMeal();
 
     @GET("categories.php")
-    Call<CategoryObject> getAllCategories();
+    Single<CategoryObject> getAllCategories();
 
     @GET("list.php?a=list")
-    Call<AreaObject> getAllAreas();
+    Single<AreaObject> getAllAreas();
 
     @GET("list.php?i=list")
-    Call<IngredientsObject> getAllIngredients();
+    Single<IngredientsObject> getAllIngredients();
 
     @GET("filter.php")
-    Call<MealsObject> filterMealByMainIngredient(@Query("i") String ingredient);
+    Single<MealsObject> filterMealByMainIngredient(@Query("i") String ingredient);
 
     @GET("filter.php")
-    Call<MealsObject> filterMealByCategory(@Query("c") String category);
+    Single<MealsObject> filterMealByCategory(@Query("c") String category);
 
     @GET("filter.php")
-    Call<MealsObject> filterMealByArea(@Query("a") String area);
+    Single<MealsObject> filterMealByArea(@Query("a") String area);
 
 }

@@ -44,6 +44,16 @@ public class AllMealsPresenterImpl implements AllMealsPresenter, MealsNetworkCal
     }
 
     @Override
+    public void filterMEalByArea(String area) {
+        repository.filterMealByAreaNetworkCallBack(this,area);
+    }
+
+    @Override
+    public void filterMEalByIngredient(String ingredient) {
+        repository.filterMealByMainIngredientNetworkCallBack(this,ingredient);
+    }
+
+    @Override
     public void addMealToFavourites(Meal meal) {
         repository.addMealToFavourites(meal);
     }

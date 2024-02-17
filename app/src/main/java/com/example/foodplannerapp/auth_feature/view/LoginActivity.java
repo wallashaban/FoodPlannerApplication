@@ -13,6 +13,10 @@ import com.example.foodplannerapp.MainActivity;
 import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.auth_feature.presenter.LoginPresenter;
 import com.example.foodplannerapp.auth_feature.presenter.LoginPresenterImpl;
+import com.example.foodplannerapp.auth_feature.presenter.RoomInsertion;
+import com.example.foodplannerapp.auth_feature.presenter.RoomInsertionImple;
+import com.example.foodplannerapp.database.FavouritesLocalDataSourceImpl;
+import com.example.foodplannerapp.favourites_feature.repository.FavouritesRepositoryImpl;
 import com.example.foodplannerapp.firebase.FirebaseRemoteDataSourceImpl;
 import com.example.foodplannerapp.firebase_repository.FirebaseAuthRepositoryImpl;
 import com.example.foodplannerapp.models.AuthParameters;
@@ -21,12 +25,15 @@ import com.example.foodplannerapp.models.Plan;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.List;
+
 public class LoginActivity extends AppCompatActivity implements
 LoginView{
 
     LoginPresenter presenter;
     TextInputEditText email,password;
     Button login;
+    RoomInsertion insertion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +44,9 @@ LoginView{
                         FirebaseRemoteDataSourceImpl.getInstance(this)
                 ),this
         );
+        insertion = RoomInsertionImple.getInstance(FavouritesRepositoryImpl.getInstance(
+                FavouritesLocalDataSourceImpl.getInstance(this)
+        ));
         Meal meal = new Meal();
         meal.setMealId("4567");
         meal.setMealName("Pizza");
@@ -88,5 +98,26 @@ LoginView{
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void showPlansErrorMessage(String errorMessage) {
+
+    }
+
+    @Override
+    public void showPlansData(List<Plan> plans) {
+        insertion.AddAllPlans(plans);
+        showData();
+    }
+
+    @Override
+    public void showMealsErrorMessage(String errorMessage) {
+
+    }
+
+    @Override
+    public void showMealsData(List<Meal> meals) {
+        insertion.AddAllFavourites(meals);
     }
 }

@@ -72,7 +72,7 @@
             <!--            app:srcCompat="@drawable/favorite" />-->
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/mealPlanImage"
+                android:id="@+id/searchImage"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
@@ -94,7 +94,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/mealPlanName"
+                android:id="@+id/searchName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
@@ -108,7 +108,7 @@
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold|italic"
-                app:layout_constraintBottom_toBottomOf="@+id/mealPlanImage"
+                app:layout_constraintBottom_toBottomOf="@+id/searchImage"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent" />

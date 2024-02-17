@@ -26,4 +26,9 @@ public interface PlanDAO {
     void updatePlan(Plan plan);
     @Query("SELECT * FROM "+Constants.PLAN_TABLE+" WHERE date = :date")
     LiveData<Plan> getPlaneByDate(String date);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAllPlans(List<Plan> plans);
+    @Query("DELETE FROM "+Constants.PLAN_TABLE)
+    void deleteAllPlans();
 }

@@ -27,6 +27,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     private static String TAG = "CategoryAdapter";
 
     public void setCategories(List<Category> categories) {
+       // this.categories.clear();
         this.categories = categories;
        // categories.remove(8);
     }

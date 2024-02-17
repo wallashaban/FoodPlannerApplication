@@ -9,7 +9,7 @@ import com.example.foodplannerapp.Shared.Constants;
 import com.example.foodplannerapp.models.Meal;
 import com.example.foodplannerapp.models.Plan;
 
-@androidx.room.Database(entities = {Meal.class, Plan.class}, version = 3, exportSchema = false)
+@androidx.room.Database(entities = {Meal.class, Plan.class}, version = 4, exportSchema = false)
 
 public abstract class Database extends RoomDatabase {
     private static Database instance = null;
@@ -23,7 +23,7 @@ public abstract class Database extends RoomDatabase {
                     context.getApplicationContext(),
                     Database.class, // why .class?
                     Constants.FAV_TABLE)
-                    .fallbackToDestructiveMigration()
+                    //.fallbackToDestructiveMigration()
                     .build();
         }
         return instance;

@@ -1,6 +1,9 @@
 package com.example.foodplannerapp.meals_feature.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +13,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.SizeReadyCallback;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.foodplannerapp.R;
+import com.example.foodplannerapp.Shared.Constants;
 import com.example.foodplannerapp.models.Meal;
 
 import java.util.List;
@@ -52,11 +62,25 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
         Meal meal = meals.get(position);
         holder.mealName.setText(meal.getMealName());
 
-        Glide.with(context).load(meals.get(position).getMealThumb())
-                .apply(new RequestOptions().override(200, 200)
-                        .placeholder(R.drawable.ic_launcher_foreground) // don't forget the placeholder image
-                        .error(R.drawable.ic_launcher_background))
-                .into(holder.mealImage);
+
+        if(meal.getImageData() == null) {
+            Glide.with(context).asBitmap().load(meals.get(position).getMealThumb())
+
+                    .apply(new RequestOptions().override(200, 200)
+                            .placeholder(R.drawable.ic_launcher_foreground) // don't forget the placeholder image
+                            .error(R.drawable.ic_launcher_background))
+
+                    .into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                            meal.setImageData(Constants.bitmapToByteArray(resource));
+                            holder.mealImage.setImageBitmap(resource);
+                        }
+                    });
+        }else{
+            Bitmap bitmap = BitmapFactory.decodeByteArray(meal.getImageData(), 0, meal.getImageData().length);
+            holder.mealImage.setImageBitmap(bitmap);
+        }
         holder.favButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,8 +118,8 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
         public ViewHolder(View layout) {
             super(layout);
             this.layout = layout;
-            mealName = layout.findViewById(R.id.mealPlanName);
-            mealImage = layout.findViewById(R.id.mealPlanImage);
+            mealName = layout.findViewById(R.id.searchName);
+            mealImage = layout.findViewById(R.id.searchImage);
             favButton = layout.findViewById(R.id.favButton);
             constraintLayout = layout.findViewById(R.id.planConstrainLayout);
         }

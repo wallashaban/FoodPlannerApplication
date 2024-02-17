@@ -1,6 +1,8 @@
 package com.example.foodplannerapp.firebase_repository;
 
 import com.example.foodplannerapp.firebase.FirebaseAuthNetworkCallback;
+import com.example.foodplannerapp.firebase.FirebaseMealsNetwokCallBack;
+import com.example.foodplannerapp.firebase.FirebasePlanNetworkCallBack;
 import com.example.foodplannerapp.firebase.FirebaseRemoteDataSource;
 import com.example.foodplannerapp.models.AuthParameters;
 import com.example.foodplannerapp.models.Meal;
@@ -34,6 +36,15 @@ public class FirebaseAuthRepositoryImpl implements FirebaseAuthRepository {
         dataSource.loginUserWithEmailAndPassword(parameters,networkCallback);
     }
 
+    @Override
+    public void getFavMealsFromFirebase(FirebaseMealsNetwokCallBack netwokCallBack) {
+        dataSource.getAllFavMealFromFirebase(netwokCallBack);
+    }
+
+    @Override
+    public void getPlansFromFirebase(FirebasePlanNetworkCallBack networkCallBack) {
+        dataSource.getAllPlansFromFirebase(networkCallBack);
+    }
     @Override
     public void logOut() {
         dataSource.logOut();

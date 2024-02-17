@@ -27,7 +27,6 @@ import com.example.foodplannerapp.database.FavouritesLocalDataSourceImpl;
 import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.Repository.RepositoryImpl;
 import com.example.foodplannerapp.firebase.FirebaseRemoteDataSourceImpl;
-import com.example.foodplannerapp.firebase_repository.FirebaseCrudRepository;
 import com.example.foodplannerapp.firebase_repository.FirebaseCrudRepositoryImpl;
 import com.example.foodplannerapp.meals_feature.presenter.HomePresenter;
 import com.example.foodplannerapp.meals_feature.presenter.HomePresenterImpl;
@@ -106,8 +105,8 @@ DatePickerDialogListener{
         Log.i(TAG, "onViewCreated: Home Fragment");
 
         // Meal of the day
-        mealName = view.findViewById(R.id.mealPlanName);
-        mealImage = view.findViewById(R.id.mealPlanImage);
+        mealName = view.findViewById(R.id.searchName);
+        mealImage = view.findViewById(R.id.searchImage);
         favButton = view.findViewById(R.id.favButton);
         constraintLayout = view.findViewById(R.id.planConstrainLayout);
         //Categories
@@ -229,8 +228,9 @@ DatePickerDialogListener{
     public void OnFavClickListener(Meal meal) {
         if(Constants.isLogedIn(getContext()))
             Constants.showDialog(getActivity(), LoginActivity.class);
-        else
+        else {
             presenter.addMealToFavourites(meal);
+        }
     }
 
 

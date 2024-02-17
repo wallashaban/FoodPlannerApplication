@@ -43,6 +43,15 @@ public class Plan {
     @NonNull
     private String  Date;
    private Meal meal;
+    private byte[] imageData;
+
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
+    }
 
     @Override
     public String toString() {

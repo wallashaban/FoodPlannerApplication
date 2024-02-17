@@ -2,6 +2,7 @@ package com.example.foodplannerapp.models;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.example.foodplannerapp.Shared.Constants;
@@ -9,6 +10,16 @@ import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = Constants.FAV_TABLE)
 public class Meal {
+    private byte[] imageData;
+
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
+    }
+
     public void setMealId(@NonNull String mealId) {
         this.mealId = mealId;
     }
@@ -210,6 +221,7 @@ public class Meal {
     @SerializedName("strMeal")
     private String mealName;
     @SerializedName("strCategory")
+    @Ignore
     private String category;
 
     public String getArea() {
@@ -217,6 +229,7 @@ public class Meal {
     }
 
     @SerializedName("strArea")
+    @Ignore
     private String area;
 
     public String getInstructions() {
@@ -224,6 +237,7 @@ public class Meal {
     }
 
     @SerializedName("strInstructions")
+    @Ignore
     private String instructions;
 
     public String getVideo() {
@@ -275,28 +289,40 @@ public class Meal {
     }
 
     @SerializedName("strYoutube")
+    @Ignore
     private String video;
     @SerializedName("strDrinkAlternate")
+    @Ignore
     private String drink;
     @SerializedName("strIngredient1")
+    @Ignore
     private String ingredient1;
     @SerializedName("strIngredient2")
+    @Ignore
     private String ingredient2;
     @SerializedName("strIngredient3")
+    @Ignore
     private String ingredient3;
     @SerializedName("strIngredient4")
+    @Ignore
     private String ingredient4;
     @SerializedName("strIngredient5")
+    @Ignore
     private String ingredient5;
     @SerializedName("strIngredient6")
+    @Ignore
     private String ingredient6;
     @SerializedName("strIngredient7")
+    @Ignore
     private String ingredient7;
     @SerializedName("strIngredient8")
+    @Ignore
     private String ingredient8;
     @SerializedName("strIngredient9")
+    @Ignore
     private String ingredient9;
     @SerializedName("strIngredient10")
+    @Ignore
     private String ingredient10;
 
     public String getIngredient11() {
@@ -424,65 +450,95 @@ public class Meal {
     }
 
     @SerializedName("strIngredient11")
+    @Ignore
     private String ingredient11;
     @SerializedName("strIngredient12")
+    @Ignore
     private String ingredient12;
     @SerializedName("strIngredient13")
+    @Ignore
     private String ingredient13;
     @SerializedName("strIngredient14")
+    @Ignore
     private String ingredient14;
     @SerializedName("strIngredient15")
+    @Ignore
     private String ingredient15;
     @SerializedName("strIngredient16")
+    @Ignore
     private String ingredient16;
     @SerializedName("strIngredient17")
+    @Ignore
     private String ingredient17;
     @SerializedName("strIngredient18")
+    @Ignore
     private String ingredient18;
     @SerializedName("strIngredient19")
+    @Ignore
     private String ingredient19;
     @SerializedName("strIngredient20")
+    @Ignore
     private String ingredient20;
     @SerializedName("strMeasure1")
+    @Ignore
     private String measure1;
 
     @SerializedName("strMeasure2")
+    @Ignore
     private String measure2;
     @SerializedName("strMeasure3")
+    @Ignore
     private String measure3;
     @SerializedName("strMeasure4")
+    @Ignore
     private String measure4;
     @SerializedName("strMeasure5")
+    @Ignore
     private String measure5;
     @SerializedName("strMeasure6")
+    @Ignore
     private String measure6;
     @SerializedName("strMeasure7")
+    @Ignore
     private String measure7;
     @SerializedName("strMeasure8")
+    @Ignore
     private String measure8;
     @SerializedName("strMeasure9")
+    @Ignore
     private String measure9;
     @SerializedName("strMeasure10")
+    @Ignore
     private String measure10;
     @SerializedName("strMeasure11")
+    @Ignore
     private String measure11;
     @SerializedName("strMeasure12")
+    @Ignore
     private String measure12;
     @SerializedName("strMeasure13")
+    @Ignore
     private String measure13;
     @SerializedName("strMeasure14")
+    @Ignore
     private String measure14;
     @SerializedName("strMeasure15")
+    @Ignore
     private String measure15;
     @SerializedName("strMeasure16")
+    @Ignore
     private String measure16;
     @SerializedName("strMeasure17")
+    @Ignore
     private String measure17;
     @SerializedName("strMeasure18")
+    @Ignore
     private String measure18;
     @SerializedName("strMeasure19")
+    @Ignore
     private String measure19;
     @SerializedName("strMeasure20")
+    @Ignore
     private String measure20;
 
     public String getMealId() {

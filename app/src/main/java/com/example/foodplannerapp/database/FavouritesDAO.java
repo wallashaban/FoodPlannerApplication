@@ -20,10 +20,15 @@ public interface FavouritesDAO {
 
     @Query("SELECT * FROM " + Constants.FAV_TABLE+" Where mealId=:id")
     LiveData<Meal>getFavMealById(String id);
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addMealToFavourites(Meal meal);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAllFavourites(List<Meal> meals);
 
     @Delete
     void removeMealFromFavourites(Meal meal);
+    @Query("DELETE FROM " + Constants.FAV_TABLE)
+    void deleteAllFavMeal();
 
 }

@@ -12,10 +12,8 @@ import com.example.foodplannerapp.models.AuthParameters;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -147,9 +145,11 @@ public class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource{
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful())
                 {
+                    Log.i(TAG, "successful Plans: ");
                     for(QueryDocumentSnapshot doc: task.getResult())
                     {
 
+                        Log.i(TAG, "email Plan"+doc.get("email"));
                         if(doc.get("email").equals(sharedPreferences.getString("email",null))) {
                             Plan plan = doc.toObject(Plan.class);
                             plans.add(plan);
@@ -157,13 +157,14 @@ public class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource{
                         }
                         Log.i(TAG, "onComplete: email plan"+sharedPreferences.getString("email",null));
                     }
-                    networkCallBack.onSuccessResult(plans);
+                    networkCallBack.onPlansSuccessResult(plans);
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                networkCallBack.onErrorResult(e.getMessage());
+                Log.i(TAG, "failed Plans: ");
+                networkCallBack.onPlansErrorResult(e.getMessage());
             }
         });
     }
@@ -177,9 +178,12 @@ public class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource{
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful())
                 {
+                    Log.i(TAG, "successful Favs: ");
                     for(QueryDocumentSnapshot doc: task.getResult())
                     {
 
+                        doc.toString();
+                        Log.i(TAG, "task Email"+doc.get("email")+doc.toString());
                         if(doc.get("email").equals(sharedPreferences.getString("email",null))) {
                             Meal meal = doc.toObject(Meal.class);
                             meals.add(meal);
@@ -187,13 +191,14 @@ public class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource{
                         }
                         Log.i(TAG, "onComplete: email"+sharedPreferences.getString("email",null));
                     }
-                    netwokCallBack.onSuccessResult(meals);
+                    netwokCallBack.onMealsSuccessResult(meals);
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                netwokCallBack.onErrorResult(e.getMessage());
+                Log.i(TAG, "failed Plans: ");
+                netwokCallBack.onMealsErrorResult(e.getMessage());
             }
         });
     }

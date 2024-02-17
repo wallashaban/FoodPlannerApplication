@@ -11,6 +11,4 @@ public interface FirebaseCrudRepository {
     public void addMealToPlanUsingFirebase(Plan plan);
     public void removeMealFromPlanUsingFirebase(Plan plan);
 
-    public void getFavMealsFromFirebase(FirebaseMealsNetwokCallBack netwokCallBack);
-    public void getPlansFromFirebase(FirebasePlanNetworkCallBack netwokCallBack);
-}
+    }

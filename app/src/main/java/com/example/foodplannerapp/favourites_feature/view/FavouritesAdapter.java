@@ -95,8 +95,8 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
         public ViewHolder(View layout) {
             super(layout);
             this.layout = layout;
-            mealName = layout.findViewById(R.id.mealPlanName);
-            mealImage = layout.findViewById(R.id.mealPlanImage);
+            mealName = layout.findViewById(R.id.searchName);
+            mealImage = layout.findViewById(R.id.searchImage);
             favButton = layout.findViewById(R.id.favButton);
             constraintLayout = layout.findViewById(R.id.planConstrainLayout);
         }
