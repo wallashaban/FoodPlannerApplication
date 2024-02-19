@@ -17,7 +17,7 @@ import com.example.foodplannerapp.auth_feature.presenter.LoginPresenter;
 import com.example.foodplannerapp.auth_feature.presenter.LoginPresenterImpl;
 import com.example.foodplannerapp.auth_feature.presenter.RoomInsertion;
 import com.example.foodplannerapp.auth_feature.presenter.RoomInsertionImple;
-import com.example.foodplannerapp.database.FavouritesLocalDataSourceImpl;
+import com.example.foodplannerapp.database.LocalDataSourceImpl;
 import com.example.foodplannerapp.favourites_feature.repository.FavouritesRepositoryImpl;
 import com.example.foodplannerapp.firebase.FirebaseRemoteDataSourceImpl;
 import com.example.foodplannerapp.firebase_repository.FirebaseAuthRepositoryImpl;
@@ -30,15 +30,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity implements
-LoginView{
+        LoginView {
 
-    LoginPresenter presenter;
-    TextInputEditText email,password;
-    Button login;
-    RoomInsertion insertion;
-    Button skip;
-    TextView signup;
-    ProgressBar progressBar;
+    private LoginPresenter presenter;
+    private TextInputEditText email, password;
+    private Button login;
+    private RoomInsertion insertion;
+    private Button skip;
+    private TextView signup;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +47,10 @@ LoginView{
         presenter = LoginPresenterImpl.getInstance(
                 FirebaseAuthRepositoryImpl.getInstance(
                         FirebaseRemoteDataSourceImpl.getInstance(this)
-                ),this
+                ), this
         );
         insertion = RoomInsertionImple.getInstance(FavouritesRepositoryImpl.getInstance(
-                FavouritesLocalDataSourceImpl.getInstance(this)
+                LocalDataSourceImpl.getInstance(this)
         ));
         progressBar = findViewById(R.id.loginProgressBar);
         skip = findViewById(R.id.skip);
@@ -80,9 +80,6 @@ LoginView{
             public void onClick(View v) {
                 String emailInput = email.getText().toString().trim();
                 final String pass = password.getText().toString().trim();
-
-
-                //Validation section
                 if (TextUtils.isEmpty(emailInput)) {
                     email.setError("Enter email address");
                     Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
@@ -93,7 +90,6 @@ LoginView{
                     Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                //progressBar.setVisibility(View.VISIBLE);
                 if (password.length() < 6) {
                     password.setError("Should be greater than 6");
                 }
@@ -105,9 +101,10 @@ LoginView{
             }
         });
     }
-    public void onLogout(View view){
+
+    public void onLogout(View view) {
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(this,MainActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     @Override
@@ -127,7 +124,7 @@ LoginView{
 
     @Override
     public void showPlansErrorMessage(String errorMessage) {
-
+        Toast.makeText(this,errorMessage,Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -138,7 +135,7 @@ LoginView{
 
     @Override
     public void showMealsErrorMessage(String errorMessage) {
-
+        Toast.makeText(this,errorMessage,Toast.LENGTH_SHORT).show();
     }
 
     @Override

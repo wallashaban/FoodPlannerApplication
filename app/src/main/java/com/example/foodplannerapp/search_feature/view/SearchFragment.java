@@ -46,40 +46,38 @@ import io.reactivex.rxjava3.core.Observable;
 
 
 public class SearchFragment extends Fragment implements OnCategoryClickListener,
-SearchView,OnAreaClickListener,OnIngredientClickListener{
+        SearchView, OnAreaClickListener, OnIngredientClickListener {
 
 
-    ProgressBar progressBar;
-    LottieAnimationView lottieAnimationView;
-    CategorySearchAdapter categoryAdapter;
-    AreaSearchAdapter areaSearchAdapter;
-    IngredientSearchAdapter ingredientSearchAdapter;
-    List<Category> categories;
-    GridLayoutManager categoryManager;
-    GridLayoutManager areaManager;
-    GridLayoutManager ingredientManager;
-    RecyclerView searchCategoryRecyclerView;
-    RecyclerView searchIngredientRecyclerView;
-    RecyclerView searchCountryRecyclerView;
-    SearchPresenter presenter;
-    TextInputEditText search;
-    ChipGroup chipGroup;
-    Chip category;
-    Chip meal;
-    Chip ingredient;
-    List<Category> filteredCategories;
-    List<Area> filteredAreas;
-    List<Ingredient> filteredIngredients;
-    List<Area> areas;
-    List<Ingredient> ingredients;
-    Chip contry;
-    LottieAnimationView noSearch;
-    int chipNumber ;
+    private ProgressBar progressBar;
+    private LottieAnimationView lottieAnimationView;
+    private CategorySearchAdapter categoryAdapter;
+    private AreaSearchAdapter areaSearchAdapter;
+    private IngredientSearchAdapter ingredientSearchAdapter;
+    private List<Category> categories;
+    private GridLayoutManager categoryManager;
+    private GridLayoutManager areaManager;
+    private GridLayoutManager ingredientManager;
+    private RecyclerView searchCategoryRecyclerView;
+    private RecyclerView searchIngredientRecyclerView;
+    private RecyclerView searchCountryRecyclerView;
+    private SearchPresenter presenter;
+    private TextInputEditText search;
+    private ChipGroup chipGroup;
+    private Chip category;
+    private Chip meal;
+    private Chip ingredient;
+    private List<Category> filteredCategories;
+    private List<Area> filteredAreas;
+    private List<Ingredient> filteredIngredients;
+    private List<Area> areas;
+    private List<Ingredient> ingredients;
+    private Chip contry;
+    private LottieAnimationView noSearch;
+    private int chipNumber;
 
 
-    public SearchFragment() {
-        // Required empty public constructor
-    }
+    public SearchFragment() {}
 
 
     @Override
@@ -92,14 +90,13 @@ SearchView,OnAreaClickListener,OnIngredientClickListener{
         ingredients = new ArrayList<>();
         filteredIngredients = new ArrayList<>();
         presenter = SearchPresenterImpl.getInstance(RemoteRepositoryImpl
-                .getInstance(RemoteDataSourceImpl.getInstance()),this);
+                .getInstance(RemoteDataSourceImpl.getInstance()), this);
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
@@ -119,14 +116,14 @@ SearchView,OnAreaClickListener,OnIngredientClickListener{
         searchCountryRecyclerView = view.findViewById(R.id.searchAreaRecyclerView);
         searchCategoryRecyclerView = view.findViewById(R.id.searchCategoryRecyclerView);
         searchIngredientRecyclerView = view.findViewById(R.id.searchIngredientRecyclerView);
-        categoryAdapter = new CategorySearchAdapter(getContext(), categories,this);
-        areaSearchAdapter = new AreaSearchAdapter(getContext(), areas,this);
-        ingredientSearchAdapter = new IngredientSearchAdapter(getContext(), ingredients,this);
-        categoryManager = new GridLayoutManager(getContext(),2);
+        categoryAdapter = new CategorySearchAdapter(getContext(), categories, this);
+        areaSearchAdapter = new AreaSearchAdapter(getContext(), areas, this);
+        ingredientSearchAdapter = new IngredientSearchAdapter(getContext(), ingredients, this);
+        categoryManager = new GridLayoutManager(getContext(), 2);
         categoryManager.setOrientation(LinearLayoutManager.VERTICAL);
-        areaManager = new GridLayoutManager(getContext(),2);
+        areaManager = new GridLayoutManager(getContext(), 2);
         areaManager.setOrientation(LinearLayoutManager.VERTICAL);
-        ingredientManager = new GridLayoutManager(getContext(),2);
+        ingredientManager = new GridLayoutManager(getContext(), 2);
         ingredientManager.setOrientation(LinearLayoutManager.VERTICAL);
         searchCategoryRecyclerView.setLayoutManager(categoryManager);
         searchCategoryRecyclerView.setAdapter(categoryAdapter);
@@ -140,7 +137,7 @@ SearchView,OnAreaClickListener,OnIngredientClickListener{
             public void onClick(View v) {
 
                 chipNumber = 0;
-                if(categories.isEmpty()) {
+                if (categories.isEmpty()) {
                     noSearch.setVisibility(View.INVISIBLE);
                     presenter.getAllCategories();
                     progressBar.setVisibility(View.VISIBLE);
@@ -155,7 +152,7 @@ SearchView,OnAreaClickListener,OnIngredientClickListener{
             @Override
             public void onClick(View v) {
                 chipNumber = 1;
-                if(areas.isEmpty()) {
+                if (areas.isEmpty()) {
                     noSearch.setVisibility(View.INVISIBLE);
                     presenter.getAllAreas();
                     progressBar.setVisibility(View.VISIBLE);
@@ -170,7 +167,7 @@ SearchView,OnAreaClickListener,OnIngredientClickListener{
             @Override
             public void onClick(View v) {
                 chipNumber = 2;
-                if(ingredients.isEmpty()) {
+                if (ingredients.isEmpty()) {
                     noSearch.setVisibility(View.INVISIBLE);
                     presenter.getAllIngredients();
                     progressBar.setVisibility(View.VISIBLE);
@@ -189,34 +186,25 @@ SearchView,OnAreaClickListener,OnIngredientClickListener{
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.i("TAG", "onTextChanged: ");
-                switch (chipNumber)
-                {
+                switch (chipNumber) {
                     case 0:
-                        presenter.searchByCategory(new CategorySearchParameters(categories,filteredCategories,
-                                categoryAdapter,s));
+                        presenter.searchByCategory(new CategorySearchParameters(categories, filteredCategories,
+                                categoryAdapter, s));
                         break;
                     case 1:
-                        presenter.searchByCountry(new AreaSearchParameters(areas,filteredAreas,
-                                areaSearchAdapter,s));
+                        presenter.searchByCountry(new AreaSearchParameters(areas, filteredAreas,
+                                areaSearchAdapter, s));
                         break;
                     case 2:
-                        presenter.searchByIngredient(new IngredientSearchParameters(ingredients,filteredIngredients,
-                                ingredientSearchAdapter,s));
+                        presenter.searchByIngredient(new IngredientSearchParameters(ingredients, filteredIngredients,
+                                ingredientSearchAdapter, s));
                         break;
                 }
-
-
             }
-
-
-
             @Override
             public void afterTextChanged(Editable s) {
             }
         });
-
-
     }
 
     @Override
@@ -231,7 +219,6 @@ SearchView,OnAreaClickListener,OnIngredientClickListener{
     public void showIngredientsData(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
         progressBar.setVisibility(View.INVISIBLE);
-        //noSearch.setVisibility(View.INVISIBLE);
         lottieAnimationView.setVisibility(View.INVISIBLE);
         ingredientSearchAdapter.setIngredients(ingredients);
         ingredientSearchAdapter.notifyDataSetChanged();
@@ -240,9 +227,7 @@ SearchView,OnAreaClickListener,OnIngredientClickListener{
     @Override
     public void showIngredientsError(String errorMessage) {
 
-        if(errorMessage.equals("No internet connection"))
-        {
-            //homeGroup.setVisibility(View.INVISIBLE);
+        if (errorMessage.equals("No internet connection")) {
             progressBar.setVisibility(View.INVISIBLE);
             Log.i("TAG", "showRandomMealErrorMessage: value");
             lottieAnimationView.setVisibility(View.VISIBLE);
@@ -253,7 +238,6 @@ SearchView,OnAreaClickListener,OnIngredientClickListener{
     public void showCategoriessData(List<Category> categories) {
         this.categories = categories;
         progressBar.setVisibility(View.INVISIBLE);
-        //noSearch.setVisibility(View.INVISIBLE);
         lottieAnimationView.setVisibility(View.INVISIBLE);
         categoryAdapter.setCategories(categories);
         categoryAdapter.notifyDataSetChanged();
@@ -261,9 +245,7 @@ SearchView,OnAreaClickListener,OnIngredientClickListener{
 
     @Override
     public void showCategoriesError(String errorMessage) {
-        if(errorMessage.equals("No internet connection"))
-        {
-            //homeGroup.setVisibility(View.INVISIBLE);
+        if (errorMessage.equals("No internet connection")) {
             progressBar.setVisibility(View.INVISIBLE);
             Log.i("TAG", "showRandomMealErrorMessage: value");
             lottieAnimationView.setVisibility(View.VISIBLE);
@@ -275,16 +257,13 @@ SearchView,OnAreaClickListener,OnIngredientClickListener{
         this.areas = areas;
         lottieAnimationView.setVisibility(View.INVISIBLE);
         progressBar.setVisibility(View.INVISIBLE);
-       // noSearch.setVisibility(View.INVISIBLE);
         areaSearchAdapter.setAreas(areas);
         areaSearchAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showAreasError(String errorMessage) {
-        if(errorMessage.equals("No internet connection"))
-        {
-            //homeGroup.setVisibility(View.INVISIBLE);
+        if (errorMessage.equals("No internet connection")) {
             progressBar.setVisibility(View.INVISIBLE);
             Log.i("TAG", "showRandomMealErrorMessage: value");
             lottieAnimationView.setVisibility(View.VISIBLE);

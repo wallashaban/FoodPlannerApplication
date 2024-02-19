@@ -64,7 +64,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
         holder.mealName.setText(meal.getMealName());
 
 
-        if(meal.getImageData() == null) {
+        if (meal.getImageData() == null) {
             Glide.with(context).asBitmap().load(meals.get(position).getMealThumb())
 
                     .apply(new RequestOptions().override(200, 200)
@@ -78,7 +78,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
                             holder.mealImage.setImageBitmap(resource);
                         }
                     });
-        }else{
+        } else {
             Bitmap bitmap = BitmapFactory.decodeByteArray(meal.getImageData(), 0, meal.getImageData().length);
             holder.mealImage.setImageBitmap(bitmap);
         }
@@ -91,7 +91,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mealClickListener.OnMealClickListener(meal.getMealId(),v);
+                mealClickListener.OnMealClickListener(meal.getMealId(), v);
             }
         });
     }
@@ -102,8 +102,6 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
     }
 
     public void setMeals(List<Meal> meals) {
-        //meals.clear();
-        Log.i(TAG, "setMeals: Category"+meals);
         this.meals = meals;
     }
 

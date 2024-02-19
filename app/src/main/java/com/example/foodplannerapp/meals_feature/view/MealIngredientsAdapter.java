@@ -27,14 +27,13 @@ public class MealIngredientsAdapter extends RecyclerView.Adapter<MealIngredients
 
     public void setIngredients(List<MealIngredients> ingredients) {
         this.ingredients = ingredients;
-        Log.i(TAG, "setIngredients: "+ingredients.get(0));
     }
 
-    public MealIngredientsAdapter(Context context, List<MealIngredients>ingredients)
-    {
+    public MealIngredientsAdapter(Context context, List<MealIngredients> ingredients) {
         this.ingredients = ingredients;
         this.context = context;
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -48,20 +47,19 @@ public class MealIngredientsAdapter extends RecyclerView.Adapter<MealIngredients
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MealIngredients ingredient = ingredients.get(position);
-        String url = "https://www.themealdb.com/images/ingredients/"+ingredient.getName()+".png";
+        String url = "https://www.themealdb.com/images/ingredients/" + ingredient.getName() + ".png";
 
-        if(ingredient.getName()!=null && ingredient.getMeasurement()!=null
-       && !ingredient.getName().isEmpty() && !ingredient.getMeasurement().isEmpty())
-       {
-           holder.ingredient.setText(ingredient.getName());
+        if (ingredient.getName() != null && ingredient.getMeasurement() != null
+                && !ingredient.getName().isEmpty() && !ingredient.getMeasurement().isEmpty()) {
+            holder.ingredient.setText(ingredient.getName());
 
-           Glide.with(context).load(url)
-                   .apply(new RequestOptions()
-                           .placeholder(R.drawable.ic_launcher_foreground) // don't forget the placeholder image
-                           .error(R.drawable.ic_launcher_background))
-                   .into(holder.image);
-           holder.measure.setText(ingredient.getMeasurement());
-       }
+            Glide.with(context).load(url)
+                    .apply(new RequestOptions()
+                            .placeholder(R.drawable.ic_launcher_foreground) // don't forget the placeholder image
+                            .error(R.drawable.ic_launcher_background))
+                    .into(holder.image);
+            holder.measure.setText(ingredient.getMeasurement());
+        }
         Log.i(TAG, "onBindViewHolder: ");
     }
 
@@ -70,12 +68,13 @@ public class MealIngredientsAdapter extends RecyclerView.Adapter<MealIngredients
         return ingredients.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView ingredient;
         TextView measure;
         ImageView image;
 
         View layout;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.layout = itemView;

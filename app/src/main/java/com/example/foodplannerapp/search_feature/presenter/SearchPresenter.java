@@ -8,9 +8,14 @@ public interface SearchPresenter {
     public void getAllCategories();
 
     public void searchByMealName();
+
     public void getAllAreas();
+
     public void getAllIngredients();
+
     public void searchByCategory(CategorySearchParameters parameters);
+
     public void searchByIngredient(IngredientSearchParameters parameters);
-    public void searchByCountry(AreaSearchParameters  parameters);
+
+    public void searchByCountry(AreaSearchParameters parameters);
 }

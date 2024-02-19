@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface FirebaseMealsNetwokCallBack {
     public void onMealsSuccessResult(List<Meal> meal);
+
     public void onMealsErrorResult(String errorMessage);
 }

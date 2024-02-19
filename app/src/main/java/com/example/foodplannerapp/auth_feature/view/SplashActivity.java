@@ -42,12 +42,12 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        SharedPreferences preferences = getSharedPreferences("auth",MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("auth", MODE_PRIVATE);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                String email = preferences.getString("email",null);
-                if(email==null)
+                String email = preferences.getString("email", null);
+                if (email == null)
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                 else
                     startActivity(new Intent(SplashActivity.this, MainActivity.class));
@@ -55,8 +55,6 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, 3000);
     }
-
-
 
 
 }

@@ -22,8 +22,9 @@ public interface DailyMealDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertDailyMeal(DialyMeal meal);
 
-    @Query("DELETE FROM "+Constants.DAILY_MEAL_TABLE)
+    @Query("DELETE FROM " + Constants.DAILY_MEAL_TABLE)
     void removeDailyMeal();
-    @Query("SELECT * FROM "+ Constants.DAILY_MEAL_TABLE+" WHERE date = :date")
+
+    @Query("SELECT * FROM " + Constants.DAILY_MEAL_TABLE + " WHERE date = :date")
     Maybe<DialyMeal> getDailyMeal(String date);
 }

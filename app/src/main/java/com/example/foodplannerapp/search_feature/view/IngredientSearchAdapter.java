@@ -31,9 +31,9 @@ public class IngredientSearchAdapter extends RecyclerView.Adapter<IngredientSear
     private static String TAG = "CategoryAdapter";
 
     public void setIngredients(List<Ingredient> ingredients) {
-       // this.categories.clear();
+        // this.categories.clear();
         this.ingredients = ingredients;
-       // categories.remove(8);
+        // categories.remove(8);
     }
 
     public IngredientSearchAdapter(Context context, List<Ingredient> ingredients,
@@ -58,7 +58,7 @@ public class IngredientSearchAdapter extends RecyclerView.Adapter<IngredientSear
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Ingredient ingredient = ingredients.get(position);
-        String url = "https://www.themealdb.com/images/ingredients/"+ingredient.getIngredient()+".png";
+        String url = "https://www.themealdb.com/images/ingredients/" + ingredient.getIngredient() + ".png";
 
         holder.categoryName.setText(ingredient.getIngredient());
         Glide.with(context).load(url)
@@ -69,7 +69,7 @@ public class IngredientSearchAdapter extends RecyclerView.Adapter<IngredientSear
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onIngredientClickListener(ingredient.getIngredient(),v);
+                listener.onIngredientClickListener(ingredient.getIngredient(), v);
             }
         });
         Log.i(TAG, "onBindViewHolder: ");

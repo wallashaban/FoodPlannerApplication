@@ -11,7 +11,6 @@ import com.example.foodplannerapp.Shared.Constants;
 import java.util.List;
 
 
-
 @Entity(tableName = Constants.PLAN_TABLE)
 @TypeConverters(MealPlanConverter.class)
 public class Plan {
@@ -41,8 +40,8 @@ public class Plan {
 
     @PrimaryKey
     @NonNull
-    private String  Date;
-   private Meal meal;
+    private String Date;
+    private Meal meal;
     private byte[] imageData;
 
     public byte[] getImageData() {

@@ -20,21 +20,22 @@ import com.example.foodplannerapp.firebase_repository.FirebaseAuthRepositoryImpl
 import com.example.foodplannerapp.models.AuthParameters;
 import com.google.android.material.textfield.TextInputEditText;
 
-public class RegisterActivity extends AppCompatActivity implements RegisterView{
+public class RegisterActivity extends AppCompatActivity implements RegisterView {
 
-    TextInputEditText email,password,username;
-    Button register;
-    RegisterPresenter presenter;
-    TextView signin;
-    ProgressBar progressBar;
+    private TextInputEditText email, password, username;
+    private Button register;
+    private RegisterPresenter presenter;
+    private TextView signin;
+    private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        presenter =  RegisterPresenterImpl.getInstance(
+        presenter = RegisterPresenterImpl.getInstance(
                 FirebaseAuthRepositoryImpl.getInstance(
                         FirebaseRemoteDataSourceImpl.getInstance(this)
-                ),this
+                ), this
         );
         progressBar = findViewById(R.id.registerProgressBar);
         signin = findViewById(R.id.signin);
@@ -56,9 +57,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView{
 
                 String emailInput = email.getText().toString().trim();
                 String passwordInput = password.getText().toString().trim();
-                 String user = username.getText().toString().trim();
-
-                //Validation check
+                String user = username.getText().toString().trim();
                 if (TextUtils.isEmpty(user)) {
                     username.setError("Enter Your name");
                     Toast.makeText(getApplicationContext(), "Enter username!", Toast.LENGTH_SHORT).show();

@@ -1,8 +1,6 @@
 package com.example.foodplannerapp.favourites_feature.repository;
 
-import androidx.lifecycle.LiveData;
-
-import com.example.foodplannerapp.database.FavouritesLocalDataSource;
+import com.example.foodplannerapp.database.LocalDataSource;
 import com.example.foodplannerapp.models.Meal;
 import com.example.foodplannerapp.models.Plan;
 
@@ -11,14 +9,14 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Flowable;
 
 public class FavouritesRepositoryImpl implements FavouritesRepository {
-    FavouritesLocalDataSource localDataSource;
+    private LocalDataSource localDataSource;
     private static FavouritesRepositoryImpl instance = null;
 
-    private FavouritesRepositoryImpl(FavouritesLocalDataSource localDataSource) {
+    private FavouritesRepositoryImpl(LocalDataSource localDataSource) {
         this.localDataSource = localDataSource; // Why not initialized it here instead?
     }
 
-    public static synchronized FavouritesRepositoryImpl getInstance(FavouritesLocalDataSource localDataSource) {
+    public static synchronized FavouritesRepositoryImpl getInstance(LocalDataSource localDataSource) {
         if (instance == null) {
             instance = new FavouritesRepositoryImpl(localDataSource);
         }

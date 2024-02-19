@@ -11,7 +11,7 @@ import com.example.foodplannerapp.Shared.Constants;
 @TypeConverters(MealPlanConverter.class)
 public class DialyMeal {
     @PrimaryKey
-            @NonNull
+    @NonNull
     private String date;
 
     @NonNull

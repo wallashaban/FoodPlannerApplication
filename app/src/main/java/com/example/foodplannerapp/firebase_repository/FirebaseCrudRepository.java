@@ -7,8 +7,11 @@ import com.example.foodplannerapp.models.Plan;
 
 public interface FirebaseCrudRepository {
     public void addMealToFavouriteUsingFirebase(Meal meal);
+
     public void removeMealFromFavouriteUsingFirebase(Meal meal);
+
     public void addMealToPlanUsingFirebase(Plan plan);
+
     public void removeMealFromPlanUsingFirebase(Plan plan);
 
-    }
+}

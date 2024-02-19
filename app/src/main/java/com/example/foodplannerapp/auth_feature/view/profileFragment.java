@@ -16,7 +16,7 @@ import android.widget.Button;
 import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.auth_feature.presenter.ProfilePresenter;
 import com.example.foodplannerapp.auth_feature.presenter.ProfilePresenterImpl;
-import com.example.foodplannerapp.database.FavouritesLocalDataSourceImpl;
+import com.example.foodplannerapp.database.LocalDataSourceImpl;
 import com.example.foodplannerapp.firebase.FirebaseRemoteDataSourceImpl;
 import com.example.foodplannerapp.firebase_repository.FirebaseAuthRepositoryImpl;
 import com.google.android.material.textfield.TextInputEditText;
@@ -24,15 +24,12 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class profileFragment extends Fragment {
 
-    TextInputEditText email,username;
-    Button logout;
-    SharedPreferences sharedPreferences;
-    ProfilePresenter presenter;
-    public profileFragment() {
-        // Required empty public constructor
-    }
+    private TextInputEditText email, username;
+    private Button logout;
+    private SharedPreferences sharedPreferences;
+    private ProfilePresenter presenter;
 
-
+    public profileFragment() {}
 
 
     @Override
@@ -42,7 +39,7 @@ public class profileFragment extends Fragment {
                 ("auth", getContext().MODE_PRIVATE);
         presenter = ProfilePresenterImpl.getInstance(FirebaseAuthRepositoryImpl.getInstance(
                 FirebaseRemoteDataSourceImpl.getInstance(getContext())
-        ), FavouritesLocalDataSourceImpl.getInstance(getContext()));
+        ), LocalDataSourceImpl.getInstance(getContext()));
 
     }
 
@@ -56,11 +53,11 @@ public class profileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        username =view. findViewById(R.id.profileEmail);
-        email =  view.findViewById(R.id.profileEmail);
+        username = view.findViewById(R.id.profileEmail);
+        email = view.findViewById(R.id.profileEmail);
         logout = view.findViewById(R.id.logout);
-        String emailVal = sharedPreferences.getString("email",null);
-        String name = sharedPreferences.getString("name",null);
+        String emailVal = sharedPreferences.getString("email", null);
+        String name = sharedPreferences.getString("name", null);
         username.setText(name);
         email.setText(emailVal);
 

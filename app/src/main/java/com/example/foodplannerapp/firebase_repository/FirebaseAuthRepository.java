@@ -9,8 +9,11 @@ import com.example.foodplannerapp.models.Plan;
 
 public interface FirebaseAuthRepository {
     public void registerUserWithEmailAndPassword(AuthParameters parameters, FirebaseAuthNetworkCallback networkCallback);
+
     public void loginUserWithEmailAndPassword(AuthParameters parameters, FirebaseAuthNetworkCallback networkCallback);
+
     public void getFavMealsFromFirebase(FirebaseMealsNetwokCallBack netwokCallBack);
+
     public void getPlansFromFirebase(FirebasePlanNetworkCallBack netwokCallBack);
 
     public void logOut();

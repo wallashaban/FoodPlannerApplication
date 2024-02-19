@@ -19,6 +19,7 @@ public interface ApiServices {
     @GET
     @Streaming
     Call<ResponseBody> downloadVideo(@Url String url);
+
     @GET("search.php")
     Single<MealsObject> searchMealByName(@Query("s") String name);
 

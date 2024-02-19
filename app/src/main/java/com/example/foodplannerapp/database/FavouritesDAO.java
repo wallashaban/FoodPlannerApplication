@@ -20,8 +20,9 @@ public interface FavouritesDAO {
     @Query("SELECT * FROM " + Constants.FAV_TABLE)
     Flowable<List<Meal>> getAllFavMeals();
 
-    @Query("SELECT * FROM " + Constants.FAV_TABLE+" Where mealId=:id")
+    @Query("SELECT * FROM " + Constants.FAV_TABLE + " Where mealId=:id")
     Flowable<Meal> getFavMealById(String id);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addMealToFavourites(Meal meal);
 
@@ -30,6 +31,7 @@ public interface FavouritesDAO {
 
     @Delete
     void removeMealFromFavourites(Meal meal);
+
     @Query("DELETE FROM " + Constants.FAV_TABLE)
     void deleteAllFavMeal();
 

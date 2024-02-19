@@ -8,7 +8,7 @@
         android:id="@+id/homeFragment"
         android:name="com.example.foodplannerapp.meals_feature.view.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_allMealsFragment3"
             app:destination="@id/allMealsFragment3" />
@@ -20,12 +20,16 @@
         android:id="@+id/favouritesFragment"
         android:name="com.example.foodplannerapp.favourites_feature.view.FavouritesFragment"
         android:label="fragment_favourites"
-        tools:layout="@layout/fragment_favourites" />
+        tools:layout="@layout/fragment_favourites" >
+        <action
+            android:id="@+id/action_favouritesFragment_to_mealDetailsFragment2"
+            app:destination="@id/mealDetailsFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.example.foodplannerapp.meals_feature.view.CategoryFragment"
         android:label="fragment_category"
-        tools:layout="@layout/fragment_category" >
+        tools:layout="@layout/fragment_category">
         <action
             android:id="@+id/action_categoryFragment_to_allMealsFragment3"
             app:destination="@id/allMealsFragment3" />
@@ -34,7 +38,7 @@
         android:id="@+id/allMealsFragment3"
         android:name="com.example.foodplannerapp.meals_feature.view.AllMealsFragment"
         android:label="fragment_all_meals"
-        tools:layout="@layout/fragment_all_meals" >
+        tools:layout="@layout/fragment_all_meals">
         <argument
             android:name="category"
             app:argType="string"
@@ -55,7 +59,7 @@
         android:id="@+id/mealDetailsFragment2"
         android:name="com.example.foodplannerapp.meals_feature.view.MealDetailsFragment"
         android:label="fragment_meal_details"
-        tools:layout="@layout/fragment_meal_details" >
+        tools:layout="@layout/fragment_meal_details">
         <argument
             android:name="id"
             app:argType="string" />
@@ -64,7 +68,7 @@
         android:id="@+id/weeklyPlanFragment"
         android:name="com.example.foodplannerapp.meals_plan_feature.view.WeeklyPlanFragment"
         android:label="fragment_weekly_plan"
-        tools:layout="@layout/fragment_weekly_plan" >
+        tools:layout="@layout/fragment_weekly_plan">
         <action
             android:id="@+id/action_weeklyPlanFragment_to_mealDetailsFragment2"
             app:destination="@id/mealDetailsFragment2" />
@@ -78,7 +82,7 @@
         android:id="@+id/searchFragment2"
         android:name="com.example.foodplannerapp.search_feature.view.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_searchFragment2_to_allMealsFragment3"
             app:destination="@id/allMealsFragment3" />

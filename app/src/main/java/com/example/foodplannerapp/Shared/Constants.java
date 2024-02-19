@@ -29,8 +29,7 @@ public class Constants {
     public static final String PLAN_TABLE = "plan";
     public static final String DAILY_MEAL_TABLE = "dailyMeal";
 
-    public static String getDate()
-    {
+    public static String getDate() {
         LocalDate currentDate = LocalDate.now();
         int year = currentDate.getYear();
         int month = currentDate.getMonthValue();
@@ -39,60 +38,52 @@ public class Constants {
         return year + "-" + month + "-" + day;
     }
 
-    public static boolean isLogedIn(Context context)
-    {
+    public static boolean isLogedIn(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("auth", context.MODE_PRIVATE);
-        return preferences.getString("email",null)==null;
+        return preferences.getString("email", null) == null;
     }
+
     public static byte[] bitmapToByteArray(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         return stream.toByteArray();
     }
-    public static void navigate(int id, NavController navController, SharedPreferences sharedPreferences,Activity activity)
-    {
-        if(id == R.id.homeFragment)
-        {
+
+    public static void navigate(int id, NavController navController, SharedPreferences sharedPreferences, Activity activity) {
+        if (id == R.id.homeFragment) {
             navController.navigate(R.id.homeFragment);
-        }else {
-            if(id == R.id.profileFragment2)
-            {
-                if(sharedPreferences.getString("email",null)==null)
-                {
+        } else {
+            if (id == R.id.profileFragment2) {
+                if (sharedPreferences.getString("email", null) == null) {
                     Constants.showDialog(activity, LoginActivity.class);
-                }else
+                } else
                     navController.navigate(R.id.profileFragment2);
-            }else
-            if(id == R.id.searchFragment2)
-            {
+            } else if (id == R.id.searchFragment2) {
                 navController.navigate(R.id.searchFragment2);
-            }else {
-                if(id == R.id.favouritesFragment)
-                {
-                    if(sharedPreferences.getString("email",null)==null)
-                    {
+            } else {
+                if (id == R.id.favouritesFragment) {
+                    if (sharedPreferences.getString("email", null) == null) {
                         Constants.showDialog(activity, LoginActivity.class);
-                    }else
+                    } else
                         navController.navigate(R.id.favouritesFragment);
-                }else {
-                    if(sharedPreferences.getString("email",null)==null)
-                    {
+                } else {
+                    if (sharedPreferences.getString("email", null) == null) {
                         Constants.showDialog(activity, LoginActivity.class);
-                    }else
+                    } else
                         navController.navigate(R.id.weeklyPlanFragment);
                 }
             }
         }
     }
-    public static void showDialog(Activity context, Class activity)
-    {
+
+    public static void showDialog(Activity context, Class activity) {
         new MaterialAlertDialogBuilder(context)
                 .setTitle(R.string.dialogTitle)
                 .setMessage(R.string.dialogMessge)
                 .setPositiveButton("Sign Up", (dialog, which) -> {
-                    Intent intent = new Intent(context,activity);
-                   context.startActivity(intent);
-                   context.finish();
+                    Intent intent = new Intent(context, activity);
+                    context.startActivity(intent);
+                    context.finish();
                 })
                 .setNegativeButton("Cancel", (dialog, which) -> {
                     // Negative button action
@@ -100,7 +91,7 @@ public class Constants {
                 .show();
     }
 
-    public static void showDatePicker(Context context,DatePickerDialogListener listener) {
+    public static void showDatePicker(Context context, DatePickerDialogListener listener) {
         Calendar calendar = Calendar.getInstance();
 
         // Set minimum and maximum dates
@@ -129,6 +120,7 @@ public class Constants {
         // Show the DatePickerDialog
         datePickerDialog.show();
     }
+
     public static void showDateTimePicker(Context context) {
         Calendar calendar = Calendar.getInstance();
 

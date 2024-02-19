@@ -18,14 +18,17 @@ public abstract class Database extends RoomDatabase {
     Context context;
 
     public abstract FavouritesDAO getFavouritesDao();// Why public?
+
     public abstract PlanDAO getPlanDao();
+
     public abstract DailyMealDAO getDailyMealDao();
+
     public static synchronized Database getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(
-                    context.getApplicationContext(),
-                    Database.class, // why .class?
-                    Constants.FAV_TABLE)
+                            context.getApplicationContext(),
+                            Database.class, // why .class?
+                            Constants.FAV_TABLE)
                     .fallbackToDestructiveMigration()
                     .build();
         }

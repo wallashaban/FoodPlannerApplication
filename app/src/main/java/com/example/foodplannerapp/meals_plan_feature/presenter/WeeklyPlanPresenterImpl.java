@@ -14,10 +14,10 @@ import java.util.List;
 
 import io.reactivex.rxjava3.core.Flowable;
 
-public class WeeklyPlanPresenterImpl implements WeeklyPlanPresenter{
+public class WeeklyPlanPresenterImpl implements WeeklyPlanPresenter {
     private WeeklyPlanView view;
     private Repository repository;
-    FirebaseCrudRepository firebaseCrudRepository;
+    private FirebaseCrudRepository firebaseCrudRepository;
 
     private static WeeklyPlanPresenterImpl instance = null;
 
@@ -29,12 +29,12 @@ public class WeeklyPlanPresenterImpl implements WeeklyPlanPresenter{
     }
 
 
-    public static WeeklyPlanPresenterImpl getInstance(WeeklyPlanView view,
+    public static synchronized WeeklyPlanPresenterImpl getInstance(WeeklyPlanView view,
                                                       Repository repository,
                                                       FirebaseCrudRepository firebaseCrudRepository) {
         if (instance == null) {
-            instance = new WeeklyPlanPresenterImpl(view, repository,firebaseCrudRepository);
-        }else {
+            instance = new WeeklyPlanPresenterImpl(view, repository, firebaseCrudRepository);
+        } else {
             instance.view = view;
         }
         return instance;
@@ -42,10 +42,9 @@ public class WeeklyPlanPresenterImpl implements WeeklyPlanPresenter{
 
     @Override
     public void getAllPlansMeals() {
-       Flowable<List<Plan>> plans = repository.getAllPlans();
+        Flowable<List<Plan>> plans = repository.getAllPlans();
         view.setPlansList(plans);
     }
-
 
 
     @Override

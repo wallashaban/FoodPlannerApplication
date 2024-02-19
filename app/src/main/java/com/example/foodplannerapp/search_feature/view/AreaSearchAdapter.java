@@ -27,14 +27,14 @@ public class AreaSearchAdapter extends RecyclerView.Adapter<AreaSearchAdapter.Vi
 
     private Context context;
     private List<Area> areas;
-    private Map<String,Integer> images;
+    private Map<String, Integer> images;
     OnAreaClickListener listener;
     private static String TAG = "CategoryAdapter";
 
     public void setAreas(List<Area> areas) {
-       // this.categories.clear();
+        // this.categories.clear();
         this.areas = areas;
-       // categories.remove(8);
+        // categories.remove(8);
     }
 
     public AreaSearchAdapter(Context context, List<Area> areas, OnAreaClickListener listener) {
@@ -63,7 +63,7 @@ public class AreaSearchAdapter extends RecyclerView.Adapter<AreaSearchAdapter.Vi
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onAreaClickLitener(area.getArea(),v);
+                listener.onAreaClickLitener(area.getArea(), v);
             }
         });
         Log.i(TAG, "onBindViewHolder: ");

@@ -1,7 +1,6 @@
 package com.example.foodplannerapp.meals_feature.presenter;
 
 
-
 import androidx.lifecycle.LiveData;
 
 import com.example.foodplannerapp.Repository.Repository;
@@ -16,7 +15,7 @@ import io.reactivex.rxjava3.core.Flowable;
 
 public class AllMealsPresenterImpl implements AllMealsPresenter, MealsNetworkCallBAck {
     private AllMealsview view;
-    Repository repository;
+    private Repository repository;
     private static AllMealsPresenterImpl instance = null;
 
     private AllMealsPresenterImpl(AllMealsview view, RepositoryImpl repository) {
@@ -25,34 +24,33 @@ public class AllMealsPresenterImpl implements AllMealsPresenter, MealsNetworkCal
     }
 
 
-    public static AllMealsPresenterImpl getInstance(AllMealsview view, RepositoryImpl repository) {
+    public static synchronized AllMealsPresenterImpl getInstance(AllMealsview view, RepositoryImpl repository) {
         if (instance == null) {
             instance = new AllMealsPresenterImpl(view, repository);
-        }
-        else {
-            instance.view=view;
+        } else {
+            instance.view = view;
         }
         return instance;
     }
 
     @Override
     public void getAllMeals() {
-        repository.searchMealByFirstLetterNetworkCallBack(this,"b");
+        repository.searchMealByFirstLetterNetworkCallBack(this, "b");
     }
 
     @Override
     public void filterMEalByCategory(String category) {
-        repository.filterMealByCategoryNetworkCallBack(this,category);
+        repository.filterMealByCategoryNetworkCallBack(this, category);
     }
 
     @Override
     public void filterMEalByArea(String area) {
-        repository.filterMealByAreaNetworkCallBack(this,area);
+        repository.filterMealByAreaNetworkCallBack(this, area);
     }
 
     @Override
     public void filterMEalByIngredient(String ingredient) {
-        repository.filterMealByMainIngredientNetworkCallBack(this,ingredient);
+        repository.filterMealByMainIngredientNetworkCallBack(this, ingredient);
     }
 
     @Override
@@ -67,7 +65,7 @@ public class AllMealsPresenterImpl implements AllMealsPresenter, MealsNetworkCal
 
     @Override
     public Flowable<Meal> getFavMealById(String id) {
-       return repository.getFavMealById(id);
+        return repository.getFavMealById(id);
     }
 
     @Override

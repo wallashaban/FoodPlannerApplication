@@ -1,4 +1,5 @@
 package com.example.foodplannerapp.meals_plan_feature.view;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,10 +11,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -39,13 +42,14 @@ public class WeeklyPlanAdapter extends RecyclerView.Adapter<WeeklyPlanAdapter.Vi
     private OnPlanClickListener listener;
     private OnMealClickListener mealClickListener;
 
-    public WeeklyPlanAdapter(Context context,List<Plan>plans,OnPlanClickListener listener,
-                             OnMealClickListener mealClickListener){
+    public WeeklyPlanAdapter(Context context, List<Plan> plans, OnPlanClickListener listener,
+                             OnMealClickListener mealClickListener) {
         this.context = context;
         this.mealsPlan = plans;
         this.listener = listener;
         this.mealClickListener = mealClickListener;
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -61,7 +65,7 @@ public class WeeklyPlanAdapter extends RecyclerView.Adapter<WeeklyPlanAdapter.Vi
         Plan mealPlan = mealsPlan.get(position);
         holder.mealName.setText(mealPlan.getMeal().getMealName());
         holder.date.setText(mealPlan.getDate());
-        if(mealPlan.getMeal().getImageData()==null) {
+        if (mealPlan.getMeal().getImageData() == null) {
             Glide.with(context).asBitmap().load(mealPlan.getMeal().getMealThumb())
                     .apply(new RequestOptions().override(200, 200)
                             .placeholder(R.drawable.ic_launcher_foreground) // don't forget the placeholder image
@@ -73,8 +77,7 @@ public class WeeklyPlanAdapter extends RecyclerView.Adapter<WeeklyPlanAdapter.Vi
                             holder.mealImage.setImageBitmap(resource);
                         }
                     });
-        }else{
-
+        } else {
             Log.i(TAG, "Bitmap");
             Bitmap bitmap = BitmapFactory.decodeByteArray(
                     mealPlan.getMeal().getImageData(), 0, mealPlan.getMeal().getImageData().length);
@@ -89,7 +92,7 @@ public class WeeklyPlanAdapter extends RecyclerView.Adapter<WeeklyPlanAdapter.Vi
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mealClickListener.OnMealClickListener(mealPlan.getMeal().getMealId(),v);
+                mealClickListener.OnMealClickListener(mealPlan.getMeal().getMealId(), v);
             }
         });
     }
@@ -99,7 +102,7 @@ public class WeeklyPlanAdapter extends RecyclerView.Adapter<WeeklyPlanAdapter.Vi
         return mealsPlan.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         View layout;
         TextView mealName;
@@ -107,6 +110,7 @@ public class WeeklyPlanAdapter extends RecyclerView.Adapter<WeeklyPlanAdapter.Vi
         Button planButton;
         TextView date;
         ConstraintLayout constraintLayout;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.layout = itemView;

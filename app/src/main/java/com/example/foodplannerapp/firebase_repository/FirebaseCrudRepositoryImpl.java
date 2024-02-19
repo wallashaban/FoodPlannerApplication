@@ -6,19 +6,17 @@ import com.example.foodplannerapp.firebase.FirebaseRemoteDataSource;
 import com.example.foodplannerapp.models.Meal;
 import com.example.foodplannerapp.models.Plan;
 
-public class FirebaseCrudRepositoryImpl implements FirebaseCrudRepository{
+public class FirebaseCrudRepositoryImpl implements FirebaseCrudRepository {
     private FirebaseRemoteDataSource dataSource;
-    private static FirebaseCrudRepositoryImpl instance= null;
+    private static FirebaseCrudRepositoryImpl instance = null;
 
-    private FirebaseCrudRepositoryImpl(FirebaseRemoteDataSource dataSource)
-    {
+    private FirebaseCrudRepositoryImpl(FirebaseRemoteDataSource dataSource) {
         this.dataSource = dataSource;
     }
+
     public static synchronized FirebaseCrudRepositoryImpl getInstance(FirebaseRemoteDataSource
-                                                                              dataSource)
-    {
-        if(instance == null)
-        {
+                                                                              dataSource) {
+        if (instance == null) {
             instance = new FirebaseCrudRepositoryImpl(dataSource);
         }
         return instance;

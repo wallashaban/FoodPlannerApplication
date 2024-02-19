@@ -1,8 +1,6 @@
 package com.example.foodplannerapp.Repository;
 
-import androidx.lifecycle.LiveData;
-
-import com.example.foodplannerapp.database.FavouritesLocalDataSource;
+import com.example.foodplannerapp.database.LocalDataSource;
 import com.example.foodplannerapp.models.DialyMeal;
 import com.example.foodplannerapp.models.Meal;
 import com.example.foodplannerapp.models.Plan;
@@ -20,19 +18,19 @@ import io.reactivex.rxjava3.core.Maybe;
 
 public class RepositoryImpl implements Repository {
 
-    RemoteDataSource remoteDataSource;
-    FavouritesLocalDataSource localDataSource;
+    private RemoteDataSource remoteDataSource;
+    private LocalDataSource localDataSource;
 
     private static RepositoryImpl instance = null;
 
-    private RepositoryImpl(RemoteDataSource remoteDataSource, FavouritesLocalDataSource
+    private RepositoryImpl(RemoteDataSource remoteDataSource, LocalDataSource
             localDataSource) {
         this.remoteDataSource = remoteDataSource;
         this.localDataSource = localDataSource;
     }
 
     public static synchronized RepositoryImpl getInstance(
-            RemoteDataSource remoteDataSource, FavouritesLocalDataSource localDataSource) {
+            RemoteDataSource remoteDataSource, LocalDataSource localDataSource) {
         if (instance == null) {
             instance = new RepositoryImpl(remoteDataSource, localDataSource);
         }
@@ -136,7 +134,7 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public void filterMealByAreaNetworkCallBack(MealsNetworkCallBAck networkCallBAck, String area) {
-        remoteDataSource.filterMealByAreaNetworkCallBack(networkCallBAck,area);
+        remoteDataSource.filterMealByAreaNetworkCallBack(networkCallBAck, area);
     }
 
     @Override

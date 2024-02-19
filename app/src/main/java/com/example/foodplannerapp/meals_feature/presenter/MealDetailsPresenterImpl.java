@@ -12,33 +12,33 @@ import java.util.List;
 
 public class MealDetailsPresenterImpl implements MealDetailsPresenter, MealsNetworkCallBAck {
 
-    MealDetailsView view;
-    Repository repository;
+    private MealDetailsView view;
+    private Repository repository;
     private FirebaseCrudRepository firebaseCrudRepository;
     private static MealDetailsPresenterImpl instance = null;
+
     private MealDetailsPresenterImpl(MealDetailsView view, Repository repository,
                                      FirebaseCrudRepository firebaseCrudRepository
-                                     )
-    {
+    ) {
         this.view = view;
         this.repository = repository;
         this.firebaseCrudRepository = firebaseCrudRepository;
     }
-    public static MealDetailsPresenterImpl getInstance(MealDetailsView view,
+
+    public static synchronized MealDetailsPresenterImpl getInstance(MealDetailsView view,
                                                        Repository repository,
-                                                       FirebaseCrudRepository firebaseCrudRepository)
-    {
-        if(instance == null)
-        {
-            instance = new MealDetailsPresenterImpl(view,repository,firebaseCrudRepository);
-        }else {
-            instance.view=view;
+                                                       FirebaseCrudRepository firebaseCrudRepository) {
+        if (instance == null) {
+            instance = new MealDetailsPresenterImpl(view, repository, firebaseCrudRepository);
+        } else {
+            instance.view = view;
         }
         return instance;
     }
+
     @Override
     public void getMealByID(String id) {
-        repository.getMealByIdNetworkCallBack(this,id);
+        repository.getMealByIdNetworkCallBack(this, id);
     }
 
     @Override

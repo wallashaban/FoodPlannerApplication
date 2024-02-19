@@ -2,8 +2,6 @@ package com.example.foodplannerapp.database;
 
 import android.content.Context;
 
-import androidx.lifecycle.LiveData;
-
 import com.example.foodplannerapp.models.DialyMeal;
 import com.example.foodplannerapp.models.Meal;
 import com.example.foodplannerapp.models.Plan;
@@ -13,7 +11,7 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Maybe;
 
-public class FavouritesLocalDataSourceImpl implements FavouritesLocalDataSource {
+public class LocalDataSourceImpl implements LocalDataSource {
 
     private FavouritesDAO favouritesDAO;
     private Context context;
@@ -22,9 +20,9 @@ public class FavouritesLocalDataSourceImpl implements FavouritesLocalDataSource 
     private Flowable<List<Meal>> meals;
     private DailyMealDAO dailyMealDAO;
     private DialyMeal meal;
-    private static FavouritesLocalDataSourceImpl instance = null;
+    private static LocalDataSourceImpl instance = null;
 
-    private FavouritesLocalDataSourceImpl(Context context) {
+    private LocalDataSourceImpl(Context context) {
         this.context = context;
         Database database = Database.getInstance(context);
         favouritesDAO = database.getFavouritesDao();
@@ -35,9 +33,9 @@ public class FavouritesLocalDataSourceImpl implements FavouritesLocalDataSource 
         plans = dao.getAllPlans();
     }
 
-    public static FavouritesLocalDataSourceImpl getInstance(Context context) {
+    public static LocalDataSourceImpl getInstance(Context context) {
         if (instance == null) {
-            instance = new FavouritesLocalDataSourceImpl(context);
+            instance = new LocalDataSourceImpl(context);
         }
         return instance;
     }
@@ -104,7 +102,7 @@ public class FavouritesLocalDataSourceImpl implements FavouritesLocalDataSource 
 
     @Override
     public void addPlan(Plan plan) {
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
                 dao.addPlan(plan);
@@ -114,7 +112,7 @@ public class FavouritesLocalDataSourceImpl implements FavouritesLocalDataSource 
 
     @Override
     public void removePlan(Plan plan) {
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
                 dao.removePlan(plan);
@@ -124,7 +122,7 @@ public class FavouritesLocalDataSourceImpl implements FavouritesLocalDataSource 
 
     @Override
     public void updatePlan(Plan plan) {
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
                 dao.updatePlan(plan);
@@ -140,7 +138,7 @@ public class FavouritesLocalDataSourceImpl implements FavouritesLocalDataSource 
 
     @Override
     public void deleteAllFavMeals() {
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
                 favouritesDAO.deleteAllFavMeal();
@@ -150,7 +148,7 @@ public class FavouritesLocalDataSourceImpl implements FavouritesLocalDataSource 
 
     @Override
     public void deleteAllPlans() {
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
                 dao.deleteAllPlans();
@@ -160,7 +158,7 @@ public class FavouritesLocalDataSourceImpl implements FavouritesLocalDataSource 
 
     @Override
     public void insertAllFavouries(List<Meal> meals) {
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
                 favouritesDAO.insertAllFavourites(meals);
@@ -170,7 +168,7 @@ public class FavouritesLocalDataSourceImpl implements FavouritesLocalDataSource 
 
     @Override
     public void insertAllPlans(List<Plan> plans) {
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
                 dao.insertAllPlans(plans);

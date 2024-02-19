@@ -20,17 +20,22 @@ import io.reactivex.rxjava3.core.Flowable;
 public interface PlanDAO {
     @Query("SELECT * FROM " + Constants.PLAN_TABLE)
     Flowable<List<Plan>> getAllPlans();
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void addPlan(Plan plan);
+
     @Delete
     void removePlan(Plan plan);
+
     @Update
     void updatePlan(Plan plan);
-    @Query("SELECT * FROM "+Constants.PLAN_TABLE+" WHERE date = :date")
+
+    @Query("SELECT * FROM " + Constants.PLAN_TABLE + " WHERE date = :date")
     Flowable<Plan> getPlaneByDate(String date);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAllPlans(List<Plan> plans);
-    @Query("DELETE FROM "+Constants.PLAN_TABLE)
+
+    @Query("DELETE FROM " + Constants.PLAN_TABLE)
     void deleteAllPlans();
 }

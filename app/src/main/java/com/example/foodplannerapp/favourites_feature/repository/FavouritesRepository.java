@@ -15,6 +15,8 @@ public interface FavouritesRepository {
     public void addMealToFavourites(Meal meal);
 
     public void removeMealFromFavourites(Meal meal);
+
     public void addAllFavourites(List<Meal> meals);
+
     public void addAllPlans(List<Plan> plans);
 }

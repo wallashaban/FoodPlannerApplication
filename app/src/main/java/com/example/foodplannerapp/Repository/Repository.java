@@ -19,15 +19,24 @@ import io.reactivex.rxjava3.core.Maybe;
 public interface Repository {
 
     public void insertDalyMeal(DialyMeal meal);
+
     public void removeDalyMeal();
+
     public Maybe<DialyMeal> getDailyMeal(String date);
+
     Flowable<List<Plan>> getAllPlans();
+
     void addPlan(Plan plan);
+
     void removePlan(Plan plan);
+
     void updatePlan(Plan plan);
+
     Flowable<Plan> getPlaneByDate(String date);
+
     Flowable<List<Meal>> getAllFavMeals();
-    Flowable<Meal>getFavMealById(String id);
+
+    Flowable<Meal> getFavMealById(String id);
 
     void addMealToFavourites(Meal meal);
 
@@ -48,6 +57,7 @@ public interface Repository {
     public void getAllCategoriesNetworkCallBack(CategoriesNetworkCallBAck networkCallBAck);
 
     public void filterMealByAreaNetworkCallBack(MealsNetworkCallBAck networkCallBAck, String area);
+
     public void getAllAreasNetworkCallBack(AreaNetworkCallBAck networkCallBAck);
 
     public void getAllIngredientsNetworkCallBack(IngredientsNetworkCallBAck networkCallBAck);

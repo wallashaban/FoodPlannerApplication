@@ -43,8 +43,8 @@ public class HomePresenterImpl implements HomePresenter, MealsNetworkCallBAck
                                                 RepositoryImpl repository,
                                                 FirebaseCrudRepository firebaseCrudRepository) {
         if (instance == null) {
-            instance = new HomePresenterImpl(view, repository,firebaseCrudRepository);
-        }else {
+            instance = new HomePresenterImpl(view, repository, firebaseCrudRepository);
+        } else {
             instance.view = view;
         }
         return instance;

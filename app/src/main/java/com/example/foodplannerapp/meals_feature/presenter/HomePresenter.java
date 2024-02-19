@@ -15,14 +15,22 @@ import io.reactivex.rxjava3.core.Maybe;
 
 public interface HomePresenter {
     public void insertDalyMeal(DialyMeal meal);
+
     public void removeDalyMeal();
+
     public Maybe<DialyMeal> getDailyMeal(String date);
+
     public void addMealToFavouriteUsingFirebase(Meal meal);
+
     public void removeMealFromFavouriteUsingFirebase(Meal meal);
+
     public void addMealToPlanUsingFirebase(Plan plan);
+
     public void removeMealFromPlanUsingFirebase(Plan plan);
+
     public void getAllMeals(List<Meal> meals);
-   public Flowable<Meal> getFavMealById(String id);
+
+    public Flowable<Meal> getFavMealById(String id);
 
     public void addMealToFavourites(Meal meal);
 

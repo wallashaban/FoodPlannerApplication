@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface RoomInsertion {
     public void AddAllFavourites(List<Meal> meals);
+
     public void AddAllPlans(List<Plan> plans);
 }

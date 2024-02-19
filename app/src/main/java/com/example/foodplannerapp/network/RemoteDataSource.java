@@ -1,7 +1,8 @@
 package com.example.foodplannerapp.network;
 
 public interface RemoteDataSource {
-    public void downLoadVideo(MealsNetworkCallBAck networkCallBAck,String url);
+    public void downLoadVideo(MealsNetworkCallBAck networkCallBAck, String url);
+
     public void getRandomMealsNetworkCallBack(RandomMealNetworkCallBAck networkCallBAck);
 
     public void getMealByIdNetworkCallBack(MealsNetworkCallBAck networkCallBAck, String id);

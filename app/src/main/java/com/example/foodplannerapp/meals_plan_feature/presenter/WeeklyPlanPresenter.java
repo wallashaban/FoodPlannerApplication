@@ -7,5 +7,6 @@ public interface WeeklyPlanPresenter {
     public void getAllPlansMeals();
 
     public void removePlan(Plan plan);
+
     public void removeMealFromPlanUsingFirebase(Plan plan);
 }

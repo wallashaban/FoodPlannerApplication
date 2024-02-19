@@ -1,6 +1,5 @@
 package com.example.foodplannerapp.Repository;
 
-import com.example.foodplannerapp.database.FavouritesLocalDataSource;
 import com.example.foodplannerapp.network.AreaNetworkCallBAck;
 import com.example.foodplannerapp.network.CategoriesNetworkCallBAck;
 import com.example.foodplannerapp.network.IngredientsNetworkCallBAck;
@@ -8,9 +7,10 @@ import com.example.foodplannerapp.network.MealsNetworkCallBAck;
 import com.example.foodplannerapp.network.RandomMealNetworkCallBAck;
 import com.example.foodplannerapp.network.RemoteDataSource;
 
-public class RemoteRepositoryImpl implements RemoteRepository{
+public class RemoteRepositoryImpl implements RemoteRepository {
     RemoteDataSource remoteDataSource;
     private static RemoteRepositoryImpl instance = null;
+
     private RemoteRepositoryImpl(RemoteDataSource remoteDataSource) {
         this.remoteDataSource = remoteDataSource;
     }

@@ -43,8 +43,8 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
 
     private RemoteDataSourceImpl() {
         retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(
-                GsonConverterFactory.create()
-        ).addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                        GsonConverterFactory.create()
+                ).addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build(); //Q
         services = retrofit.create(ApiServices.class);//Q
     }
@@ -58,12 +58,11 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
 
     @Override
     public void downLoadVideo(MealsNetworkCallBAck networkCallBAck, String url) {
-        Call<ResponseBody> call= services.downloadVideo(url);
+        Call<ResponseBody> call = services.downloadVideo(url);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful())
-                {
+                if (response.isSuccessful()) {
 
                 }
             }
@@ -80,7 +79,7 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
         Single<MealsObject> randomMealObservable = services.getRandomMeal();
         randomMealObservable.subscribeOn(Schedulers.io())
                 .onErrorResumeNext(
-                        error->{
+                        error -> {
                             if (error instanceof IOException || error instanceof SocketTimeoutException) {
                                 return Single.error(new Exception("No internet connection"));
                             }
@@ -88,10 +87,10 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
                         }
                 ).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        response->{
+                        response -> {
                             networkCallBAck.onRandomMealSuccessResult(response.getMeals());
                         },
-                        error->{
+                        error -> {
                             networkCallBAck.onRandomMealFailureResult(error.getMessage());
                         }
                 );
@@ -103,7 +102,7 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
         Single<MealsObject> mealObservable = services.getMealByID(id);
         mealObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(
-                        error->{
+                        error -> {
                             if (error instanceof IOException || error instanceof SocketTimeoutException) {
                                 return Single.error(new Exception("No internet connection"));
                             }
@@ -111,10 +110,10 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
                         }
                 )
                 .subscribe(
-                        response->{
+                        response -> {
                             networkCallBAck.onSuccessResult(response.getMeals());
                         },
-                        error->{
+                        error -> {
                             networkCallBAck.onFailureResult(error.getMessage());
                         }
                 );
@@ -125,7 +124,7 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
         Single<MealsObject> searchMealObservable = services.searchMealByName(name);
         searchMealObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(
-                        error->{
+                        error -> {
                             if (error instanceof IOException || error instanceof SocketTimeoutException) {
                                 return Single.error(new Exception("No internet connection"));
                             }
@@ -133,10 +132,10 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
                         }
                 )
                 .subscribe(
-                        response->{
+                        response -> {
                             networkCallBAck.onSuccessResult(response.getMeals());
                         },
-                        error->{
+                        error -> {
                             networkCallBAck.onFailureResult(error.getMessage());
                         }
                 );
@@ -147,7 +146,7 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
         Single<MealsObject> filterMealByMainIngredientObservable = services.filterMealByMainIngredient(ingredient);
         filterMealByMainIngredientObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(
-                        error->{
+                        error -> {
                             if (error instanceof IOException || error instanceof SocketTimeoutException) {
                                 return Single.error(new Exception("No internet connection"));
                             }
@@ -155,21 +154,21 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
                         }
                 )
                 .subscribe(
-                        response->{
+                        response -> {
                             networkCallBAck.onSuccessResult(response.getMeals());
                         },
-                        error->{
+                        error -> {
                             networkCallBAck.onFailureResult(error.getMessage());
                         }
                 );
-          }
+    }
 
     @Override
     public void filterMealByCategoryNetworkCallBack(MealsNetworkCallBAck networkCallBAck, String categoey) {
         Single<MealsObject> filterMealByCategoryObservable = services.filterMealByCategory(categoey);
         filterMealByCategoryObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(
-                        error->{
+                        error -> {
                             if (error instanceof IOException || error instanceof SocketTimeoutException) {
                                 return Single.error(new Exception("No internet connection"));
                             }
@@ -177,31 +176,31 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
                         }
                 )
                 .subscribe(
-                        response->{
+                        response -> {
                             networkCallBAck.onSuccessResult(response.getMeals());
                         },
-                        error->{
+                        error -> {
                             networkCallBAck.onFailureResult(error.getMessage());
                         }
                 );
-        }
+    }
 
     @Override
     public void searchMealByFirstLetterNetworkCallBack(MealsNetworkCallBAck networkCallBAck, String firstLetter) {
         Single<MealsObject> searchMealByFirstLetter = services.searchMealByFirstLetter(firstLetter);
         searchMealByFirstLetter.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(
-                        error->{
+                        error -> {
                             if (error instanceof IOException || error instanceof SocketTimeoutException) {
                                 return Single.error(new Exception("No internet connection"));
                             }
                             return Single.error(error);
                         }
                 ).subscribe(
-                        response->{
+                        response -> {
                             networkCallBAck.onSuccessResult(response.getMeals());
                         },
-                        error->{
+                        error -> {
                             networkCallBAck.onFailureResult(error.getMessage());
                         }
                 );
@@ -214,18 +213,18 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
         allCategoriesObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
                 .onErrorResumeNext(
-                        error->{
+                        error -> {
                             if (error instanceof IOException || error instanceof SocketTimeoutException) {
                                 //networkCallBAck.onCategoriesFailureResult("No internet connection");
                                 return Single.error(new Exception("No internet connection"));
                             }
                             return Single.error(error);
                         }
-                ) .subscribe(
-                        response->{
+                ).subscribe(
+                        response -> {
                             networkCallBAck.onCategoriesSuccessResult(response.getCategories());
                         },
-                        error->{
+                        error -> {
                             networkCallBAck.onCategoriesFailureResult(error.getMessage());
                         }
                 );
@@ -236,7 +235,7 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
         Single<AreaObject> allAreasObservable = services.getAllAreas();
         allAreasObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(
-                        error->{
+                        error -> {
                             if (error instanceof IOException || error instanceof SocketTimeoutException) {
                                 return Single.error(new Exception("No internet connection"));
                             }
@@ -244,10 +243,10 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
                         }
                 )
                 .subscribe(
-                        response->{
+                        response -> {
                             networkCallBAck.onAreasSuccessResult(response.getAreas());
                         },
-                        error->{
+                        error -> {
                             networkCallBAck.onAreasFailureResult(error.getMessage());
                         }
                 );
@@ -258,7 +257,7 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
         Single<IngredientsObject> allIngredientsObservable = services.getAllIngredients();
         allIngredientsObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(
-                        error->{
+                        error -> {
                             if (error instanceof IOException || error instanceof SocketTimeoutException) {
                                 return Single.error(new Exception("No internet connection"));
                             }
@@ -266,10 +265,10 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
                         }
                 )
                 .subscribe(
-                        response->{
+                        response -> {
                             networkCallBAck.onIngredientsSuccessResult(response.getIngredients());
                         },
-                        error->{
+                        error -> {
                             networkCallBAck.onIngredientsFailureResult(error.getMessage());
                         }
                 );
@@ -280,7 +279,7 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
         Single<MealsObject> mealByAreaObservable = services.filterMealByArea(area);
         mealByAreaObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(
-                        error->{
+                        error -> {
                             if (error instanceof IOException || error instanceof SocketTimeoutException) {
                                 return Single.error(new Exception("No internet connection"));
                             }
@@ -288,10 +287,10 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
                         }
                 )
                 .subscribe(
-                        response->{
+                        response -> {
                             networkCallBAck.onSuccessResult(response.getMeals());
                         },
-                        error->{
+                        error -> {
                             networkCallBAck.onFailureResult(error.getMessage());
                         }
                 );

@@ -23,26 +23,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource{
+public class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource {
     private static FirebaseRemoteDataSourceImpl instance = null;
     private FirebaseAuth auth;
-    private FirebaseFirestore firebaseFirestore ;
+    private FirebaseFirestore firebaseFirestore;
     private final String TAG = "FirebaseDataSource";
-    private  SharedPreferences sharedPreferences;
-    private FirebaseRemoteDataSourceImpl(Context context){
-        auth =  FirebaseAuth.getInstance();
+    private SharedPreferences sharedPreferences;
+
+    private FirebaseRemoteDataSourceImpl(Context context) {
+        auth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         sharedPreferences = context.getSharedPreferences("auth", Context.MODE_PRIVATE);
 
     }
-    public static synchronized FirebaseRemoteDataSourceImpl getInstance(Context context)
-    {
+
+    public static synchronized FirebaseRemoteDataSourceImpl getInstance(Context context) {
         if (instance == null) {
             instance = new FirebaseRemoteDataSourceImpl(context);
         }
         return instance;
     }
-
 
 
     @Override
@@ -56,7 +56,7 @@ public class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource{
                             Log.e("MyTag", task.getException().toString());
                         } else {
 
-                            networkCallback.onSuccessResult(parameters.email,parameters.name, parameters.context);
+                            networkCallback.onSuccessResult(parameters.email, parameters.name, parameters.context);
                         }
                     }
                 });
@@ -74,8 +74,8 @@ public class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource{
                             networkCallback.onFailureResult(task.getException().toString());
 
                         } else {
-                            networkCallback.onSuccessResult(parameters.email,parameters.name,parameters.context);
-                      }
+                            networkCallback.onSuccessResult(parameters.email, parameters.name, parameters.context);
+                        }
                     }
                 });
 
@@ -83,13 +83,13 @@ public class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource{
 
     @Override
     public void addMealToFavourite(Meal meal) {
-        String email = sharedPreferences.getString("email",null);
-        Map<String,String> data = new HashMap<>();
-        data.put("email",email);
-        data.put("mealId",meal.getMealId());
-        data.put("mealName",meal.getMealName());
-        data.put("mealThumb",meal.getMealThumb());
-        firebaseFirestore.collection("favourites").document(email+meal.getMealId()).set(data)
+        String email = sharedPreferences.getString("email", null);
+        Map<String, String> data = new HashMap<>();
+        data.put("email", email);
+        data.put("mealId", meal.getMealId());
+        data.put("mealName", meal.getMealName());
+        data.put("mealThumb", meal.getMealThumb());
+        firebaseFirestore.collection("favourites").document(email + meal.getMealId()).set(data)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -101,8 +101,8 @@ public class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource{
 
     @Override
     public void removeMealFromFavourite(Meal meal) {
-        String email = sharedPreferences.getString("email",null);
-        firebaseFirestore.collection("favourites").document(email+meal.getMealId())
+        String email = sharedPreferences.getString("email", null);
+        firebaseFirestore.collection("favourites").document(email + meal.getMealId())
                 .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -113,12 +113,12 @@ public class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource{
 
     @Override
     public void addMealToPlan(Plan plan) {
-        String email = sharedPreferences.getString("email",null);
-        Map<String,Object> data = new HashMap<>();
-        data.put("email",email);
-        data.put("date",plan.getDate());
-        data.put("meal",plan.getMeal());
-        firebaseFirestore.collection("plan").document(email+plan.getDate().replace("/"," "))
+        String email = sharedPreferences.getString("email", null);
+        Map<String, Object> data = new HashMap<>();
+        data.put("email", email);
+        data.put("date", plan.getDate());
+        data.put("meal", plan.getMeal());
+        firebaseFirestore.collection("plan").document(email + plan.getDate().replace("/", " "))
                 .set(data).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -129,8 +129,8 @@ public class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource{
 
     @Override
     public void removeMealFromPlan(Plan plan) {
-        String email = sharedPreferences.getString("email",null);
-        firebaseFirestore.collection("plan").document(email+plan.getDate().replace("/"," "))
+        String email = sharedPreferences.getString("email", null);
+        firebaseFirestore.collection("plan").document(email + plan.getDate().replace("/", " "))
                 .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -146,19 +146,16 @@ public class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource{
         firebaseFirestore.collection("plan").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful())
-                {
-                    Log.i(TAG, "successful Plans: ");
-                    for(QueryDocumentSnapshot doc: task.getResult())
-                    {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot doc : task.getResult()) {
 
-                        Log.i(TAG, "email Plan"+doc.get("email"));
-                        if(doc.get("email").equals(sharedPreferences.getString("email",null))) {
+                        Log.i(TAG, "email Plan" + doc.get("email"));
+                        if (doc.get("email").equals(sharedPreferences.getString("email", null))) {
                             Plan plan = doc.toObject(Plan.class);
                             plans.add(plan);
                             Log.i(TAG, "firebase: plans " + plan.toString() + " doc " + doc.get("meal"));
                         }
-                        Log.i(TAG, "onComplete: email plan"+sharedPreferences.getString("email",null));
+                        Log.i(TAG, "onComplete: email plan" + sharedPreferences.getString("email", null));
                     }
                     networkCallBack.onPlansSuccessResult(plans);
                 }
@@ -175,24 +172,16 @@ public class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource{
     @Override
     public void getAllFavMealFromFirebase(FirebaseMealsNetwokCallBack netwokCallBack) {
         List<Meal> meals = new ArrayList<>();
-
         firebaseFirestore.collection("favourites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful())
-                {
-                    Log.i(TAG, "successful Favs: ");
-                    for(QueryDocumentSnapshot doc: task.getResult())
-                    {
-
-                        doc.toString();
-                        Log.i(TAG, "task Email"+doc.get("email")+doc.toString());
-                        if(doc.get("email").equals(sharedPreferences.getString("email",null))) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot doc : task.getResult()) {
+                        Log.i(TAG, "task Email" + doc.get("email") + doc.toString());
+                        if (doc.get("email").equals(sharedPreferences.getString("email", null))) {
                             Meal meal = doc.toObject(Meal.class);
                             meals.add(meal);
-                            Log.i(TAG, "firebase: Meals " + meals.toString() + " doc " + doc.get("mealId"));
                         }
-                        Log.i(TAG, "onComplete: email"+sharedPreferences.getString("email",null));
                     }
                     netwokCallBack.onMealsSuccessResult(meals);
                 }
@@ -200,7 +189,6 @@ public class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource{
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.i(TAG, "failed Plans: ");
                 netwokCallBack.onMealsErrorResult(e.getMessage());
             }
         });
@@ -208,6 +196,6 @@ public class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource{
 
     @Override
     public void logOut() {
-            auth.signOut();
+        auth.signOut();
     }
 }

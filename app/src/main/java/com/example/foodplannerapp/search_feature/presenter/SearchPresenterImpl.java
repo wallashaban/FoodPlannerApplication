@@ -1,5 +1,6 @@
 package com.example.foodplannerapp.search_feature.presenter;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import com.example.foodplannerapp.Repository.RemoteRepository;
@@ -25,17 +26,17 @@ public class SearchPresenterImpl implements SearchPresenter,
         IngredientsNetworkCallBAck {
     private RemoteRepository repository;
     private SearchView view;
-    private static SearchPresenterImpl instance = null;
-    private SearchPresenterImpl(RemoteRepository repository,SearchView view)
-    {
+    private static  SearchPresenterImpl instance = null;
+
+    private SearchPresenterImpl(RemoteRepository repository, SearchView view) {
         this.repository = repository;
         this.view = view;
     }
-    public static synchronized SearchPresenterImpl getInstance(RemoteRepository repository,SearchView view)
-    {
+
+    public static synchronized SearchPresenterImpl getInstance(RemoteRepository repository, SearchView view) {
         if (instance == null) {
-            instance = new SearchPresenterImpl(repository,view);
-        }else{
+            instance = new SearchPresenterImpl(repository, view);
+        } else {
             instance.view = view;
         }
         return instance;
@@ -61,58 +62,58 @@ public class SearchPresenterImpl implements SearchPresenter,
         repository.getAllIngredientsNetworkCallBack(this);
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void searchByCategory(CategorySearchParameters parameters) {
-        Observable<Category> namesObservable = Observable.fromIterable(parameters. getCategories());
-       parameters.getFilteredCategories().clear();
-        namesObservable.filter(val->val.getCategory().toLowerCase().contains(
-               parameters. getSequence())).subscribe(
-                item->{
-                    Log.i("TAG", "onTextChanged: "+item);
-                   parameters. getFilteredCategories().add(item);
+        Observable<Category> namesObservable = Observable.fromIterable(parameters.getCategories());
+        parameters.getFilteredCategories().clear();
+        namesObservable.filter(val -> val.getCategory().toLowerCase().contains(
+                parameters.getSequence())).subscribe(
+                item -> {
+                    parameters.getFilteredCategories().add(item);
                 },
-                error-> Log.i("TAG", "onTextChanged: "),
+                error -> Log.i("TAG", "onTextChanged: "),
                 () -> {
-                   parameters.getAdapter().setCategories(parameters. getFilteredCategories());
-                  parameters. getAdapter().notifyDataSetChanged();
+                    parameters.getAdapter().setCategories(parameters.getFilteredCategories());
+                    parameters.getAdapter().notifyDataSetChanged();
                 }
 
         );
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void searchByIngredient(IngredientSearchParameters parameters) {
-        Observable<Ingredient> ingredientObservable = Observable.fromIterable(parameters. getIngredients());
+        Observable<Ingredient> ingredientObservable = Observable.fromIterable(parameters.getIngredients());
         parameters.getFilteredIngredients().clear();
-        ingredientObservable.filter(val->val.getIngredient().toLowerCase().contains(
-                parameters. getSequence())).subscribe(
-                item->{
-                    Log.i("TAG", "onTextChanged: "+item);
-                    parameters. getFilteredIngredients().add(item);
+        ingredientObservable.filter(val -> val.getIngredient().toLowerCase().contains(
+                parameters.getSequence())).subscribe(
+                item -> {
+                    parameters.getFilteredIngredients().add(item);
                 },
-                error-> Log.i("TAG", "onTextChanged: "),
+                error -> Log.i("TAG", "onTextChanged: "),
                 () -> {
-                    parameters.getAdapter().setIngredients(parameters. getFilteredIngredients());
-                    parameters. getAdapter().notifyDataSetChanged();
+                    parameters.getAdapter().setIngredients(parameters.getFilteredIngredients());
+                    parameters.getAdapter().notifyDataSetChanged();
                 }
 
         );
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void searchByCountry(AreaSearchParameters parameters) {
-        Observable<Area> categoryObservable = Observable.fromIterable(parameters. getAreas());
+        Observable<Area> categoryObservable = Observable.fromIterable(parameters.getAreas());
         parameters.getFilteredAreea().clear();
-        categoryObservable.filter(val->val.getArea().toLowerCase().contains(
-                parameters. getSequence())).subscribe(
-                item->{
-                    Log.i("TAG", "onTextChanged: "+item);
-                    parameters. getFilteredAreea().add(item);
+        categoryObservable.filter(val -> val.getArea().toLowerCase().contains(
+                parameters.getSequence())).subscribe(
+                item -> {
+                    parameters.getFilteredAreea().add(item);
                 },
-                error-> Log.i("TAG", "onTextChanged: "),
+                error -> Log.i("TAG", "onTextChanged: "),
                 () -> {
-                    parameters.getAdapter().setAreas(parameters. getFilteredAreea());
-                    parameters. getAdapter().notifyDataSetChanged();
+                    parameters.getAdapter().setAreas(parameters.getFilteredAreea());
+                    parameters.getAdapter().notifyDataSetChanged();
                 }
 
         );

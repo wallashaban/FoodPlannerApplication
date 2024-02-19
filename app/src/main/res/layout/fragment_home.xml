@@ -134,7 +134,8 @@
                         app:iconTint="@color/darkGreen"
                         app:layout_constraintEnd_toStartOf="@+id/favButton"
                         app:layout_constraintTop_toTopOf="@+id/favButton" />
-  <TextView
+
+                    <TextView
                         android:id="@+id/searchName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -152,7 +153,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
-          <TextView
+            <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

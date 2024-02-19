@@ -24,14 +24,14 @@ public class CategorySearchAdapter extends RecyclerView.Adapter<CategorySearchAd
 
     private Context context;
     private List<Category> categories;
-    private Map<String,Integer> images;
+    private Map<String, Integer> images;
     OnCategoryClickListener listener;
     private static String TAG = "CategoryAdapter";
 
     public void setCategories(List<Category> categories) {
-       // this.categories.clear();
+        // this.categories.clear();
         this.categories = categories;
-       // categories.remove(8);
+        // categories.remove(8);
     }
 
     public CategorySearchAdapter(Context context, List<Category> categories, OnCategoryClickListener listener) {
@@ -60,7 +60,7 @@ public class CategorySearchAdapter extends RecyclerView.Adapter<CategorySearchAd
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onCategoryClickListener(category.getCategory(),v);
+                listener.onCategoryClickListener(category.getCategory(), v);
             }
         });
         Log.i(TAG, "onBindViewHolder: ");

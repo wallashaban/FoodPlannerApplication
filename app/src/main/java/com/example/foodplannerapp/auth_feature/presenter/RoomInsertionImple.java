@@ -6,14 +6,15 @@ import com.example.foodplannerapp.models.Plan;
 
 import java.util.List;
 
-public class RoomInsertionImple implements RoomInsertion{
+public class RoomInsertionImple implements RoomInsertion {
     FavouritesRepository repository;
     private static RoomInsertionImple instance = null;
-    private RoomInsertionImple(FavouritesRepository repository){
+
+    private RoomInsertionImple(FavouritesRepository repository) {
         this.repository = repository;
     }
-    public static RoomInsertionImple getInstance(FavouritesRepository repository)
-    {
+
+    public static RoomInsertionImple getInstance(FavouritesRepository repository) {
         if (instance == null) {
             instance = new RoomInsertionImple(repository);
         }
@@ -22,7 +23,7 @@ public class RoomInsertionImple implements RoomInsertion{
 
     @Override
     public void AddAllFavourites(List<Meal> meals) {
-       repository.addAllFavourites(meals);
+        repository.addAllFavourites(meals);
     }
 
     @Override

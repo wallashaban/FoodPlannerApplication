@@ -23,17 +23,16 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     private Context context;
     private List<Category> categories;
-    private Map<String,Integer> images;
-    OnCategoryClickListener listener;
+    private Map<String, Integer> images;
+    private OnCategoryClickListener listener;
     private static String TAG = "CategoryAdapter";
 
     public void setCategories(List<Category> categories) {
-       // this.categories.clear();
+        // this.categories.clear();
         this.categories = categories;
-       // categories.remove(8);
     }
 
-    public CategoryAdapter(Context context, List<Category> categories,OnCategoryClickListener listener) {
+    public CategoryAdapter(Context context, List<Category> categories, OnCategoryClickListener listener) {
         this.context = context;
         this.categories = categories;
         this.listener = listener;
@@ -60,7 +59,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onCategoryClickListener(category.getCategory(),v);
+                listener.onCategoryClickListener(category.getCategory(), v);
             }
         });
         Log.i(TAG, "onBindViewHolder: ");

@@ -19,38 +19,38 @@ public class LoginPresenterImpl implements LoginPresenter,
         FirebaseAuthNetworkCallback,
         FirebasePlanNetworkCallBack,
         FirebaseMealsNetwokCallBack {
-   private FirebaseAuthRepository repository;
-   private LoginView view;
-   private static LoginPresenterImpl instance = null;
+    private FirebaseAuthRepository repository;
+    private LoginView view;
+    private static LoginPresenterImpl instance = null;
 
-   private LoginPresenterImpl(FirebaseAuthRepository repository, LoginView view)
-   {
-       this.repository = repository;
-       this.view = view;
-   }
-   public static synchronized LoginPresenterImpl getInstance(FirebaseAuthRepository repository, LoginView view)
-   {
-       if (instance == null) {
-           instance = new LoginPresenterImpl(repository,view);
-       }else {
-           instance.view = view;
-       }
-       return instance;
-   }
-    @Override
-    public void loginUserWithEmailAndPassword(AuthParameters parameters) {
-        repository.loginUserWithEmailAndPassword(parameters,this);
+    private LoginPresenterImpl(FirebaseAuthRepository repository, LoginView view) {
+        this.repository = repository;
+        this.view = view;
+    }
+
+    public static synchronized LoginPresenterImpl getInstance(FirebaseAuthRepository repository, LoginView view) {
+        if (instance == null) {
+            instance = new LoginPresenterImpl(repository, view);
+        } else {
+            instance.view = view;
+        }
+        return instance;
     }
 
     @Override
-    public void onSuccessResult(String email,String name, Context context) {
+    public void loginUserWithEmailAndPassword(AuthParameters parameters) {
+        repository.loginUserWithEmailAndPassword(parameters, this);
+    }
+
+    @Override
+    public void onSuccessResult(String email, String name, Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("auth", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("email", email);
         editor.commit();
         repository.getFavMealsFromFirebase(this);
         repository.getPlansFromFirebase(this);
-        Log.i("TAG", "onSuccessResult: Email"+sharedPreferences.getString("email",null));
+        Log.i("TAG", "onSuccessResult: Email" + sharedPreferences.getString("email", null));
     }
 
     @Override
@@ -65,16 +65,16 @@ public class LoginPresenterImpl implements LoginPresenter,
 
     @Override
     public void onMealsErrorResult(String errorMessage) {
-       view.showMealsErrorMessage(errorMessage);
+        view.showMealsErrorMessage(errorMessage);
     }
 
     @Override
     public void onPlansSuccessResult(List<Plan> plans) {
-       view.showPlansData(plans);
+        view.showPlansData(plans);
     }
 
     @Override
     public void onPlansErrorResult(String errorMessage) {
-       view.showPlansErrorMessage(errorMessage);
+        view.showPlansErrorMessage(errorMessage);
     }
 }

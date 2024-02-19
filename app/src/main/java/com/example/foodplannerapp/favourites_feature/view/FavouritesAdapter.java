@@ -68,14 +68,14 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mealClickListener.OnMealClickListener(meal.getMealId(),v);
+                mealClickListener.OnMealClickListener(meal.getMealId(), v);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        Log.i(TAG, "getItemCount: "+meals.size());
+        Log.i(TAG, "getItemCount: " + meals.size());
         return meals.size();
     }
 

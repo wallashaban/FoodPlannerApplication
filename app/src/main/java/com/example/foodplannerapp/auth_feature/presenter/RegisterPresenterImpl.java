@@ -10,30 +10,31 @@ import com.example.foodplannerapp.models.AuthParameters;
 
 public class RegisterPresenterImpl implements RegisterPresenter,
         FirebaseAuthNetworkCallback {
-    private FirebaseAuthRepository repository;;
+    private FirebaseAuthRepository repository;
+    ;
     private RegisterView view;
     private static RegisterPresenterImpl instance = null;
-    private RegisterPresenterImpl(FirebaseAuthRepository repository, RegisterView view)
-    {
+
+    private RegisterPresenterImpl(FirebaseAuthRepository repository, RegisterView view) {
         this.repository = repository;
         this.view = view;
     }
+
     public static RegisterPresenterImpl getInstance(FirebaseAuthRepository repository,
-                                                    RegisterView view)
-    {
+                                                    RegisterView view) {
         if (instance == null) {
-            instance =new RegisterPresenterImpl(repository,view);
+            instance = new RegisterPresenterImpl(repository, view);
         }
         return instance;
     }
 
     @Override
     public void registerUserByEmailAndPassword(AuthParameters parameters) {
-        repository.registerUserWithEmailAndPassword(parameters,this);
+        repository.registerUserWithEmailAndPassword(parameters, this);
     }
 
 
-    public void onSuccessResult(String email,String name, Context context) {
+    public void onSuccessResult(String email, String name, Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("auth", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("email", email);
