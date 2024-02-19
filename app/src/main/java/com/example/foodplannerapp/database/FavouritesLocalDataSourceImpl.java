@@ -4,26 +4,34 @@ import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.foodplannerapp.models.DialyMeal;
 import com.example.foodplannerapp.models.Meal;
 import com.example.foodplannerapp.models.Plan;
 
 import java.util.List;
+
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Maybe;
 
 public class FavouritesLocalDataSourceImpl implements FavouritesLocalDataSource {
 
     private FavouritesDAO favouritesDAO;
     private Context context;
     private PlanDAO dao;
-    private LiveData<List<Plan>> plans;
-    private LiveData<List<Meal>> meals;
+    private Flowable<List<Plan>> plans;
+    private Flowable<List<Meal>> meals;
+    private DailyMealDAO dailyMealDAO;
+    private DialyMeal meal;
     private static FavouritesLocalDataSourceImpl instance = null;
 
     private FavouritesLocalDataSourceImpl(Context context) {
         this.context = context;
         Database database = Database.getInstance(context);
         favouritesDAO = database.getFavouritesDao();
+        dailyMealDAO = database.getDailyMealDao();
         meals = favouritesDAO.getAllFavMeals(); // what if I need the products after change?
         dao = database.getPlanDao();
+
         plans = dao.getAllPlans();
     }
 
@@ -35,12 +43,37 @@ public class FavouritesLocalDataSourceImpl implements FavouritesLocalDataSource 
     }
 
     @Override
-    public LiveData<List<Meal>> getAllFavMeals() {
-        return meals; // ?اشمعنى الداتا ديه مش ف thread
+    public void insertDailyMeal(DialyMeal meal) {
+        new Thread() {
+            @Override
+            public void run() {
+                dailyMealDAO.insertDailyMeal(meal);
+            }
+        }.start();
     }
 
     @Override
-    public LiveData<Meal> getFavMealById(String id) {
+    public void removeDailyMeal() {
+        new Thread() {
+            @Override
+            public void run() {
+                dailyMealDAO.removeDailyMeal();
+            }
+        }.start();
+    }
+
+    @Override
+    public Maybe<DialyMeal> getDailyMeal(String date) {
+        return dailyMealDAO.getDailyMeal(date);
+    }
+
+    @Override
+    public Flowable<List<Meal>> getAllFavMeals() {
+        return meals;
+    }
+
+    @Override
+    public Flowable<Meal> getFavMealById(String id) {
         return favouritesDAO.getFavMealById(id);
     }
 
@@ -65,7 +98,7 @@ public class FavouritesLocalDataSourceImpl implements FavouritesLocalDataSource 
     }
 
     @Override
-    public LiveData<List<Plan>> getAllPlans() {
+    public Flowable<List<Plan>> getAllPlans() {
         return plans;
     }
 
@@ -100,7 +133,7 @@ public class FavouritesLocalDataSourceImpl implements FavouritesLocalDataSource 
     }
 
     @Override
-    public LiveData<Plan> getPlaneByDate(String date) {
+    public Flowable<Plan> getPlaneByDate(String date) {
 
         return dao.getPlaneByDate(date);
     }

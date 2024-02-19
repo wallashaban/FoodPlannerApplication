@@ -11,10 +11,11 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:elevation="16dp"
         android:paddingStart="32dp"
-        android:paddingEnd="32dp"
+        android:paddingEnd="16dp"
+        app:cardBackgroundColor="@color/lightGreen"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,11 +26,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|end"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            android:text="TextView" />
+
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="12/12/2012"
+            android:textColor="@color/darkGreen"
+            android:textSize="20sp"
+            android:textStyle="bold|italic" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -38,7 +44,9 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            app:srcCompat="@drawable/calendar" />
+            android:backgroundTint="@color/darkGreen"
+            app:iconTint="@color/darkGreen"
+            app:srcCompat="@drawable/calendar_green" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
@@ -49,7 +57,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:elevation="16dp"
-        app:cardCornerRadius="32dp"
+        app:cardCornerRadius="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView">
@@ -82,36 +90,56 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:shapeAppearance="@style/ImageViewShapeAppearance" />
 
-            <CheckBox
-                android:id="@+id/planMealRandomButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="160dp"
-                android:layout_marginEnd="28dp"
-                android:button="@drawable/calendar"
-                app:buttonTint="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <TextView
                 android:id="@+id/searchName"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="2dp"
-                android:background="#79121111"
-                android:fontFamily="@font/amita"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
+                android:background="#56100F0F"
+                android:paddingStart="8dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="8dp"
                 android:text="TextView"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold|italic"
-                app:layout_constraintBottom_toBottomOf="@+id/searchImage"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/planMealRandomButton"
+                style="?attr/materialIconButtonFilledStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/lightGreen"
+                android:contentDescription=""
+                app:icon="@drawable/calendar"
+                app:iconSize="16dp"
+                app:iconTint="@color/darkGreen"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <!--            <TextView-->
+            <!--                android:id="@+id/searchName"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginStart="12dp"-->
+            <!--                android:layout_marginEnd="16dp"-->
+            <!--                android:layout_marginBottom="2dp"-->
+            <!--                android:background="#79121111"-->
+            <!--                android:fontFamily="@font/amita"-->
+            <!--                android:paddingStart="16dp"-->
+            <!--                android:paddingEnd="16dp"-->
+            <!--                android:text="TextView"-->
+            <!--                android:textColor="@color/white"-->
+            <!--                android:textSize="20sp"-->
+            <!--                android:textStyle="bold|italic"-->
+            <!--                app:layout_constraintBottom_toBottomOf="@+id/searchImage"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintHorizontal_bias="0.0"-->
+            <!--                app:layout_constraintStart_toStartOf="parent" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

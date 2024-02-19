@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.Repository.RepositoryImpl;
 import com.example.foodplannerapp.database.FavouritesLocalDataSourceImpl;
@@ -36,6 +37,10 @@ import com.example.foodplannerapp.network.RemoteDataSourceImpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 
 public class WeeklyPlanFragment extends Fragment implements WeeklyPlanView,
 OnPlanClickListener, OnMealClickListener {
@@ -49,6 +54,7 @@ OnPlanClickListener, OnMealClickListener {
     LinearLayoutManager manager;
     RecyclerView weeklyPlanRecyclerView;
     ConstraintLayout constraintLayout;
+    LottieAnimationView noPlans;
     public WeeklyPlanFragment() {
         // Required empty public constructor
     }
@@ -85,6 +91,7 @@ OnPlanClickListener, OnMealClickListener {
         adapter = new WeeklyPlanAdapter(getContext(), plans, this,this);
         manager = new LinearLayoutManager(getContext());
 
+        noPlans = view.findViewById(R.id.noPlans);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
 
         weeklyPlanRecyclerView.setLayoutManager(manager);
@@ -108,15 +115,36 @@ OnPlanClickListener, OnMealClickListener {
     }
 
     @Override
-    public void setPlansList(LiveData<List<Plan>> plans) {
-        plans.observe(this, new Observer<List<Plan>>() {
-            @Override
-            public void onChanged(List<Plan> plans) {
-                WeeklyPlanFragment.this.plans = plans;
-                adapter.setMealsPlan(plans);
-                Log.i(TAG, "setPlansList: " + plans.size());
-                adapter.notifyDataSetChanged();
-            }
-        });
+    public void setPlansList(Flowable<List<Plan>> plans) {
+        List<Plan> planList = new ArrayList<>();
+        plans.subscribeOn(Schedulers.io()).doOnNext(
+                item-> Log.i(TAG, "setProductsList: Next"+item)
+        ).observeOn(AndroidSchedulers.mainThread()).subscribe(item->{
+                    Log.i(TAG, "setProductsList: subscribe"+item);
+                    // pros = item;
+            if(item.size()==0)
+                noPlans.setVisibility(View.VISIBLE);
+
+                    adapter.setMealsPlan(item);
+                    adapter.notifyDataSetChanged();
+                },
+                error->{
+                    Log.i(TAG, "setProductsList: Rrror"+error.getMessage());
+                },
+                ()->{
+                    Log.i(TAG, "setProductsList: OnComplete");
+                    //adapter.setProducts(pros);
+                    //adapter.notifyDataSetChanged();
+                }
+        );
+//        plans.observe(this, new Observer<List<Plan>>() {
+//            @Override
+//            public void onChanged(List<Plan> plans) {
+//                WeeklyPlanFragment.this.plans = plans;
+//                adapter.setMealsPlan(plans);
+//                Log.i(TAG, "setPlansList: " + plans.size());
+//                adapter.notifyDataSetChanged();
+//            }
+//        });
     }
 }

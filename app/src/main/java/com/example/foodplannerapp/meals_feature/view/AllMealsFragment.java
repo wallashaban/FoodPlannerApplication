@@ -17,8 +17,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.Repository.RepositoryImpl;
 import com.example.foodplannerapp.Shared.Constants;
@@ -37,6 +39,8 @@ public class AllMealsFragment extends Fragment implements AllMealsview,OnMealCli
 
     private static final String TAG = "AllMealsFragment";
     AllMealsPresenter presenter;
+    ProgressBar progressBar;
+    LottieAnimationView lottieAnimationView;
     MealAdapter categoryMealsAdapter;
     List<Meal> meals;
     List<Meal> categoryMeals;
@@ -80,6 +84,8 @@ public class AllMealsFragment extends Fragment implements AllMealsview,OnMealCli
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        progressBar = view.findViewById(R.id.allMealsProgressBar);
+        lottieAnimationView = view.findViewById(R.id.no_internet_animationAllMeals);
         mealsRecyclerView = view.findViewById(R.id.allMealsRecyclerView);
         categoryRecyclerView = view.findViewById(R.id.allMealsRecyclerView);
         mealsAdapter = new MealAdapter(getContext(), meals, this, this);
@@ -89,11 +95,11 @@ public class AllMealsFragment extends Fragment implements AllMealsview,OnMealCli
         mealsManager.setOrientation(LinearLayoutManager.VERTICAL);
         categoryManager.setOrientation(RecyclerView.VERTICAL);
 
-        if(count == 2)
-        {
-            categoryRecyclerView.setLayoutManager(categoryManager);
-            categoryRecyclerView.setAdapter(categoryMealsAdapter);
-        }
+//        if(count == 2)
+//        {
+//            categoryRecyclerView.setLayoutManager(categoryManager);
+//            categoryRecyclerView.setAdapter(categoryMealsAdapter);
+//        }
         mealsRecyclerView.setLayoutManager(mealsManager);
         mealsRecyclerView.setAdapter(mealsAdapter);
         Log.i(TAG, "onViewCreated: meals  :: Category"+meals.size());
@@ -121,7 +127,7 @@ public class AllMealsFragment extends Fragment implements AllMealsview,OnMealCli
     @Override
     public void showData(List<Meal> meals) {
         Log.i(TAG, "showData: category" + meals.size()+"  "+count);
-
+        progressBar.setVisibility(View.INVISIBLE);
             mealsAdapter.setMeals(meals);
             mealsAdapter.notifyDataSetChanged();
     }
@@ -129,6 +135,10 @@ public class AllMealsFragment extends Fragment implements AllMealsview,OnMealCli
 
     @Override
     public void showErrorMessage(String errorMessage) {
+        if(errorMessage.equals(("No internet connection")))
+        {
+            lottieAnimationView.setVisibility(View.VISIBLE);
+        }
         Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
     }
 

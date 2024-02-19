@@ -11,8 +11,10 @@
     android:layout_marginEnd="1dp"
     android:layout_marginRight="8dp"
     android:layout_marginBottom="16dp"
+    android:background="@color/lightGreen"
+    android:backgroundTint="@color/lightGreen"
     android:elevation="16dp"
-    app:cardCornerRadius="32dp"
+    app:cardCornerRadius="16dp"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
@@ -25,7 +27,7 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/searchImage"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="180dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ingredient"
             app:layout_constraintEnd_toEndOf="parent"
@@ -34,27 +36,32 @@
             app:shapeAppearance="@style/ImageViewShapeAppearance" />
 
 
-        <CheckBox
+        <Button
             android:id="@+id/favButton"
+            style="?attr/materialIconButtonFilledStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/lightGreen"
             android:button="@drawable/fav_icon"
-            app:buttonTint="@color/white"
+            android:contentDescription=""
+            app:icon="@drawable/favorite"
+            app:iconSize="16dp"
+            app:iconTint="@color/darkGreen"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-<!--        <ImageButton-->
-<!--            android:id="@+id/favButton"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:layout_marginEnd="16dp"-->
-<!--            android:background="@drawable/icon_shape"-->
-<!--            android:padding="16dp"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:srcCompat="@drawable/favorite" />-->
+        <!--        <ImageButton-->
+        <!--            android:id="@+id/favButton"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:layout_marginEnd="16dp"-->
+        <!--            android:background="@drawable/icon_shape"-->
+        <!--            android:padding="16dp"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:srcCompat="@drawable/favorite" />-->
 
         <TextView
             android:id="@+id/searchName"
@@ -65,8 +72,8 @@
             android:layout_marginBottom="16dp"
             android:text="TextView"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchImage" />

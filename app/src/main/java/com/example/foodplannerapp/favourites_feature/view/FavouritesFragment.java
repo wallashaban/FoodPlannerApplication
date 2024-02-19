@@ -1,5 +1,6 @@
 package com.example.foodplannerapp.favourites_feature.view;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.foodplannerapp.database.FavouritesLocalDataSourceImpl;
 import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.favourites_feature.presenter.FavouritesPresenter;
@@ -29,6 +31,10 @@ import com.example.foodplannerapp.models.Meal;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 public class FavouritesFragment extends Fragment implements FavouritesView, OnFavClickListener, OnMealClickListener {
 
 
@@ -39,6 +45,7 @@ public class FavouritesFragment extends Fragment implements FavouritesView, OnFa
 
     List<Meal> meals;
     FavouritesAdapter favAdapter;
+    LottieAnimationView noFavs;
     private final static String TAG = "HomeFragment";
 
     public FavouritesFragment() {
@@ -70,6 +77,7 @@ public class FavouritesFragment extends Fragment implements FavouritesView, OnFa
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         favRecyclerView = view.findViewById(R.id.favsRecyclerView);
+        noFavs = view.findViewById(R.id.noFavs);
         favAdapter = new FavouritesAdapter(getContext(), meals, this, this);
         favManager = new GridLayoutManager(getContext(),2);
         favManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -80,19 +88,28 @@ public class FavouritesFragment extends Fragment implements FavouritesView, OnFa
             presenter.getAllFavouritesMeals();
     }
 
+    @SuppressLint("CheckResult")
     @Override
-    public void setFavouritesList(LiveData<List<Meal>> meals) {
+    public void setFavouritesList(Flowable<List<Meal>> meals) {
         Log.i(TAG, "setFavouritesList: " + meals.toString());
-        meals.observe(this, new Observer<List<Meal>>() {
-            @Override
-            public void onChanged(List<Meal> meals) {
-                FavouritesFragment.this.meals = meals;
-                favAdapter.setMeals(meals);
-                Log.i(TAG, "setFavouritesList: " + meals.size());
-                favAdapter.notifyDataSetChanged();
-            }
-        });
-    }
+        List<Meal> mealList = new ArrayList<>();
+        meals.subscribeOn(Schedulers.io()).doOnNext(
+                item-> Log.i(TAG, "setProductsList: Next"+item)
+        ).observeOn(AndroidSchedulers.mainThread()).subscribe(item->{
+                    Log.i(TAG, "setProductsList: subscribe"+item);
+                    if(item.size()==0)
+                        noFavs.setVisibility(View.VISIBLE);
+                    favAdapter.setMeals(item);
+                    favAdapter.notifyDataSetChanged();
+                },
+                error->{
+                    Log.i(TAG, "setProductsList: Rrror"+error.getMessage());
+                },
+                ()->{
+                    Log.i(TAG, "setProductsList: OnComplete");
+                }
+        );
+ }
 
     @Override
     public void OnFavClickListener(Meal meal) {

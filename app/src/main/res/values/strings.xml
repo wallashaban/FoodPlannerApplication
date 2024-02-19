@@ -31,4 +31,14 @@
     <string name="logout">LogOut</string>
     <string name="mealSearch">Meal</string>
     <string name="countries">Country</string>
+    <string name="savedMeals">My Saved Meals</string>
+    <string name="plans">My Plans</string>
+    <string name="input_email">Email</string>
+    <string name="name_input">Name</string>
+    <string name="no_connection">No internet connection</string>
+    <string name="skip">Skip</string>
+    <string name="noAcount">Don\'t have an acount?</string>
+    <string name="signup">SignUp</string>
+    <string name="haveAcoount">Have an acount?</string>
+    <string name="signin">SignIn</string>
 </resources>

@@ -14,10 +14,12 @@ import com.example.foodplannerapp.models.Plan;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Flowable;
+
 @Dao
 public interface PlanDAO {
     @Query("SELECT * FROM " + Constants.PLAN_TABLE)
-    LiveData<List<Plan>> getAllPlans();
+    Flowable<List<Plan>> getAllPlans();
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void addPlan(Plan plan);
     @Delete
@@ -25,7 +27,7 @@ public interface PlanDAO {
     @Update
     void updatePlan(Plan plan);
     @Query("SELECT * FROM "+Constants.PLAN_TABLE+" WHERE date = :date")
-    LiveData<Plan> getPlaneByDate(String date);
+    Flowable<Plan> getPlaneByDate(String date);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAllPlans(List<Plan> plans);

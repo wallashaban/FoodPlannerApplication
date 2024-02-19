@@ -8,13 +8,51 @@
     android:paddingEnd="16dp"
     tools:context=".search_feature.view.SearchFragment">
 
+    <ProgressBar
+        android:id="@+id/searchProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="324dp"
+        android:backgroundTint="@color/lightGreen"
+        android:outlineAmbientShadowColor="@color/lightGreen"
+        android:outlineSpotShadowColor="@color/lightGreen"
+        android:progressBackgroundTint="@color/lightGreen"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/no_internet_animation_search"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1.4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.8"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/no_internet" />
+
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="72dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="56dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout"
@@ -22,6 +60,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="search"
+                app:boxStrokeColor="@color/lightGreen"
+                app:hintTextColor="@color/darkGreen"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -51,11 +91,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/lightGreen"
                     android:text="@string/category"
+                    android:textColor="@color/darkGreen"
                     app:checkedIcon="@drawable/check"
                     app:checkedIconTint="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/search"
-                    app:layout_constraintTop_toBottomOf="@+id/search" />
+                    app:layout_constraintTop_toBottomOf="@+id/search"
+                    app:rippleColor="@color/darkGreen" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/ingredientSearch"
@@ -63,9 +106,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="@string/ingredients"
+                    android:textColor="@color/darkGreen"
                     app:checkedIcon="@drawable/check"
+                    app:chipBackgroundColor="@color/lightGreen"
                     app:layout_constraintStart_toEndOf="@+id/meal"
-                    app:layout_constraintTop_toTopOf="@+id/categories" />
+                    app:layout_constraintTop_toTopOf="@+id/categories"
+                    app:rippleColor="@color/darkGreen" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/countries"
@@ -73,35 +119,56 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="@string/countries"
+                    android:textColor="@color/darkGreen"
                     app:checkedIcon="@drawable/check"
+                    app:chipBackgroundColor="@color/lightGreen"
                     app:layout_constraintStart_toEndOf="@+id/ingredientSearch"
-                    app:layout_constraintTop_toTopOf="@+id/categories" />
+                    app:layout_constraintTop_toTopOf="@+id/categories"
+                    app:rippleColor="@color/darkGreen" />
             </com.google.android.material.chip.ChipGroup>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/noData"
+                android:layout_width="291dp"
+                android:layout_height="407dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="52dp"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chipGroup"
+                app:layout_constraintWidth_percent="0.8"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/no_search_result" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/searchCategoryRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:visibility="invisible"
                 app:layout_constraintTop_toBottomOf="@+id/chipGroup"
-                tools:layout_editor_absoluteX="0dp"
-                android:visibility="invisible"/>
+                tools:layout_editor_absoluteX="0dp" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/searchAreaRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:visibility="invisible"
                 app:layout_constraintTop_toBottomOf="@+id/chipGroup"
-                tools:layout_editor_absoluteX="0dp"
-                android:visibility="invisible"/>
+                tools:layout_editor_absoluteX="0dp" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/searchIngredientRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:visibility="invisible"
                 app:layout_constraintTop_toBottomOf="@+id/chipGroup"
-                tools:layout_editor_absoluteX="0dp"
-                android:visibility="invisible"/>
+                tools:layout_editor_absoluteX="0dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

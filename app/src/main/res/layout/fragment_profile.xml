@@ -9,49 +9,97 @@
     android:paddingBottom="8dp"
     tools:context=".auth_feature.view.profileFragment">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/profileName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:drawableStart="@drawable/outline_person"
-        android:drawablePadding="8dp"
-        android:editable="false"
-        android:hint="@string/name"
-        android:inputType="text"
-        app:layout_constraintStart_toStartOf="@+id/profileEmail"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/profileEmail"
+    <!--    <com.google.android.material.textfield.TextInputEditText-->
+    <!--        android:id="@+id/profileName"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="24dp"-->
+    <!--        android:drawableStart="@drawable/outline_person"-->
+    <!--        android:drawablePadding="8dp"-->
+    <!--        android:editable="false"-->
+    <!--        android:hint="@string/name"-->
+    <!--        android:inputType="text"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/profileEmail"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textView2" />-->
+
+
+    <!--    <com.google.android.material.textfield.TextInputEditText-->
+    <!--        android:id="@+id/profileEmail"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="64dp"-->
+    <!--        android:drawableStart="@drawable/outline_email"-->
+    <!--        android:drawablePadding="8dp"-->
+    <!--        android:hint="@string/email"-->
+    <!--        android:inputType="text"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/profileName"-->
+    <!--        tools:layout_editor_absoluteX="72dp" />-->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:drawableStart="@drawable/outline_email"
-        android:drawablePadding="8dp"
-        android:hint="@string/email"
-        android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@+id/profileName"
-        tools:layout_editor_absoluteX="48dp" />
+        android:textColorHint="@color/darkGreen"
+        app:hintTextColor="@color/darkGreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/profileName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/outline_person"
+            android:drawablePadding="8dp"
+            android:drawableTint="@color/darkGreen"
+            android:hint="@string/name_input"
+            android:textColor="@color/darkGreen"
+            android:textColorHint="@color/darkGreen" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textColorHint="@color/darkGreen"
+        app:hintTextColor="@color/darkGreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/profileEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/outline_email"
+            android:drawablePadding="8dp"
+            android:drawableTint="@color/darkGreen"
+            android:hint="@string/input_email"
+            android:textColor="@color/darkGreen"
+            android:textColorHint="@color/darkGreen" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/logout"
-        android:layout_width="266dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="64dp"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="56dp"
+        android:backgroundTint="@color/darkGreen"
         android:editable="false"
         android:text="@string/logout"
-        app:layout_constraintStart_toStartOf="@+id/profileEmail"
-        app:layout_constraintTop_toBottomOf="@+id/profileEmail" />
+        android:textColor="@color/lightGreen"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="120dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="216dp"
         android:layout_marginEnd="120dp"
         android:fontFamily="@font/amita"
         android:text="@string/appName"

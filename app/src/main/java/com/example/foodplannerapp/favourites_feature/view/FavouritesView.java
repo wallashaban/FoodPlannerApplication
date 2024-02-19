@@ -6,6 +6,8 @@ import com.example.foodplannerapp.models.Meal;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Flowable;
+
 public interface FavouritesView {
-    public void setFavouritesList(LiveData<List<Meal>> meals);
+    public void setFavouritesList(Flowable<List<Meal>> meals);
 }

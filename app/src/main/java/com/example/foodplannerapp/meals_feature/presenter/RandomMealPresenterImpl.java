@@ -60,6 +60,12 @@ public class RandomMealPresenterImpl implements RandomMealPresenter, RandomMealN
     view.showErrorMessage(errorMessage);
 
 }
+
+    @Override
+    public void onNetworkFailure(String errorMessage) {
+
+    }
+
     @Override
     public void addMealToFavouriteUsingFirebase(Meal meal) {
         firebaseCrudRepository.addMealToFavouriteUsingFirebase(meal);

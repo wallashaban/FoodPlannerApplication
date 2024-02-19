@@ -1,6 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.FoodPlannerApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">#FFFFFF</item>
+
+        <item name="android:colorButtonNormal">@color/darkGreen</item>
+        <item name="android:statusBarColor">@color/darkGreen</item>
+        <item name="bottomAppBarStyle">@style/BottomNavigationViewStyle</item>
+        <item name="android:textColor">@color/darkGreen</item>
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>

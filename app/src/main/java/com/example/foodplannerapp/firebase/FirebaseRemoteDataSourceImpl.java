@@ -29,12 +29,11 @@ public class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource{
     private FirebaseFirestore firebaseFirestore ;
     private final String TAG = "FirebaseDataSource";
     private  SharedPreferences sharedPreferences;
-    private String email;
     private FirebaseRemoteDataSourceImpl(Context context){
         auth =  FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         sharedPreferences = context.getSharedPreferences("auth", Context.MODE_PRIVATE);
-        email = sharedPreferences.getString("email",null);
+
     }
     public static synchronized FirebaseRemoteDataSourceImpl getInstance(Context context)
     {
@@ -84,6 +83,7 @@ public class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource{
 
     @Override
     public void addMealToFavourite(Meal meal) {
+        String email = sharedPreferences.getString("email",null);
         Map<String,String> data = new HashMap<>();
         data.put("email",email);
         data.put("mealId",meal.getMealId());
@@ -101,6 +101,7 @@ public class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource{
 
     @Override
     public void removeMealFromFavourite(Meal meal) {
+        String email = sharedPreferences.getString("email",null);
         firebaseFirestore.collection("favourites").document(email+meal.getMealId())
                 .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -112,6 +113,7 @@ public class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource{
 
     @Override
     public void addMealToPlan(Plan plan) {
+        String email = sharedPreferences.getString("email",null);
         Map<String,Object> data = new HashMap<>();
         data.put("email",email);
         data.put("date",plan.getDate());
@@ -127,6 +129,7 @@ public class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource{
 
     @Override
     public void removeMealFromPlan(Plan plan) {
+        String email = sharedPreferences.getString("email",null);
         firebaseFirestore.collection("plan").document(email+plan.getDate().replace("/"," "))
                 .delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

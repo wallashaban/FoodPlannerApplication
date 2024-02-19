@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -59,6 +60,7 @@ public class WeeklyPlanAdapter extends RecyclerView.Adapter<WeeklyPlanAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Plan mealPlan = mealsPlan.get(position);
         holder.mealName.setText(mealPlan.getMeal().getMealName());
+        holder.date.setText(mealPlan.getDate());
         if(mealPlan.getMeal().getImageData()==null) {
             Glide.with(context).asBitmap().load(mealPlan.getMeal().getMealThumb())
                     .apply(new RequestOptions().override(200, 200)
@@ -102,7 +104,7 @@ public class WeeklyPlanAdapter extends RecyclerView.Adapter<WeeklyPlanAdapter.Vi
         View layout;
         TextView mealName;
         ImageView mealImage;
-        CheckBox planButton;
+        Button planButton;
         TextView date;
         ConstraintLayout constraintLayout;
         public ViewHolder(@NonNull View itemView) {

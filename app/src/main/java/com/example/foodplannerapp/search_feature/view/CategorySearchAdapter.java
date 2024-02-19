@@ -18,12 +18,13 @@ import com.example.foodplannerapp.models.Category;
 import com.example.foodplannerapp.models.ImagesData;
 
 import java.util.List;
+import java.util.Map;
 
 public class CategorySearchAdapter extends RecyclerView.Adapter<CategorySearchAdapter.ViewHolder> {
 
     private Context context;
     private List<Category> categories;
-    private int[] images;
+    private Map<String,Integer> images;
     OnCategoryClickListener listener;
     private static String TAG = "CategoryAdapter";
 
@@ -37,7 +38,7 @@ public class CategorySearchAdapter extends RecyclerView.Adapter<CategorySearchAd
         this.context = context;
         this.categories = categories;
         this.listener = listener;
-        images = new ImagesData().getData();
+        images = new ImagesData().getCategoriesImages();
         Log.i(TAG, "CategoryAdapter: ");
     }
 
@@ -55,7 +56,7 @@ public class CategorySearchAdapter extends RecyclerView.Adapter<CategorySearchAd
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Category category = categories.get(position);
         holder.categoryName.setText(category.getCategory());
-        holder.image.setImageResource(images[position]);
+        holder.image.setImageResource(images.get(category.getCategory()));
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

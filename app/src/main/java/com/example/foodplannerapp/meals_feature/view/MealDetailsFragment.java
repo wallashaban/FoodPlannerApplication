@@ -11,16 +11,19 @@ import android.webkit.WebView;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.MediaController;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.Group;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.foodplannerapp.R;
@@ -48,6 +51,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 public class MealDetailsFragment extends Fragment implements MealDetailsView,
         DatePickerDialogListener, OnMealPlanClickListener,OnFavClickListener{
@@ -63,6 +67,9 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView,
     TextView description;
     CheckBox planButton;
     WebView video;
+    Group group;
+    ProgressBar progressBar;
+    LottieAnimationView noInternetAnimation;
     private CheckBox favButton;
     private YouTubePlayerView youTubePlayerView;
 
@@ -91,6 +98,9 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView,
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        group = view.findViewById(R.id.mealDetailsGroup);
+        progressBar = view.findViewById(R.id.mealDetailsProgressBar);
+        noInternetAnimation = view.findViewById(R.id.no_internet_animationMealDetails);
         mealNAme = view.findViewById(R.id.mealDetailsName);
         description = view.findViewById(R.id.mealInstruction);
         mealImage = view.findViewById(R.id.mealDetailImage);
@@ -101,7 +111,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView,
         manager = new LinearLayoutManager(getContext());
 
         adapter = new MealIngredientsAdapter(getContext(), ingredients);
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
 
         planButton = view.findViewById(R.id.planMealDetailButton);
         recyclerView.setLayoutManager(manager);
@@ -138,6 +148,8 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView,
 
     @Override
     public void showData(Meal meal) {
+        progressBar.setVisibility(View.INVISIBLE);
+        group.setVisibility(View.VISIBLE);
         this.meal = meal;
         mealNAme.setText(meal.getMealName());
         description.setText(meal.getInstructions());
@@ -159,7 +171,9 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView,
             @Override
             public void onReady(YouTubePlayer youTubePlayer) {
                 super.onReady(youTubePlayer);
-                String videoId = "qzcGfN9S_QY";
+                int startIndex = meal.getVideo().indexOf("=") + 1;
+
+                String videoId = meal.getVideo().substring(startIndex);
                 youTubePlayer.loadVideo(videoId, 0);
             }
         });
@@ -199,6 +213,13 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView,
     }
     @Override
     public void showErrorMessage(String errorMessage) {
+        if(errorMessage.equals("No internet connection"))
+        {
+            group.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.INVISIBLE);
+            //Log.i(TAG, "showRandomMealErrorMessage: value"+homeGroup.getVisibility());
+            noInternetAnimation.setVisibility(View.VISIBLE);
+        }
         Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
     }
 
@@ -210,6 +231,7 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView,
                 meal);
         onMealPlanClickListener(plan);
         presenter.addMealToPlanUsingFirebase(plan);
+        Toast.makeText(getActivity(), "Added Successfully", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -219,7 +241,12 @@ public class MealDetailsFragment extends Fragment implements MealDetailsView,
 
     @Override
     public void OnFavClickListener(Meal meal) {
-        presenter.addMealToFavourites(meal);
-        presenter.addMealToFavouriteUsingFirebase(meal);
-    }
+        if(Constants.isLogedIn(getContext()))
+            Constants.showDialog(getActivity(), LoginActivity.class);
+        else {
+            presenter.addMealToFavourites(meal);
+            presenter.addMealToFavouriteUsingFirebase(meal);
+            Toast.makeText(getActivity(), "Added Successfully", Toast.LENGTH_SHORT).show();
+        }
+        }
 }

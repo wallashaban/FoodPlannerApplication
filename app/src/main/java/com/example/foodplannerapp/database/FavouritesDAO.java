@@ -13,13 +13,15 @@ import com.example.foodplannerapp.models.Meal;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Flowable;
+
 @Dao
 public interface FavouritesDAO {
     @Query("SELECT * FROM " + Constants.FAV_TABLE)
-    LiveData<List<Meal>> getAllFavMeals();
+    Flowable<List<Meal>> getAllFavMeals();
 
     @Query("SELECT * FROM " + Constants.FAV_TABLE+" Where mealId=:id")
-    LiveData<Meal>getFavMealById(String id);
+    Flowable<Meal> getFavMealById(String id);
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addMealToFavourites(Meal meal);
 

@@ -7,6 +7,8 @@ import com.example.foodplannerapp.models.Plan;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Flowable;
+
 public interface WeeklyPlanView {
-    public void setPlansList(LiveData<List<Plan>> plans);
+    public void setPlansList(Flowable<List<Plan>> plans);
 }

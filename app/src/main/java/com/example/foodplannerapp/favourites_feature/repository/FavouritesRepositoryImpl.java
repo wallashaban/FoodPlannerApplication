@@ -8,6 +8,8 @@ import com.example.foodplannerapp.models.Plan;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Flowable;
+
 public class FavouritesRepositoryImpl implements FavouritesRepository {
     FavouritesLocalDataSource localDataSource;
     private static FavouritesRepositoryImpl instance = null;
@@ -24,7 +26,7 @@ public class FavouritesRepositoryImpl implements FavouritesRepository {
     }
 
     @Override
-    public LiveData<List<Meal>> getAllFavMeals() {
+    public Flowable<List<Meal>> getAllFavMeals() {
         return localDataSource.getAllFavMeals();
     }
 

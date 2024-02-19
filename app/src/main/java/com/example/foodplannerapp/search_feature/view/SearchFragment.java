@@ -17,7 +17,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.Repository.RemoteRepositoryImpl;
 import com.example.foodplannerapp.meals_feature.view.CategoryAdapter;
@@ -47,6 +49,8 @@ public class SearchFragment extends Fragment implements OnCategoryClickListener,
 SearchView,OnAreaClickListener,OnIngredientClickListener{
 
 
+    ProgressBar progressBar;
+    LottieAnimationView lottieAnimationView;
     CategorySearchAdapter categoryAdapter;
     AreaSearchAdapter areaSearchAdapter;
     IngredientSearchAdapter ingredientSearchAdapter;
@@ -69,6 +73,7 @@ SearchView,OnAreaClickListener,OnIngredientClickListener{
     List<Area> areas;
     List<Ingredient> ingredients;
     Chip contry;
+    LottieAnimationView noSearch;
     int chipNumber ;
 
 
@@ -101,6 +106,9 @@ SearchView,OnAreaClickListener,OnIngredientClickListener{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        progressBar = view.findViewById(R.id.searchProgressBar);
+        lottieAnimationView = view.findViewById(R.id.no_internet_animation_search);
+        noSearch = view.findViewById(R.id.noData);
         search = view.findViewById(R.id.search);
         chipGroup = view.findViewById(R.id.chipGroup);
         category = view.findViewById(R.id.categories);
@@ -132,7 +140,12 @@ SearchView,OnAreaClickListener,OnIngredientClickListener{
             public void onClick(View v) {
 
                 chipNumber = 0;
-                presenter.getAllCategories();
+                if(categories.isEmpty()) {
+                    noSearch.setVisibility(View.INVISIBLE);
+                    presenter.getAllCategories();
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+                lottieAnimationView.setVisibility(View.INVISIBLE);
                 searchCategoryRecyclerView.setVisibility(View.VISIBLE);
                 searchIngredientRecyclerView.setVisibility(View.INVISIBLE);
                 searchCountryRecyclerView.setVisibility(View.INVISIBLE);
@@ -142,7 +155,12 @@ SearchView,OnAreaClickListener,OnIngredientClickListener{
             @Override
             public void onClick(View v) {
                 chipNumber = 1;
-                presenter.getAllAreas();
+                if(areas.isEmpty()) {
+                    noSearch.setVisibility(View.INVISIBLE);
+                    presenter.getAllAreas();
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+                lottieAnimationView.setVisibility(View.INVISIBLE);
                 searchCategoryRecyclerView.setVisibility(View.INVISIBLE);
                 searchIngredientRecyclerView.setVisibility(View.INVISIBLE);
                 searchCountryRecyclerView.setVisibility(View.VISIBLE);
@@ -152,7 +170,12 @@ SearchView,OnAreaClickListener,OnIngredientClickListener{
             @Override
             public void onClick(View v) {
                 chipNumber = 2;
-                presenter.getAllIngredients();
+                if(ingredients.isEmpty()) {
+                    noSearch.setVisibility(View.INVISIBLE);
+                    presenter.getAllIngredients();
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+                lottieAnimationView.setVisibility(View.INVISIBLE);
                 searchCategoryRecyclerView.setVisibility(View.INVISIBLE);
                 searchIngredientRecyclerView.setVisibility(View.VISIBLE);
                 searchCountryRecyclerView.setVisibility(View.INVISIBLE);
@@ -207,6 +230,9 @@ SearchView,OnAreaClickListener,OnIngredientClickListener{
     @Override
     public void showIngredientsData(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
+        progressBar.setVisibility(View.INVISIBLE);
+        //noSearch.setVisibility(View.INVISIBLE);
+        lottieAnimationView.setVisibility(View.INVISIBLE);
         ingredientSearchAdapter.setIngredients(ingredients);
         ingredientSearchAdapter.notifyDataSetChanged();
     }
@@ -214,30 +240,55 @@ SearchView,OnAreaClickListener,OnIngredientClickListener{
     @Override
     public void showIngredientsError(String errorMessage) {
 
+        if(errorMessage.equals("No internet connection"))
+        {
+            //homeGroup.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.INVISIBLE);
+            Log.i("TAG", "showRandomMealErrorMessage: value");
+            lottieAnimationView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void showCategoriessData(List<Category> categories) {
         this.categories = categories;
+        progressBar.setVisibility(View.INVISIBLE);
+        //noSearch.setVisibility(View.INVISIBLE);
+        lottieAnimationView.setVisibility(View.INVISIBLE);
         categoryAdapter.setCategories(categories);
         categoryAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showCategoriesError(String errorMessage) {
-
+        if(errorMessage.equals("No internet connection"))
+        {
+            //homeGroup.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.INVISIBLE);
+            Log.i("TAG", "showRandomMealErrorMessage: value");
+            lottieAnimationView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void showAreasData(List<Area> areas) {
         this.areas = areas;
+        lottieAnimationView.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.INVISIBLE);
+       // noSearch.setVisibility(View.INVISIBLE);
         areaSearchAdapter.setAreas(areas);
         areaSearchAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void showAreasError(String errorMessage) {
-
+        if(errorMessage.equals("No internet connection"))
+        {
+            //homeGroup.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.INVISIBLE);
+            Log.i("TAG", "showRandomMealErrorMessage: value");
+            lottieAnimationView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

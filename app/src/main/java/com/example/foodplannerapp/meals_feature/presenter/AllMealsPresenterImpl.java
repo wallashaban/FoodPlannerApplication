@@ -12,6 +12,8 @@ import com.example.foodplannerapp.network.MealsNetworkCallBAck;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Flowable;
+
 public class AllMealsPresenterImpl implements AllMealsPresenter, MealsNetworkCallBAck {
     private AllMealsview view;
     Repository repository;
@@ -64,7 +66,7 @@ public class AllMealsPresenterImpl implements AllMealsPresenter, MealsNetworkCal
     }
 
     @Override
-    public LiveData<Meal> getFavMealById(String id) {
+    public Flowable<Meal> getFavMealById(String id) {
        return repository.getFavMealById(id);
     }
 

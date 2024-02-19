@@ -8,6 +8,8 @@ import com.example.foodplannerapp.models.Meal;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Flowable;
+
 public class FavouritesPresenterImpl implements FavouritesPresenter {
     private FavouritesRepository repository;
     private FavouritesView view;
@@ -29,7 +31,7 @@ public class FavouritesPresenterImpl implements FavouritesPresenter {
 
     @Override
     public /*LiveData<List<Meal>>*/ void getAllFavouritesMeals() {
-        LiveData<List<Meal>> meals = repository.getAllFavMeals();
+        Flowable<List<Meal>> meals = repository.getAllFavMeals();
         view.setFavouritesList(meals);
         //return repository.getAllFavMeals();
     }

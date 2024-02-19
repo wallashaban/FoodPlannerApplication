@@ -8,10 +8,12 @@ import com.example.foodplannerapp.models.Plan;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Flowable;
+
 public class PlanLocalDataSourceImpl implements PlanLocalDataSource{
     private PlanDAO dao;
     private Context context;
-    private LiveData<List<Plan>> plans;
+    private Flowable<List<Plan>> plans;
     private static PlanLocalDataSourceImpl instance = null;
 
     private PlanLocalDataSourceImpl(Context context)
@@ -29,7 +31,7 @@ public class PlanLocalDataSourceImpl implements PlanLocalDataSource{
         return instance;
     }
     @Override
-    public LiveData<List<Plan>> getAllPlans() {
+    public Flowable<List<Plan>> getAllPlans() {
         return plans;
     }
 
@@ -64,7 +66,7 @@ public class PlanLocalDataSourceImpl implements PlanLocalDataSource{
     }
 
     @Override
-    public LiveData<Plan> getPlaneByDate(String date) {
+    public Flowable<Plan> getPlaneByDate(String date) {
 
         return dao.getPlaneByDate(date);
     }

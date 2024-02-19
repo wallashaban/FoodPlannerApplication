@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -57,6 +58,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
                         .placeholder(R.drawable.ic_launcher_foreground) // don't forget the placeholder image
                         .error(R.drawable.ic_launcher_background))
                 .into(holder.mealImage);
+
         holder.favButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +90,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
         View layout;
         TextView mealName;
         ImageView mealImage;
-        CheckBox favButton;
+        Button favButton;
         ConstraintLayout constraintLayout;
 
 

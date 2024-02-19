@@ -10,6 +10,7 @@ import com.example.foodplannerapp.Repository.RepositoryImpl;
 import com.example.foodplannerapp.firebase_repository.FirebaseCrudRepository;
 import com.example.foodplannerapp.meals_feature.view.HomeView;
 import com.example.foodplannerapp.models.Category;
+import com.example.foodplannerapp.models.DialyMeal;
 import com.example.foodplannerapp.models.Meal;
 import com.example.foodplannerapp.models.Plan;
 import com.example.foodplannerapp.network.CategoriesNetworkCallBAck;
@@ -17,6 +18,9 @@ import com.example.foodplannerapp.network.MealsNetworkCallBAck;
 import com.example.foodplannerapp.network.RandomMealNetworkCallBAck;
 
 import java.util.List;
+
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Maybe;
 
 public class HomePresenterImpl implements HomePresenter, MealsNetworkCallBAck
         , CategoriesNetworkCallBAck, RandomMealNetworkCallBAck {
@@ -47,6 +51,21 @@ public class HomePresenterImpl implements HomePresenter, MealsNetworkCallBAck
     }
 
     @Override
+    public void insertDalyMeal(DialyMeal meal) {
+        repository.insertDalyMeal(meal);
+    }
+
+    @Override
+    public void removeDalyMeal() {
+        repository.removeDalyMeal();
+    }
+
+    @Override
+    public Maybe<DialyMeal> getDailyMeal(String date) {
+        return repository.getDailyMeal(date);
+    }
+
+    @Override
     public void addMealToFavouriteUsingFirebase(Meal meal) {
         firebaseCrudRepository.addMealToFavouriteUsingFirebase(meal);
     }
@@ -73,7 +92,7 @@ public class HomePresenterImpl implements HomePresenter, MealsNetworkCallBAck
     }
 
     @Override
-    public LiveData<Meal> getFavMealById(String id) {
+    public Flowable<Meal> getFavMealById(String id) {
         return repository.getFavMealById(id);
     }
 
@@ -133,5 +152,10 @@ public class HomePresenterImpl implements HomePresenter, MealsNetworkCallBAck
     @Override
     public void onRandomMealFailureResult(String errorMessage) {
         view.showRandomMealErrorMessage(errorMessage);
+    }
+
+    @Override
+    public void onNetworkFailure(String errorMessage) {
+        view.onNetworkFailure(errorMessage);
     }
 }

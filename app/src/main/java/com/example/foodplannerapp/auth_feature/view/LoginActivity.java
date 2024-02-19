@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodplannerapp.MainActivity;
@@ -34,6 +36,9 @@ LoginView{
     TextInputEditText email,password;
     Button login;
     RoomInsertion insertion;
+    Button skip;
+    TextView signup;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,30 +52,44 @@ LoginView{
         insertion = RoomInsertionImple.getInstance(FavouritesRepositoryImpl.getInstance(
                 FavouritesLocalDataSourceImpl.getInstance(this)
         ));
-        Meal meal = new Meal();
-        meal.setMealId("4567");
-        meal.setMealName("Pizza");
-        meal.setMealThumb("bla bla");
-        Plan plan = new Plan();
-        plan.setDate("14/12/2012");
-        plan.setMeal(meal);
-        FirebaseRemoteDataSourceImpl.getInstance(this).removeMealFromFavourite(meal);
+        progressBar = findViewById(R.id.loginProgressBar);
+        skip = findViewById(R.id.skip);
+        signup = findViewById(R.id.signup);
         email = findViewById(R.id.emailLogin);
         password = findViewById(R.id.passwordLogin);
         login = findViewById(R.id.loginBtn);
 
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String emailInput = email.getText().toString().trim();
                 final String pass = password.getText().toString().trim();
 
+
                 //Validation section
                 if (TextUtils.isEmpty(emailInput)) {
+                    email.setError("Enter email address");
                     Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (TextUtils.isEmpty(pass)) {
+                    password.setError("Enter password");
                     Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -78,7 +97,11 @@ LoginView{
                 if (password.length() < 6) {
                     password.setError("Should be greater than 6");
                 }
-               presenter.loginUserWithEmailAndPassword(new AuthParameters(emailInput,pass,"",LoginActivity.this));
+                {
+                    presenter.loginUserWithEmailAndPassword(new AuthParameters(emailInput, pass, "", LoginActivity.this));
+                    progressBar.setVisibility(View.VISIBLE);
+                    login.setVisibility(View.INVISIBLE);
+                }
             }
         });
     }
@@ -91,6 +114,8 @@ LoginView{
     public void showErrorMessage(String errorMessage) {
         Toast.makeText(LoginActivity.this, "Authentication failed." + errorMessage,
                 Toast.LENGTH_LONG).show();
+        progressBar.setVisibility(View.INVISIBLE);
+        login.setVisibility(View.VISIBLE);
     }
 
     @Override

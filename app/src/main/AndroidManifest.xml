@@ -6,6 +6,7 @@
 
     <application
         android:name=".Shared.App"
+
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -18,13 +19,8 @@
         tools:targetApi="31" >
         <activity
             android:name=".auth_feature.view.LoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
 
         <activity
@@ -35,11 +31,18 @@
 
         <activity
             android:name=".auth_feature.view.SplashActivity"
-            android:exported="false" >
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false"/>
+
 
 
 

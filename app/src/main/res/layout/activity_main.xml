@@ -25,9 +25,16 @@
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:backgroundTint="@color/lightGreen"
+        app:elevation="16dp"
+        app:itemIconSize="24dp"
+        app:itemIconTint="@drawable/icon_tint_selector"
+        app:itemRippleColor="@color/darkGreen"
+        app:itemTextColor="@drawable/icon_tint_selector"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/menu"
-        tools:layout_editor_absoluteX="0dp"></com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu"></com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

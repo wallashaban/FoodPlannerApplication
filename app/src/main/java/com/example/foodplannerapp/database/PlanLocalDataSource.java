@@ -12,10 +12,12 @@ import com.example.foodplannerapp.models.Plan;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Flowable;
+
 public interface PlanLocalDataSource {
-    LiveData<List<Plan>> getAllPlans();
+    Flowable<List<Plan>> getAllPlans();
     void addPlan(Plan plan);
     void removePlan(Plan plan);
     void updatePlan(Plan plan);
-    LiveData<Plan> getPlaneByDate(String date);
+    Flowable<Plan> getPlaneByDate(String date);
 }

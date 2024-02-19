@@ -7,8 +7,10 @@ import com.example.foodplannerapp.models.Plan;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Flowable;
+
 public interface FavouritesRepository {
-    public LiveData<List<Meal>> getAllFavMeals();
+    public Flowable<List<Meal>> getAllFavMeals();
 
     public void addMealToFavourites(Meal meal);
 

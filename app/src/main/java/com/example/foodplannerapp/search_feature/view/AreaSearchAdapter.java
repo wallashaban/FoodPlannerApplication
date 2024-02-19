@@ -21,12 +21,13 @@ import com.example.foodplannerapp.models.ImagesData;
 import org.checkerframework.checker.units.qual.A;
 
 import java.util.List;
+import java.util.Map;
 
 public class AreaSearchAdapter extends RecyclerView.Adapter<AreaSearchAdapter.ViewHolder> {
 
     private Context context;
     private List<Area> areas;
-    private int[] images;
+    private Map<String,Integer> images;
     OnAreaClickListener listener;
     private static String TAG = "CategoryAdapter";
 
@@ -40,7 +41,7 @@ public class AreaSearchAdapter extends RecyclerView.Adapter<AreaSearchAdapter.Vi
         this.context = context;
         this.areas = areas;
         this.listener = listener;
-        images = new ImagesData().getData();
+        images = new ImagesData().getCountriesImages();
         Log.i(TAG, "AreaAdapter: ");
     }
 
@@ -58,7 +59,7 @@ public class AreaSearchAdapter extends RecyclerView.Adapter<AreaSearchAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Area area = areas.get(position);
         holder.categoryName.setText(area.getArea());
-        holder.image.setImageResource(images[position]);
+        holder.image.setImageResource(images.get(area.getArea()));
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

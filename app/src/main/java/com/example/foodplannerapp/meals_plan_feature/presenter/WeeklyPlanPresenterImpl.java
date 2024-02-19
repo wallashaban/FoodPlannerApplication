@@ -12,6 +12,8 @@ import com.example.foodplannerapp.models.Plan;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Flowable;
+
 public class WeeklyPlanPresenterImpl implements WeeklyPlanPresenter{
     private WeeklyPlanView view;
     private Repository repository;
@@ -40,7 +42,7 @@ public class WeeklyPlanPresenterImpl implements WeeklyPlanPresenter{
 
     @Override
     public void getAllPlansMeals() {
-       LiveData<List<Plan>> plans = repository.getAllPlans();
+       Flowable<List<Plan>> plans = repository.getAllPlans();
         view.setPlansList(plans);
     }
 

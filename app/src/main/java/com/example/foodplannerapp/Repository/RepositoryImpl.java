@@ -3,6 +3,7 @@ package com.example.foodplannerapp.Repository;
 import androidx.lifecycle.LiveData;
 
 import com.example.foodplannerapp.database.FavouritesLocalDataSource;
+import com.example.foodplannerapp.models.DialyMeal;
 import com.example.foodplannerapp.models.Meal;
 import com.example.foodplannerapp.models.Plan;
 import com.example.foodplannerapp.network.AreaNetworkCallBAck;
@@ -13,6 +14,9 @@ import com.example.foodplannerapp.network.RandomMealNetworkCallBAck;
 import com.example.foodplannerapp.network.RemoteDataSource;
 
 import java.util.List;
+
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Maybe;
 
 public class RepositoryImpl implements Repository {
 
@@ -36,7 +40,22 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public LiveData<List<Plan>> getAllPlans() {
+    public void insertDalyMeal(DialyMeal meal) {
+        localDataSource.insertDailyMeal(meal);
+    }
+
+    @Override
+    public void removeDalyMeal() {
+        localDataSource.removeDailyMeal();
+    }
+
+    @Override
+    public Maybe<DialyMeal> getDailyMeal(String date) {
+        return localDataSource.getDailyMeal(date);
+    }
+
+    @Override
+    public Flowable<List<Plan>> getAllPlans() {
         return localDataSource.getAllPlans();
     }
 
@@ -56,17 +75,17 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public LiveData<Plan> getPlaneByDate(String date) {
+    public Flowable<Plan> getPlaneByDate(String date) {
         return localDataSource.getPlaneByDate(date);
     }
 
     @Override
-    public LiveData<List<Meal>> getAllFavMeals() {
+    public Flowable<List<Meal>> getAllFavMeals() {
         return localDataSource.getAllFavMeals();
     }
 
     @Override
-    public LiveData<Meal> getFavMealById(String id) {
+    public Flowable<Meal> getFavMealById(String id) {
         return localDataSource.getFavMealById(id);
     }
 

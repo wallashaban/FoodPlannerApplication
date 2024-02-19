@@ -2,6 +2,7 @@ package com.example.foodplannerapp.Repository;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.foodplannerapp.models.DialyMeal;
 import com.example.foodplannerapp.models.Meal;
 import com.example.foodplannerapp.models.Plan;
 import com.example.foodplannerapp.network.AreaNetworkCallBAck;
@@ -12,15 +13,21 @@ import com.example.foodplannerapp.network.RandomMealNetworkCallBAck;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Maybe;
+
 public interface Repository {
 
-    LiveData<List<Plan>> getAllPlans();
+    public void insertDalyMeal(DialyMeal meal);
+    public void removeDalyMeal();
+    public Maybe<DialyMeal> getDailyMeal(String date);
+    Flowable<List<Plan>> getAllPlans();
     void addPlan(Plan plan);
     void removePlan(Plan plan);
     void updatePlan(Plan plan);
-    LiveData<Plan> getPlaneByDate(String date);
-    LiveData<List<Meal>> getAllFavMeals();
-    LiveData<Meal>getFavMealById(String id);
+    Flowable<Plan> getPlaneByDate(String date);
+    Flowable<List<Meal>> getAllFavMeals();
+    Flowable<Meal>getFavMealById(String id);
 
     void addMealToFavourites(Meal meal);
 

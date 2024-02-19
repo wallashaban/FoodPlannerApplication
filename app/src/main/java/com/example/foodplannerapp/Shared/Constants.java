@@ -19,6 +19,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -26,6 +27,17 @@ public class Constants {
     public static final String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
     public static final String FAV_TABLE = "favourites";
     public static final String PLAN_TABLE = "plan";
+    public static final String DAILY_MEAL_TABLE = "dailyMeal";
+
+    public static String getDate()
+    {
+        LocalDate currentDate = LocalDate.now();
+        int year = currentDate.getYear();
+        int month = currentDate.getMonthValue();
+        int day = currentDate.getDayOfMonth();
+
+        return year + "-" + month + "-" + day;
+    }
 
     public static boolean isLogedIn(Context context)
     {

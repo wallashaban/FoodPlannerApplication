@@ -7,75 +7,106 @@
     tools:context=".auth_feature.view.SplashActivity">
 
 
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:foreground="@drawable/foreground_design"
-            android:scaleType="centerCrop"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/no_internet_animation"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1.4"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/background" />
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintWidth_percent="0.8"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/splash_girl" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="152dp"
-            android:fontFamily="@font/lobster"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="72dp"
+            android:layout_marginEnd="120dp"
+            android:fontFamily="@font/amita"
+            android:textColor="@color/darkGreen"
             android:text="@string/appName"
-            android:textColor="@color/white"
-            android:textSize="48sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="34sp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.658" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+<!--        <ImageView-->
+<!--            android:id="@+id/imageView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:foreground="@drawable/foreground_design"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="1.0"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0.0"-->
+<!--            app:srcCompat="@drawable/background" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/textView3"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="152dp"-->
+<!--            android:fontFamily="@font/lobster"-->
+<!--            android:text="@string/appName"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="48sp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0.658" />-->
 
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="26dp"
             android:fontFamily="@font/lobster"
             android:text="@string/appTitle"
-            android:textColor="@color/white"
+            android:textColor="@color/darkGreen"
             android:textSize="34sp"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
-            app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-        <ImageButton
-            android:id="@+id/google"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="37dp"
-            android:background="@drawable/google_shap"
-            android:padding="16dp"
-            app:layout_constraintEnd_toStartOf="@+id/facebook"
-            app:layout_constraintHorizontal_bias="0.198"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:srcCompat="@drawable/google_icon" />
+        <!--        <ImageButton-->
+<!--            android:id="@+id/google"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="80dp"-->
+<!--            android:layout_marginTop="37dp"-->
+<!--            android:background="@drawable/google_shap"-->
+<!--            android:padding="16dp"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/facebook"-->
+<!--            app:layout_constraintHorizontal_bias="0.198"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/textView"-->
+<!--            app:srcCompat="@drawable/google_icon" />-->
 
-        <ImageButton
-            android:id="@+id/facebook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="37dp"
-            android:layout_marginEnd="80dp"
-            android:background="@drawable/google_shap"
-            android:padding="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:srcCompat="@drawable/facebook" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/facebook"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="37dp"-->
+<!--            android:layout_marginEnd="80dp"-->
+<!--            android:background="@drawable/google_shap"-->
+<!--            android:padding="16dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/textView"-->
+<!--            app:srcCompat="@drawable/facebook" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

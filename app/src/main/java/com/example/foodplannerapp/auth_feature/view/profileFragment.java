@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.foodplannerapp.MainActivity;
 import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.auth_feature.presenter.ProfilePresenter;
 import com.example.foodplannerapp.auth_feature.presenter.ProfilePresenterImpl;
@@ -57,7 +56,7 @@ public class profileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        username =view. findViewById(R.id.profileName);
+        username =view. findViewById(R.id.profileEmail);
         email =  view.findViewById(R.id.profileEmail);
         logout = view.findViewById(R.id.logout);
         String emailVal = sharedPreferences.getString("email",null);
@@ -71,6 +70,7 @@ public class profileFragment extends Fragment {
                 presenter.logOut(getContext());
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
     }

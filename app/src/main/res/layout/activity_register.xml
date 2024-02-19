@@ -10,65 +10,144 @@
     android:paddingBottom="8dp"
     tools:context=".auth_feature.view.RegisterActivity">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/userName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:drawableStart="@drawable/outline_person"
-        android:drawablePadding="8dp"
-        android:hint="@string/name"
-        android:inputType="text"
-        app:layout_constraintStart_toStartOf="@+id/profileEmail"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/email"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:drawableStart="@drawable/outline_email"
-        android:drawablePadding="8dp"
-        android:hint="@string/email"
-        android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@+id/userName"
-        tools:layout_editor_absoluteX="48dp" />
-
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:drawableEnd="@drawable/outline_password"
-        android:drawablePadding="8dp"
-        android:hint="@string/password"
-        android:inputType="textPassword"
+        android:textColorHint="@color/darkGreen"
+        app:hintTextColor="@color/darkGreen"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/userName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/outline_person"
+            android:drawablePadding="8dp"
+            android:drawableTint="@color/darkGreen"
+            android:hint="@string/name"
+            android:textColor="@color/darkGreen"
+            android:textColorHint="@color/darkGreen" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+
+        android:textColorHint="@color/darkGreen"
+        app:hintTextColor="@color/darkGreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/outline_email"
+            android:drawablePadding="8dp"
+            android:drawableTint="@color/darkGreen"
+            android:hint="@string/email"
+            android:textColor="@color/darkGreen"
+            android:textColorHint="@color/darkGreen" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textColorHint="@color/darkGreen"
+        app:hintTextColor="@color/darkGreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/outline_password"
+            android:drawablePadding="8dp"
+            android:drawableTint="@color/darkGreen"
+            android:hint="@string/password"
+            android:textColor="@color/darkGreen"
+            android:textColorHint="@color/darkGreen" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/register"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/darkGreen"
+        android:editable="false"
         android:text="@string/register"
-        app:layout_constraintStart_toStartOf="@+id/password"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        android:textColor="@color/lightGreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/acount" />
+
+    <ProgressBar
+        android:id="@+id/registerProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="608dp"
+        android:backgroundTint="@color/lightGreen"
+        android:visibility="invisible"
+        android:outlineAmbientShadowColor="@color/lightGreen"
+        android:outlineSpotShadowColor="@color/lightGreen"
+        android:progressBackgroundTint="@color/lightGreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.554"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="120dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="200dp"
         android:layout_marginEnd="120dp"
         android:fontFamily="@font/amita"
         android:text="@string/appName"
         android:textSize="34sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.111"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/acount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/haveAcoount"
+        android:textColor="@color/darkGreen"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
+
+    <TextView
+        android:id="@+id/signin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/signin"
+        android:textColor="@color/darkGreen"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/acount"
+        app:layout_constraintTop_toTopOf="@+id/acount" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
