@@ -72,14 +72,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        new MaterialAlertDialogBuilder(this)
-                .setTitle("Do you really want to exit the App?")
-                .setPositiveButton("exit", (dialog, which) -> {
-                    finish();
-                })
-                .setNegativeButton("Cancel", (dialog, which) -> {
-                })
-                .show();
+//        new MaterialAlertDialogBuilder(this)
+//                .setTitle("Do you really want to exit the App?")
+//                .setPositiveButton("exit", (dialog, which) -> {
+//                    finish();
+//                })
+//                .setNegativeButton("Cancel", (dialog, which) -> {
+//                })
+//                .show();
     }
 }
 
