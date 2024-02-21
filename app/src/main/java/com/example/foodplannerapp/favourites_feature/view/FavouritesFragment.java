@@ -21,6 +21,9 @@ import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.favourites_feature.presenter.FavouritesPresenter;
 import com.example.foodplannerapp.favourites_feature.presenter.FavouritesPresenterImpl;
 import com.example.foodplannerapp.favourites_feature.repository.FavouritesRepositoryImpl;
+import com.example.foodplannerapp.firebase.FirebaseRemoteDataSourceImpl;
+import com.example.foodplannerapp.firebase_repository.FirebaseCrudRepository;
+import com.example.foodplannerapp.firebase_repository.FirebaseCrudRepositoryImpl;
 import com.example.foodplannerapp.meals_feature.view.OnFavClickListener;
 import com.example.foodplannerapp.meals_feature.view.OnMealClickListener;
 import com.example.foodplannerapp.models.Meal;
@@ -56,7 +59,10 @@ public class FavouritesFragment extends Fragment implements FavouritesView, OnFa
 
                 FavouritesRepositoryImpl.getInstance(
                         LocalDataSourceImpl.getInstance(getContext())
-                ), this
+                ), this,
+                FirebaseCrudRepositoryImpl.getInstance(
+                        FirebaseRemoteDataSourceImpl.getInstance(getContext())
+                )
         );
 
     }
@@ -101,6 +107,7 @@ public class FavouritesFragment extends Fragment implements FavouritesView, OnFa
     @Override
     public void OnFavClickListener(Meal meal) {
         presenter.removeMealFromFavourites(meal);
+        presenter.removeMealFromFavouritesUsingFirebase(meal);
     }
 
 

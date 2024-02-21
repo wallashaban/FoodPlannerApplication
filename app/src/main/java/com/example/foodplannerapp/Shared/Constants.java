@@ -86,7 +86,6 @@ public class Constants {
                     context.finish();
                 })
                 .setNegativeButton("Cancel", (dialog, which) -> {
-                    // Negative button action
                 })
                 .show();
     }

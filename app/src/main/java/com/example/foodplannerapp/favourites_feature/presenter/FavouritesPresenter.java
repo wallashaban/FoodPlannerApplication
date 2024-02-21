@@ -6,4 +6,5 @@ public interface FavouritesPresenter {
     public void getAllFavouritesMeals();
 
     public void removeMealFromFavourites(Meal meal);
+    public void removeMealFromFavouritesUsingFirebase(Meal meal);
 }

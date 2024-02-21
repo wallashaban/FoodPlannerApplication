@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+
+
             @Override
             public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
                 if (navDestination.getId() == R.id.homeFragment || navDestination.getId() == R.id.searchFragment2 ||
@@ -60,6 +62,24 @@ public class MainActivity extends AppCompatActivity {
                         Constants.navigate(id, navController, sharedPreferences, MainActivity.this);
                         return false;
                     }
-                });
+                }
+
+                );
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("Do you really want to exit the App?")
+                .setPositiveButton("exit", (dialog, which) -> {
+                    finish();
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> {
+                })
+                .show();
     }
 }
+
